@@ -1,0 +1,35 @@
+@import '../../_variables.scss';
+@import '../../_mixins.scss';
+nav{
+    background-color:rgba($color:$accent-color-2, $alpha: 0.9);
+    height:6rem;
+    width:100%;
+    border-radius: 0;
+    position:sticky;
+    top:0;
+    left:0;
+    @include flexAlign(row, flex-end, center, nowrap);
+
+    .nav-link{
+        background-color: inherit;
+        color:white;
+        margin: 0rem 1rem;
+        padding: 1rem;
+        font-size: 2rem;
+        transition: 0.2s;
+        cursor: pointer;
+        &:hover{
+            color:$accent-color;
+        }
+    }
+    .nav-container{
+        display:flex;
+        align-items: center;
+    }
+    .logo{
+        position: absolute;
+        top:0;
+        left:2rem;
+        top: 0.8rem;
+    }
+}

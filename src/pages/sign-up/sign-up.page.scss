@@ -1,0 +1,21 @@
+@import '../../mixins';
+@import '../../variables';
+
+.sign-up-restaurant{
+    @include flexAlign(column, center, center, nowrap);
+
+    .sign-up-restaurant-container{
+        @include flexAlign(column, center, center, nowrap);
+        margin: 1rem 0rem;
+    }
+    .sign-up-restaurant-header{
+        font-size:2.2rem;
+        color:$accent-color;
+        margin-bottom:1.4rem;
+    }
+    .restaurant-delivery-checkbox{
+        font-size:1.8rem;
+        color:$accent-color;
+        margin: 1.8rem 0.2rem;
+    }
+}

@@ -1,0 +1,10 @@
+@import '../../mixins';
+
+.verify-account{
+    @include flexAlign(column,center,center,nowrap);
+    .verify-header{
+        font-size: 2rem;
+        margin:1rem;
+        padding:1rem;
+    }
+}

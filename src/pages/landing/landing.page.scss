@@ -1,0 +1,23 @@
+@import '../../mixins';
+@import '../../variables';
+
+.landing{
+
+    height: 100vh;
+    background-image: url("../../images/cover.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 0;
+
+    .landing-button{
+        background-color: $accent-color;
+        color:white;
+        padding:2rem;
+        margin:2rem;
+        cursor: pointer;
+        transition: 0.2s;
+        &:hover{
+            background-color: $accent-color-2;
+        }
+    }
+}

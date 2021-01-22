@@ -1,0 +1,17 @@
+@import '../../mixins';
+@import '../../variables';
+
+.login-restaurant{
+    @include flexAlign(column, center, center, nowrap);
+
+    .login-restaurant-container{
+        @include flexAlign(column, center, center, nowrap);
+        padding:2rem;
+        transform: translateY(calc(50vh - 50% - 6rem));
+    }
+    .login-restaurant-header{
+        font-size:2.5rem;
+        color:$accent-color;
+        padding:4rem;
+    }
+}
