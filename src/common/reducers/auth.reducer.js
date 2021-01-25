@@ -2,10 +2,6 @@ import * as ACTIONS from '../actions/auth.actions';
 
 const initialState = {
     loadingStatus: false,
-    loginMessage:'',
-    forgottenPasswordMessage: '',
-    forgottenPasswordSuccess: false,
-    newPasswordRestaurantMessage: '',
     restaurantSignUpInfo:{
         restaurantName: '',
         email: '',
@@ -14,55 +10,34 @@ const initialState = {
         deliveryRange: '',
         deliveryMinimum: '',
         password: '',
-        retypePassword: ''
-
+        retypePassword: '',
+        firstStepSuccess: false
     }
 };
 
-export default function restaurantAuthReducer(state = initialState, action) {
+export default function authReducer(state = initialState, action) {
     switch(action.type){
-        case ACTIONS.LOADING_STATUS_RESTAURANT_AUTH:
+        case ACTIONS.LOADING_STATUS_AUTH:
             return{
                 ...state,
                 loadingStatus: action.payload
             };
-        case ACTIONS.LOGIN_RESTAURANT_SUCCESS:
-            return{
-                ...state,
-                loadingStatus: false,
-                loginMessage:'',
-            };
-        case ACTIONS.LOG_IN_FAILED:
-            return{
-                ...state,
-                loadingStatus: false,
-                loginMessage: action.payload
-            };
         case ACTIONS.SIGN_UP_NEXT_STEP:
             return{
                 ...state,
-                restaurantSignUpInfo: action.payload
-            }
-        case ACTIONS.FORGOTTEN_PASSWORD_SUCCESS:
-            return{
-                ...state,
+                restaurantSignUpInfo: {...action.payload, firstStepSuccess: true},
                 loadingStatus: false,
-                forgottenPasswordMessage: action.payload,
-                forgottenPasswordSuccess: true
+                signUpMessage:''
             };
-        case ACTIONS.FORGOTTEN_PASSWORD_FAILED:
+        case ACTIONS.CHANGE_DELIVERY_CHECKBOX:
             return{
                 ...state,
-                loadingStatus: false,
-                forgottenPasswordMessage: action.payload,
-                forgottenPasswordSuccess: false
-            };
-        case ACTIONS.NEW_PASSWORD_SUCCESS:
-            return{
-                ...state,
-                loadingStatus: false,
-                newPasswordRestaurantMessage: action.payload
+                restaurantSignUpInfo:{
+                    ...state.restaurantSignUpInfo,
+                    delivery: action.payload
+                }
             }
+       
         default:
             return state;
     }

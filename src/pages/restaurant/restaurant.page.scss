@@ -1,0 +1,10 @@
+@import '../../mixins';
+@import '../../variables';
+
+.restaurant{
+    .restaurant-buttons{
+        width:30rem;
+        margin:auto;
+        @include flexAlign(column, center, center, wrap);
+    }
+}

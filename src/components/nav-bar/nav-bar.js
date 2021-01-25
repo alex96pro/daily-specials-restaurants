@@ -11,7 +11,6 @@ export default function NavBar(props) {
 
     const handleLogout = () => {
         dispatch(logOut());
-        localStorage.clear();
         history.push('/');
     };
 

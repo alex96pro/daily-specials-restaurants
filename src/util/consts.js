@@ -9,3 +9,10 @@ export const MEAL_TAGS = [
     {value:'sugarfree', name:'Sugar free'},
     {value:'lactosefree', name:'Lactose free'},
 ];
+export const PUNCHLINES = [
+    'Free and super simple',
+    'Make your restaurant alive',
+    'Post best daily meals',
+    'Create stories',
+    'Accept orders',
+];
