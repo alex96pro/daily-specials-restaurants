@@ -82,7 +82,6 @@ input[type=text], input[type=password], input[type=email]{
     font-size: 1.5rem;
     border-radius: 0.6rem;
     padding: 0rem 1rem;
-    margin-bottom:1rem;
     &:focus{
         outline:none;
         box-shadow: 0 0 0.8rem rgba(17, 90, 110, 0.753);
@@ -104,19 +103,23 @@ input[type=number]{
     width:9rem;
 }
 .message-danger{
-    color:rgb(243, 76, 76);
+    color:$danger-color;
     font-size:2rem;
     margin:1rem;
 }
+.input-error{
+    color:$danger-color;
+    font-size:1.4rem;
+}
 .message-success{
-    color:rgb(55, 182, 38);
+    color:$success-color;
     font-size:2rem;
     margin:1rem;
 }
 .label-white{
     font-size:1.8rem;
     color:white;
-    margin:0.2rem;
+    margin:0.8rem 0rem;
 }
 .label-accent-color{
     @extend .label-white;

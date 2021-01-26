@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { forgottenPasswordAPI } from '../../common/api/auth.api';
 import { useDispatch, useSelector } from 'react-redux';
 import SubmitButton from '../../components/common/submit-button';
-import MessageDanger from '../../components/common/message-danger';
+import InputError from '../../components/common/input-error';
 
 export default function ForgottenPasswordRestaurantModal(props) {
     
@@ -36,7 +36,7 @@ export default function ForgottenPasswordRestaurantModal(props) {
                     <form onSubmit={handleSubmit(submitEmail)}>
                         <div className="label-accent-color">Please enter your e-mail address and we will send you a link to change your password</div>
                         <input type="email" name="email" ref={register({required:true})}/>
-                        {errors.email && <MessageDanger text="Email is required"/>}
+                        {errors.email && <InputError text="Email is required"/>}
                         <SubmitButton loadingStatus={loadingStatus} text="Send"/>
                     </form>
                 }

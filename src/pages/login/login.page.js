@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ForgottenPasswordModal from './forgotten-password.modal';
 import { useState } from 'react';
 import MessageDanger from '../../components/common/message-danger';
+import InputError from '../../components/common/input-error';
 
 export default function LoginRestaurant() {
 
@@ -42,10 +43,10 @@ export default function LoginRestaurant() {
                     <form onSubmit={handleSubmit(handleLogIn)}>
                         <div className="label-accent-color">Email</div>
                         <input type="email" name="email" ref={register({required:true})}/>
-                        {errors.email && <MessageDanger text="Email is required"/>}
+                        {errors.email && <InputError text="Email is required"/>}
                         <div className="label-accent-color">Password</div>
                         <input type="password" name="password" ref={register({required:true})}/>
-                        {errors.password && <MessageDanger text="Password is required"/>}
+                        {errors.password && <InputError text="Password is required"/>}
                         <SubmitButton loadingStatus={loadingStatus} text="Log In"/>
                     </form>
                     {message && <MessageDanger text={message}/>}
