@@ -1,0 +1,29 @@
+@import '../../mixins';
+@import '../../variables';
+
+.menu{
+    .menu-container{
+        @include flexAlign(row, space-evenly, flex-start, wrap);
+    }
+    .menu-side-bar{
+        width:25%;
+        margin: 0rem 1rem;
+        padding: 0rem 1rem;
+    }
+    .menu-categories{
+        background-color: $wrapper-color;
+        padding:1rem;
+        margin:1rem 0rem;
+    }
+    .menu-category{
+        font-size:2.2rem;
+        color:$accent-color;
+        margin:2rem 0rem;
+    }
+    .menu-side-bar-header{
+        text-align: center;
+        font-size:3rem;
+        color:$accent-color;
+        margin-top:2rem;
+    }
+}
