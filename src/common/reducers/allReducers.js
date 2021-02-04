@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
 import authReducer from './auth.reducer';
+import menuReducer from './menu.reducer';
 import { LOGOUT } from '../actions/auth.actions';
 
 const allReducers = combineReducers(
     {
-        authentication: authReducer
+        authentication: authReducer,
+        menu: menuReducer
     }
 );
 

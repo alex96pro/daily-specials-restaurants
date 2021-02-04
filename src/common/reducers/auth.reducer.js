@@ -12,7 +12,8 @@ const initialState = {
         password: '',
         retypePassword: '',
         firstStepSuccess: false
-    }
+    },
+    restaurant:{}
 };
 
 export default function authReducer(state = initialState, action) {
@@ -36,7 +37,19 @@ export default function authReducer(state = initialState, action) {
                     ...state.restaurantSignUpInfo,
                     delivery: action.payload
                 }
-            }
+            };
+        case ACTIONS.GET_PROFILE_DATA:
+            return{
+                ...state,
+                loadingStatus: false,
+                restaurant: action.payload
+            };
+        case ACTIONS.UPDATE_PROFILE:
+            return{
+                ...state,
+                loadingStatus: false,
+                restaurant: action.payload
+            };
        
         default:
             return state;

@@ -5,7 +5,7 @@ import rootReducer from './common/reducers/allReducers';
 
 // CURRENTLY ONLY KEEP SIGN UP INFO FOR RESTAURANT IN LOCAL STORAGE
 const loadState = () => {
-    const store = JSON.parse(localStorage.getItem("store"));
+    const store = JSON.parse(localStorage.getItem("store-restaurant"));
     let storeObject;
     if(store !== null){
         storeObject = {
@@ -16,7 +16,7 @@ const loadState = () => {
 };
 
 const saveState = (state) => {
-    localStorage.setItem("store", JSON.stringify(state));
+    localStorage.setItem("store-restaurant", JSON.stringify(state));
 };
 
 export default function configureStore() {

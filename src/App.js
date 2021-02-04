@@ -6,7 +6,7 @@ import VerifyAccount from './pages/verification/verify-account.page';
 import ForgottenPassword from './pages/verification/forgotten-password.page';
 import Profile from './pages/profile/profile.page';
 import PickLocation from './pages/pick-location/pick-location.page';
-import Restaurant from './pages/restaurant/restaurant.page';
+import Menu from './pages/menu/menu.page';
 import './App.scss';
 
 export default function App() {
@@ -19,7 +19,7 @@ export default function App() {
           <Route path="/verify-account/:id" exact component={VerifyAccount}></Route>
           <Route path="/forgotten-password/:id" exact component={ForgottenPassword}></Route>
           <Route path="/pick-location" exact component={PickLocation}></Route>
-          <Route path="/restaurant" exact component={Restaurant}></Route>
+          <Route path="/menu" exact component={Menu}></Route>
       </Router>
     );
 }

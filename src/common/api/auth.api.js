@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { BACKEND_API } from '../../util/consts';
-import { loadingStatus, signUpNextStep } from '../actions/auth.actions';
+import { loadingStatus, signUpNextStep, getProfileData, updateProfile } from '../actions/auth.actions';
 
 export function logInAPI(data, loginSuccess, message) {
     return async (dispatch) => {
@@ -10,7 +10,7 @@ export function logInAPI(data, loginSuccess, message) {
             if(response.status === 200){
                 localStorage.setItem("ACCESS_TOKEN_RESTAURANT", response.data.accessToken);
                 localStorage.setItem("RESTAURANT_ID", response.data.restaurantId);
-                dispatch(loadingStatus(false));
+                dispatch(getProfileData(response.data.restaurant));
                 loginSuccess();
             }
         }catch(err){
@@ -33,6 +33,7 @@ export function signUpFirstStepAPI(data, passedFirstStep, message) {
     return async (dispatch) => {
         try{
             dispatch(loadingStatus(true));
+            data.restaurantName = data.restaurantName.trim(); //restaurant name has to be COMPLETLY unique
             let response = await axios.post(`${BACKEND_API}/auth-restaurant/sign-up-first-step`, data);
             if(response.status === 200){
                 dispatch(signUpNextStep(data));
@@ -132,3 +133,84 @@ export function newPasswordAPI(data, hashedId, message) {
         }
     };
 };
+export function changePasswordAPI(data, message) {
+    return async (dispatch) => {
+        try{
+            dispatch(loadingStatus(true));
+            await axios.post(`${BACKEND_API}/auth-restaurant/change-password`, {oldPassword: data.oldPassword, newPassword: data.newPassword}, 
+            {headers:{'Authorization':`Basic ${localStorage.getItem("ACCESS_TOKEN_RESTAURANT")}`}});
+            dispatch(loadingStatus(false));
+            message("Sucessfully changed your password", true);
+        }catch(err){
+            dispatch(loadingStatus(false));
+            switch(err.response.status){
+                case 400:
+                    message("Incorrect old password");
+                    break;
+                case 401:
+                    message("Unauthorized");
+                    break;
+                default:
+                    message("Server error");
+            }
+        }
+    };
+}
+export function updateProfileAPI(data, message) {
+    return async (dispatch) => {
+        try{
+            data.name = data.name.trim() // restaurant name has to be COMPLETLY unique
+            data.location = localStorage.getItem('ADDRESS');
+            //check if user changed anything in his profile
+            if(!data.location && !data.name && !data.phone && !data.delivery && !data.deliveryRange && !data.deliveryMinimum){
+                message('No changes to do', true);
+                return;
+            }
+            let position = JSON.parse(localStorage.getItem('POSITION'));
+            if(position){
+                data.lat = position.lat;
+                data.lon = position.lon;
+            }else{
+                data.lat = null;
+                data.lon = null;
+            }
+            dispatch(loadingStatus(true));
+            let response = await axios.post(`${BACKEND_API}/auth-restaurant/update-profile`, data,
+            {headers:{'Authorization':`Basic ${localStorage.getItem("ACCESS_TOKEN_RESTAURANT")}`}});
+            dispatch(updateProfile(response.data));
+            message('Updated profile data', true);
+            localStorage.removeItem('ADDRESS');
+            localStorage.removeItem('POSITION');
+        }catch(err){
+            dispatch(loadingStatus(false));
+            if(err.response.status === 400){
+                message('Restaurant name is taken', false);
+            }else{
+                message('Server error', false);
+            }
+        }
+    }
+};
+export function disableDeliveryAPI(data, message) {
+    return async (dispatch) => {
+        try{
+            dispatch(loadingStatus(true));
+            let response = await axios.post(`${BACKEND_API}/auth-restaurant/disable-delivery`, data,
+            {headers:{'Authorization':`Basic ${localStorage.getItem("ACCESS_TOKEN_RESTAURANT")}`}});
+            dispatch(updateProfile(response.data));
+            message('Successfully disabled delivery', true);
+        }catch(err){
+            dispatch(loadingStatus(false));
+            switch(err.response.status){
+                case 400:
+                    message("Wrong password");
+                    break;
+                case 401:
+                    message("Unauthorized");
+                    break;
+                default:
+                    message("Server error");
+            }
+        }
+    }
+}

@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ForgottenPasswordModal from './forgotten-password.modal';
 import { useState } from 'react';
 import MessageDanger from '../../components/common/message-danger';
+import MessageSuccess from '../../components/common/message-success';
 import InputError from '../../components/common/input-error';
 
 export default function LoginRestaurant() {
@@ -31,7 +32,7 @@ export default function LoginRestaurant() {
     }
 
     const loginSuccess = () => {
-        history.push('/restaurant');
+        history.push('/menu');
     }
 
     return(
@@ -48,6 +49,7 @@ export default function LoginRestaurant() {
                         <input type="password" name="password" ref={register({required:true})}/>
                         {errors.password && <InputError text="Password is required"/>}
                         <SubmitButton loadingStatus={loadingStatus} text="Log In"/>
+                        {history.location.message && <MessageSuccess text={history.location.message}/>}
                     </form>
                     {message && <MessageDanger text={message}/>}
                 </div>

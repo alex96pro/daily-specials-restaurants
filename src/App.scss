@@ -46,11 +46,12 @@
     @extend .button-normal;
     font-size: 1.2rem;
     padding: 0.8rem;
-    margin: 0.2rem 0rem;
+    margin: 0.2rem;
 }
 .button-long{
     @extend .button-normal;
     width:100%;
+    margin:3rem 0rem 0rem 0rem;
 }
 .wrapper-container{
     background-color:$wrapper-color;
@@ -91,7 +92,6 @@ input[type=checkbox]{
     height:1.8rem;
     width:1.8rem;
 }
-
 textarea{
     @extend input[type=text];
     height: 7rem;
@@ -102,6 +102,11 @@ input[type=number]{
     @extend input[type=text];
     width:9rem;
 }
+select, option{
+    width:100%;
+    font-size:1.5rem;
+    padding:0.8rem;
+}
 .message-danger{
     color:$danger-color;
     font-size:2rem;
@@ -110,6 +115,7 @@ input[type=number]{
 .input-error{
     color:$danger-color;
     font-size:1.4rem;
+    margin-bottom:0.5rem;
 }
 .message-success{
     color:$success-color;
@@ -119,7 +125,7 @@ input[type=number]{
 .label-white{
     font-size:1.8rem;
     color:white;
-    margin:0.8rem 0rem;
+    margin:0.8rem 0.1rem;
 }
 .label-accent-color{
     @extend .label-white;
@@ -128,19 +134,6 @@ input[type=number]{
 .label-accent-color-2{
     @extend .label-white;
     color:$accent-color-2;
-}
-.modal-overlay{
-    position:fixed;
-    left:0;
-    right:0;
-    top:0;
-    bottom:0;
-    background-color: rgba(0, 0, 0, 0.6);
-}
-h1{
-    color:$accent-color;
-    font-size:2.5rem;
-    margin: 1rem 0rem;
 }
 .get-app-icon{
     height:5.3rem;
@@ -161,6 +154,15 @@ h1{
     color:$accent-color-2;
 }
 .modal{
+    .modal-overlay{
+        position:fixed;
+        left:0;
+        right:0;
+        top:0;
+        bottom:0;
+        background-color: rgba(0, 0, 0, 0.6);
+        border-radius: 0;
+    }
     .modal-container{
         position:fixed;
         background-color: white;

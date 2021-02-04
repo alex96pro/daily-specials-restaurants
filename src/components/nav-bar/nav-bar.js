@@ -18,8 +18,11 @@ export default function NavBar(props) {
         <nav>
             {props.loggedIn ?
             <div className="nav-container">
-                <button onClick={() => history.push('/profile')} className="nav-link">Profile</button> 
-                <button onClick={handleLogout} className="nav-link">Logout</button>
+                <button className="nav-card" onClick={() => history.push('/menu')}>Menu</button>
+                <button className="nav-card">Specials</button>
+                <button className="nav-card">Orders</button>
+                <button className="nav-card" onClick={() => history.push('/profile')}>Profile</button> 
+                <button className="nav-card" onClick={handleLogout}>Logout</button>
             </div>
             :
             <div className="nav-container">

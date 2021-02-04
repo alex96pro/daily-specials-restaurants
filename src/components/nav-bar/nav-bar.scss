@@ -8,7 +8,6 @@ nav{
     position:sticky;
     top:0;
     left:0;
-    @include flexAlign(row, flex-end, center, nowrap);
 
     .nav-link{
         background-color: inherit;
@@ -22,9 +21,22 @@ nav{
             color:$accent-color;
         }
     }
+    .nav-card{
+        background-color: $accent-color;
+        color:white;
+        padding:1rem 1rem;
+        font-size: 2rem;
+        height:100%;
+        width:12rem;
+        border-radius: 0;
+        cursor: pointer;
+        &:hover{
+            background-color: inherit;
+        }
+    }
     .nav-container{
-        display:flex;
-        align-items: center;
+        @include flexAlign(row, flex-end, center, wrap);
+        height:100%;
     }
     .logo{
         position: absolute;

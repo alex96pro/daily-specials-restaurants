@@ -1,0 +1,15 @@
+@import '../../mixins';
+@import '../../variables';
+
+.profile{
+    @include flexAlign(column, center, center, nowrap);
+    .profile-container{
+        @include flexAlign(column, center, center, nowrap);
+        transform: translateY(calc(50vh - 50% - 6rem));  
+    }
+    .profile-info{
+        background-color: $wrapper-color;
+        padding:2rem;
+        margin: 1rem 0rem;   
+    }
+}
