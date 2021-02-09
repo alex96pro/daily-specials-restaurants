@@ -161,11 +161,6 @@ export function updateProfileAPI(data, message) {
         try{
             data.name = data.name.trim() // restaurant name has to be COMPLETLY unique
             data.location = localStorage.getItem('ADDRESS');
-            //check if user changed anything in his profile
-            if(!data.location && !data.name && !data.phone && !data.delivery && !data.deliveryRange && !data.deliveryMinimum){
-                message('No changes to do', true);
-                return;
-            }
             let position = JSON.parse(localStorage.getItem('POSITION'));
             if(position){
                 data.lat = position.lat;

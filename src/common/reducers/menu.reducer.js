@@ -8,6 +8,7 @@ const initialState = {
 };
 
 export default function menuReducer(state = initialState, action) {
+    let newMeals = [];
     switch(action.type){
         case ACTIONS.LOADING_STATUS_MENU:
             return {
@@ -21,14 +22,13 @@ export default function menuReducer(state = initialState, action) {
                 meals: action.payload.meals,
                 categories: action.payload.categories
             };
-        case ACTIONS.NO_MEALS_IN_MENU:
+        case ACTIONS.ADD_NEW_MEAL:
             return {
                 ...state,
                 loadingStatus: false,
-                message: action.payload
+                meals: [...state.meals, action.payload]
             };
         case ACTIONS.EDIT_MEAL:
-            let newMeals = [];
             for(let i = 0; i < state.meals.length; i++){
                 if(state.meals[i].mealId === action.payload.mealId){
                     newMeals.push(action.payload);
@@ -47,6 +47,29 @@ export default function menuReducer(state = initialState, action) {
                 loadingStatus: false,
                 meals: state.meals.filter(meal => meal.mealId !== action.payload)
             };
+        case ACTIONS.ADD_CATEGORY:
+            return {
+                ...state,
+                loadingStatus: false,
+                categories: action.payload
+            };
+        case ACTIONS.DELETE_CATEGORY:
+            if(action.payload.mealIds.length > 0){
+                console.log(action.payload.mealIds);
+                for(let i = 0; i < state.meals.length; i++){
+                    if(action.payload.mealIds.includes(state.meals[i].mealId)){
+                        newMeals.push({...state.meals[i], category: null});
+                    }else{
+                        newMeals.push(state.meals[i]);
+                    }
+                }
+            }
+            return {
+                ...state,
+                loadingStatus: false,
+                categories: action.payload.categories,
+                meals: action.payload.mealIds.length > 0 ? newMeals : state.meals
+            }
         default:
             return state;
     }

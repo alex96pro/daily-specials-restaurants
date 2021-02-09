@@ -17,7 +17,7 @@ export default function Profile() {
 
     const dispatch = useDispatch();
     const {restaurant, loadingStatus} = useSelector(state => state.authentication);
-    const {register, handleSubmit, errors} = useForm();
+    const {register, handleSubmit, errors} = useForm({defaultValues:{name: restaurant.name, phone: restaurant.phone, deliveryMinimum: restaurant.deliveryMinimum, deliveryRange: restaurant.deliveryRange}});
     const [changePasswordModal, setChangePasswordModal] = useState(false);
     const [disableDeliveryModal, setDisableDeliveryModal] = useState(false);
     const [message, setMessage] = useState({text: '', success: false});
@@ -31,6 +31,9 @@ export default function Profile() {
         let location = localStorage.getItem('ADDRESS');
         if(location && location === restaurant.location){
             setMessage({text: 'Your restaurant is already in that location', success: false});
+            localStorage.removeItem('POSITION');
+            localStorage.removeItem('ADDRESS');
+            document.getElementById('search-google-maps').value = '';
         }else{
             setMessage({text: '', success: false});
             dispatch(updateProfileAPI(data, setNewMessage));
@@ -54,7 +57,7 @@ export default function Profile() {
                     <form onSubmit={handleSubmit(updateProfile)}>
                         <div className="label-accent-color">
                             Name:
-                            <input type="text" placeholder={restaurant.name} name="name" ref={register()}></input>
+                            <input type="text" name="name" ref={register()}></input>
                         </div>
                         <div className="label-accent-color">
                             Location:
@@ -62,7 +65,7 @@ export default function Profile() {
                         </div>
                         <div className="label-accent-color">
                             Phone: 
-                            <input type="text" placeholder={restaurant.phone} name="phone" ref={register({pattern: /^\d+$/})}></input>
+                            <input type="text" name="phone" ref={register({pattern: /^\d+$/})}></input>
                             {errors.phone && <InputError text='Phone number can contain numbers only'/>}
                         </div>
                         {!restaurant.delivery &&
@@ -76,14 +79,14 @@ export default function Profile() {
                                 Delivery minimum: ({CURRENCY})
                             </div>
                             <div>
-                                <input type="number" placeholder={restaurant.deliveryMinimum} name="deliveryMinimum" 
+                                <input type="number" name="deliveryMinimum" 
                                 ref={register({required: enabledDelivery ? true : false})} step="0.01"></input>
                             </div>
                             <div className="label-accent-color">
                                 Delivery range: ({DISTANCE})
                             </div>
                             <div>
-                                <input type="number" placeholder={restaurant.deliveryRange} name="deliveryRange" 
+                                <input type="number" name="deliveryRange" 
                                 ref={register({required: enabledDelivery ? true : false, min: 1})} step="0.1"></input>
                             </div> 
                         </React.Fragment>

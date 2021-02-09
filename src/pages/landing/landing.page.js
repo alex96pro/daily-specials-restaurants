@@ -4,12 +4,12 @@ import { useHistory } from 'react-router-dom';
 import { PUNCHLINES } from '../../util/consts';
 import { useState, useEffect, useRef } from 'react';
 
+
 export default function Landing() {
 
     const history = useHistory();
     const [currentPunchline, setCurrentPunchline] = useState(0);
     const currentPunchlineRef = useRef(currentPunchline);
-
     const setCurrentPunchlineRef = data => {
         currentPunchlineRef.current = data;
         setCurrentPunchline(data);

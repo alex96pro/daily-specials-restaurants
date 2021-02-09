@@ -27,21 +27,23 @@ export default function ForgottenPasswordRestaurantModal(props) {
 
     return (
         <div className="modal">
-            <div className="modal-overlay" onClick={() => props.closeModal()}></div>
+            <div className="modal-overlay" onClick={props.closeModal}></div>
             <div className="modal-container" style={{opacity:modalOpacity}}>
-                <div className="modal-x-container">
-                    <button onClick={() => props.closeModal()} className="modal-x">x</button>
+                <div className="modal-header">
+                    <button onClick={props.closeModal} className="modal-x">x</button>
                 </div>
-                {!message.success && 
-                    <form onSubmit={handleSubmit(submitEmail)}>
-                        <div className="label-accent-color">Please enter your e-mail address and we will send you a link to change your password</div>
-                        <input type="email" name="email" ref={register({required:true})}/>
-                        {errors.email && <InputError text="Email is required"/>}
-                        <SubmitButton loadingStatus={loadingStatus} text="Send"/>
-                    </form>
-                }
-                {message.text && <p className={message.success? "message-success" : "message-danger"}>{message.text}</p>}
-                {message.success && <button onClick={() => props.closeModal()} className="button-long">OK</button>}
+                <div className="modal-body">
+                    {!message.success && 
+                        <form onSubmit={handleSubmit(submitEmail)}>
+                            <div className="label-accent-color">Please enter your e-mail address and we will send you a link to change your password</div>
+                            <input type="email" name="email" ref={register({required:true})}/>
+                            {errors.email && <InputError text="Email is required"/>}
+                            <SubmitButton loadingStatus={loadingStatus} text="Send"/>
+                        </form>
+                    }
+                    {message.text && <p className={message.success? "message-success" : "message-danger"}>{message.text}</p>}
+                    {message.success && <button onClick={props.closeModal} className="button-long">OK</button>}
+                </div>
             </div>
         </div>
     );

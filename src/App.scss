@@ -42,6 +42,12 @@
     pointer-events: none;
     cursor:none;
 }
+.button-long-disabled{
+    @extend .button-long;
+    background-color: gray;
+    pointer-events: none;
+    cursor:none;
+}
 .button-small{
     @extend .button-normal;
     font-size: 1.2rem;
@@ -51,7 +57,7 @@
 .button-long{
     @extend .button-normal;
     width:100%;
-    margin:3rem 0rem 0rem 0rem;
+    margin:2rem 0rem 0rem 0rem;
 }
 .wrapper-container{
     background-color:$wrapper-color;
@@ -106,6 +112,7 @@ select, option{
     width:100%;
     font-size:1.5rem;
     padding:0.8rem;
+    border:1px solid $accent-color;
 }
 .message-danger{
     color:$danger-color;
@@ -125,7 +132,7 @@ select, option{
 .label-white{
     font-size:1.8rem;
     color:white;
-    margin:0.8rem 0.1rem;
+    margin:0.4rem 0.1rem;
 }
 .label-accent-color{
     @extend .label-white;
@@ -167,7 +174,6 @@ select, option{
         position:fixed;
         background-color: white;
         width:35rem;
-        padding:1rem;
         left:50vw;
         top:50vh;
         transform: translate(-50%, -50%);
@@ -175,19 +181,19 @@ select, option{
         transition:1.2s;
     }
     .modal-body{
-        margin: 2rem 0rem;
+        margin: 0.4rem;
+        padding: 0.4rem;
     }
     .modal-header{
-        margin: 2rem 0rem;
-    }
-    .modal-x-container{
         @include flexAlign(row,flex-end,center,nowrap);
+        background-color: $wrapper-color;
         .modal-x{
             background-color: $accent-color;
             color:white;
             font-size: 1.5rem;
             font-weight: bold;
             padding: 0.4rem 0.8rem;
+            margin: 0.4rem;
             margin-bottom:0.6rem;
             cursor: pointer;
             transition: 0.2s;
