@@ -8,6 +8,7 @@ nav{
     position:sticky;
     top:0;
     left:0;
+    z-index: 1;
 
     .nav-link{
         background-color: inherit;
@@ -22,7 +23,7 @@ nav{
         }
     }
     .nav-card{
-        background-color: $accent-color;
+        background-color: inherit;
         color:white;
         padding:1rem 1rem;
         font-size: 2rem;
@@ -31,7 +32,15 @@ nav{
         border-radius: 0;
         cursor: pointer;
         &:hover{
-            background-color: inherit;
+            background-color: $accent-color;
+        }
+    }
+    .nav-card-active{
+        @extend .nav-card;
+        background-color: white;
+        color:$accent-color-2;
+        &:hover{
+            background-color: white;
         }
     }
     .nav-container{

@@ -24,15 +24,18 @@ export default function ConfirmDelete(props) {
 
     return (
         <div className="modal">
-            <div className="modal-overlay" onClick={() => props.closeModal()}></div>
+            <div className="modal-overlay" onClick={props.closeModal}></div>
             <div className="modal-container" style={{opacity:modalOpacity}}>
-                <div className="modal-x-container">
-                    <button onClick={() => props.closeModal()} className="modal-x">x</button>
+                <div className="modal-header">
+                    <button onClick={props.closeModal} className="modal-x">x</button>
                 </div>
-                <div className="label-accent-color">Are you sure you want to delete "{props.meal.name}" from your menu?</div>
-                <button onClick={deleteMeal} type="button" className="button-long">
-                    {loadingStatus ? <Loader small={true}/> : 'Delete'}
-                </button>
+                <div className="modal-body">
+                    <div className="label-accent-color">Are you sure you want to delete "{props.meal.name}" from your menu?</div>
+                    <button onClick={deleteMeal} type="button" className="button-long">
+                        {loadingStatus ? <Loader small={true}/> : 'Delete'}
+                    </button>
+                </div>
+                
             </div>
         </div>
     );

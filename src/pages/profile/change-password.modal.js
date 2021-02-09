@@ -38,27 +38,29 @@ export default function ChangePasswordModal(props) {
 
     return (
         <div className="modal">
-            <div className="modal-overlay" onClick={() => props.closeModal()}></div>
+            <div className="modal-overlay" onClick={props.closeModal}></div>
             <div className="modal-container" style={{opacity:modalOpacity}}>
-                <div className="modal-x-container">
-                    <button onClick={() => props.closeModal()} className="modal-x">x</button>
+                <div className="modal-header">
+                    <button onClick={props.closeModal} className="modal-x">x</button>
                 </div>
-                <form onSubmit={handleSubmit(handleChangePassword)}>
-                    <div className="label-accent-color">Old password</div>
-                    <input type="password" name="oldPassword" ref={register({required:true})}/>
-                    {errors.oldPassword && <InputError text={'Old password is required'}/>}
+                <div className="modal-body">
+                    <form onSubmit={handleSubmit(handleChangePassword)}>
+                        <div className="label-accent-color">Old password</div>
+                        <input type="password" name="oldPassword" ref={register({required:true})}/>
+                        {errors.oldPassword && <InputError text={'Old password is required'}/>}
 
-                    <div className="label-accent-color">New password</div>
-                    <input type="password" name="newPassword" ref={register({required:true})}/>
-                    {errors.newPassword && <InputError text={'New password is required'}/>}
+                        <div className="label-accent-color">New password</div>
+                        <input type="password" name="newPassword" ref={register({required:true})}/>
+                        {errors.newPassword && <InputError text={'New password is required'}/>}
 
-                    <div className="label-accent-color">Retype new password</div>
-                    <input type="password" name="retypeNewPassword" ref={register({required:true})}/>
-                    {errors.retypeNewPassword && <InputError text={'Retype new password'}/>}
+                        <div className="label-accent-color">Retype new password</div>
+                        <input type="password" name="retypeNewPassword" ref={register({required:true})}/>
+                        {errors.retypeNewPassword && <InputError text={'Retype new password'}/>}
 
-                    <SubmitButton loadingStatus={loadingStatus} text="Confirm"/>
-                </form>
-                {message.text && <p className="message-danger">{message.text}</p>}
+                        <SubmitButton loadingStatus={loadingStatus} text="Confirm"/>
+                    </form>
+                    {message.text && <p className="message-danger">{message.text}</p>}
+                </div>
             </div>
         </div>
     );

@@ -32,20 +32,22 @@ export default function DisableDeliveryModal(props) {
 
     return (
         <div className="modal">
-            <div className="modal-overlay" onClick={() => props.closeModal()}></div>
+            <div className="modal-overlay" onClick={props.closeModal}></div>
             <div className="modal-container" style={{opacity:modalOpacity}}>
-                <div className="modal-x-container">
-                    <button onClick={() => props.closeModal()} className="modal-x">x</button>
+                <div className="modal-header">
+                    <button onClick={props.closeModal} className="modal-x">x</button>
                 </div>
-                <div className="label-accent-color">
-                    In order to disable delivery for your restaurant please enter your password
+                <div className="modal-body">
+                    <div className="label-accent-color">
+                        In order to disable delivery for your restaurant please enter your password
+                    </div>
+                    <form onSubmit={handleSubmit(handleDisableDelivery)}>
+                        <input type="password" name="password" ref={register({required:true})} placeholder="Your password here"/>
+                        {errors.password && <InputError text={'Password is required'}/>}
+                        <SubmitButton loadingStatus={loadingStatus} text="Disable delivery"/>
+                    </form>
+                    {message && <MessageDanger text={message}/>}
                 </div>
-                <form onSubmit={handleSubmit(handleDisableDelivery)}>
-                    <input type="password" name="password" ref={register({required:true})} placeholder="Your password here"/>
-                    {errors.password && <InputError text={'Password is required'}/>}
-                    <SubmitButton loadingStatus={loadingStatus} text="Disable delivery"/>
-                </form>
-                {message && <MessageDanger text={message}/>}
             </div>
         </div>
     );
