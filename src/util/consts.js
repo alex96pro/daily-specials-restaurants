@@ -1,6 +1,7 @@
 export const BACKEND_API = "http://localhost:3001";
 export const CURRENCY = '$';
 export const DISTANCE = 'km';
+export const DAILY_SPECIALS_LIMIT = 3;
 export const MEAL_TAGS = [
     {value:'vegetarian', name:'Vegetarian'},
     {value:'vegan', name:'Vegan'},

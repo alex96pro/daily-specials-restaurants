@@ -50,7 +50,6 @@ export default function authReducer(state = initialState, action) {
                 loadingStatus: false,
                 restaurant: action.payload
             };
-       
         default:
             return state;
     }

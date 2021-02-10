@@ -1,0 +1,118 @@
+@import '../variables';
+@import '../mixins';
+
+.button-link{
+    background-color: transparent;
+    color:$accent-color;
+    text-decoration: underline;
+    margin:1rem 1rem;
+    font-size: 1.6rem;
+    font-weight: bold;
+    outline:none;
+    transition: 0.2s;
+    cursor: pointer;
+    &:hover{
+        color:$accent-color-2;
+    }
+}
+.button-normal{
+    width:max-content;
+    background-color:$accent-color;
+    padding:1rem;
+    margin:1rem 0.6rem 0rem 0.6rem;
+    color:white;
+    font-size: 1.8rem;
+    transition: 0.2s;
+    cursor: pointer;
+    &:hover{
+        background-color: $accent-color-2;
+    }
+}
+.button-small{
+    @extend .button-normal;
+    font-size: 1.2rem;
+    padding: 0.8rem;
+    margin: 0.2rem;
+}
+.button-long{
+    @extend .button-normal;
+    width:100%;
+    margin:2rem 0rem 0rem 0rem;
+}
+.button-normal-disabled{
+    @extend .button-normal;
+    background-color: gray;
+    pointer-events: none;
+    cursor:none;
+}
+.button-long-disabled{
+    @extend .button-long;
+    background-color: gray;
+    pointer-events: none;
+    cursor:none;
+}
+input[type=text], input[type=password], input[type=email]{
+    border:1px solid $accent-color;
+    width:100%;
+    height:3.4rem;
+    font-size: 1.5rem;
+    border-radius: 0.6rem;
+    padding: 0rem 1rem;
+    &:focus{
+        outline:none;
+        box-shadow: 0 0 0.8rem rgba(17, 90, 110, 0.753);
+    }
+}
+input[type=checkbox]{
+    height:1.8rem;
+    width:1.8rem;
+}
+textarea{
+    @extend input[type=text];
+    height: 7rem;
+    padding: 0.4rem 1rem;
+    resize: none;
+}
+input[type=number]{
+    @extend input[type=text];
+    width:9rem;
+    -moz-appearance: textfield;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+select, option{
+    width:100%;
+    font-size:1.5rem;
+    padding:0.8rem;
+    border:1px solid $accent-color;
+}
+.label-white{
+    font-size:1.8rem;
+    color:white;
+    margin:0.4rem 0.1rem;
+}
+.label-accent-color{
+    @extend .label-white;
+    color:$accent-color;
+}
+.label-accent-color-2{
+    @extend .label-white;
+    color:$accent-color-2;
+}
+.header-white{
+    color:white;
+    margin: 1rem 1rem;
+    font-size: 3rem;
+    text-align: center;
+}
+.header-accent-color{
+    @extend .header-white;
+    color:$accent-color;
+}
+.header-accent-color-2{
+    @extend .header-white;
+    color:$accent-color-2;
+}

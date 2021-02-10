@@ -4,7 +4,6 @@ import { disableDeliveryAPI } from '../../common/api/auth.api';
 import { useDispatch, useSelector } from 'react-redux';
 import SubmitButton from '../../components/common/submit-button';
 import InputError from '../../components/common/input-error';
-import MessageDanger from '../../components/common/message-danger';
 
 export default function DisableDeliveryModal(props) {
     
@@ -13,10 +12,6 @@ export default function DisableDeliveryModal(props) {
     const [message, setMessage] = useState('');
     const {loadingStatus} = useSelector(state => state.authentication);
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        setModalOpacity(1);
-    }, []);
 
     const setNewMessage = (newMessage, success = false) => {
         setMessage(newMessage);
@@ -29,6 +24,10 @@ export default function DisableDeliveryModal(props) {
     const handleDisableDelivery = (data) => {
         dispatch(disableDeliveryAPI(data, setNewMessage));
     };
+
+    useEffect(() => {
+        setModalOpacity(1);
+    }, []);
 
     return (
         <div className="modal">
@@ -44,9 +43,9 @@ export default function DisableDeliveryModal(props) {
                     <form onSubmit={handleSubmit(handleDisableDelivery)}>
                         <input type="password" name="password" ref={register({required:true})} placeholder="Your password here"/>
                         {errors.password && <InputError text={'Password is required'}/>}
+                        {message && <InputError text={message}/>}
                         <SubmitButton loadingStatus={loadingStatus} text="Disable delivery"/>
                     </form>
-                    {message && <MessageDanger text={message}/>}
                 </div>
             </div>
         </div>

@@ -1,9 +1,8 @@
 import './landing.page.scss';
-import NavBar from '../../components/nav-bar/nav-bar';
 import { useHistory } from 'react-router-dom';
 import { PUNCHLINES } from '../../util/consts';
 import { useState, useEffect, useRef } from 'react';
-
+import NavBar from '../../components/nav-bar/nav-bar';
 
 export default function Landing() {
 

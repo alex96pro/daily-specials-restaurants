@@ -1,16 +1,17 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteMenuMealAPI } from '../../common/api/menu.api';
+import { deleteSpecialAPI } from '../../common/api/specials.api';
 import ConfirmButton from '../../components/common/confirm-button';
+import MessageDanger from '../../components/common/message-danger';
 
 export default function ConfirmDelete(props) {
 
-    const dispatch = useDispatch();
     const [modalOpacity, setModalOpacity] = useState(0);
     const {loadingStatus} = useSelector(state => state.menu);
+    const dispatch = useDispatch();
 
     const deleteMeal = () => {
-        dispatch(deleteMenuMealAPI(props.meal.mealId, props.closeModal));
+        dispatch(deleteSpecialAPI(props.special.specialId, props.closeModal));
     };
 
     useEffect(() => {
@@ -25,7 +26,8 @@ export default function ConfirmDelete(props) {
                     <button onClick={props.closeModal} className="modal-x">x</button>
                 </div>
                 <div className="modal-body">
-                    <div className="label-accent-color">Are you sure you want to delete "{props.meal.name}" from your menu?</div>
+                    <div className="label-accent-color">Are you sure you want to delete "{props.special.name}"?</div>
+                    <MessageDanger text="Used specials count won't decrease."/>
                     <ConfirmButton loadingStatus={loadingStatus} onClick={deleteMeal} text="Delete"/>
                 </div>
             </div>

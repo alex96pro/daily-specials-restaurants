@@ -13,10 +13,6 @@ export default function ForgottenPasswordRestaurantModal(props) {
     const [message, setMessage] = useState({text:'', success:false});
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        setModalOpacity(1);
-    }, []);
-
     const setNewMessage = (newMessage, newSuccess = false) => {
         setMessage({text: newMessage, success: newSuccess});
     };
@@ -24,6 +20,10 @@ export default function ForgottenPasswordRestaurantModal(props) {
     const submitEmail = (data) => {
         dispatch(forgottenPasswordAPI(data, setNewMessage));
     };
+
+    useEffect(() => {
+        setModalOpacity(1);
+    }, []);
 
     return (
         <div className="modal">

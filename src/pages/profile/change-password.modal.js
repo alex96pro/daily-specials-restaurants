@@ -12,6 +12,7 @@ export default function ChangePasswordModal(props) {
     const {register, handleSubmit, errors} = useForm();
     const [modalOpacity, setModalOpacity] = useState(0);
     const [message, setMessage] = useState({text: '', success: false});
+    const [messageMatch, setMessageMatch] = useState('');
     const {loadingStatus} = useSelector(state => state.authentication);
     const dispatch = useDispatch();
     const history = useHistory();
@@ -30,8 +31,9 @@ export default function ChangePasswordModal(props) {
 
     const handleChangePassword = (data) => {
         if(data.newPassword !== data.retypeNewPassword){
-            setMessage({text: "Passwords don't match", success: false});
+            setMessageMatch("Passwords don't match");
         }else{
+            setMessageMatch("");
             dispatch(changePasswordAPI(data, setNewMessage));
         }
     };
@@ -48,18 +50,20 @@ export default function ChangePasswordModal(props) {
                         <div className="label-accent-color">Old password</div>
                         <input type="password" name="oldPassword" ref={register({required:true})}/>
                         {errors.oldPassword && <InputError text={'Old password is required'}/>}
+                        {message.text && <InputError text={message.text}/>}
 
                         <div className="label-accent-color">New password</div>
                         <input type="password" name="newPassword" ref={register({required:true})}/>
                         {errors.newPassword && <InputError text={'New password is required'}/>}
+                        {messageMatch && <InputError text={messageMatch}/>}
 
                         <div className="label-accent-color">Retype new password</div>
                         <input type="password" name="retypeNewPassword" ref={register({required:true})}/>
                         {errors.retypeNewPassword && <InputError text={'Retype new password'}/>}
+                        {messageMatch && <InputError text={messageMatch}/>}
 
                         <SubmitButton loadingStatus={loadingStatus} text="Confirm"/>
                     </form>
-                    {message.text && <p className="message-danger">{message.text}</p>}
                 </div>
             </div>
         </div>

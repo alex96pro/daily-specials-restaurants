@@ -5,11 +5,11 @@
     @include flexAlign(column, center, center, nowrap);
     .profile-container{
         @include flexAlign(column, center, center, nowrap);
-        transform: translateY(calc(50vh - 50% - 6rem));  
+        transform: translateY(calc(50vh - 50% - 6rem));
     }
     .profile-info{
+        width:36rem;
         background-color: $wrapper-color;
-        padding:2rem;
-        margin: 1rem 0rem;   
+        padding:2rem;  
     }
 }

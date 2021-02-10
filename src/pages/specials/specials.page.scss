@@ -1,0 +1,29 @@
+@import '../../mixins';
+@import '../../variables';
+
+.specials{
+    @include flexAlign(column, center, center, nowrap);
+    .specials-container{
+        @include flexAlign(row, center, stretch, wrap);
+    }
+    .special{
+        @include flexAlign(column, stretch, flex-start, wrap);
+        background-color: $wrapper-color;
+        width:30rem;
+        padding:1rem;
+        margin:1rem;
+    }
+    .special-photo{
+        width:28rem;
+        height:28rem;
+    }
+    .special-photo-edit-modal{
+        width: 15rem;
+        height: 15rem;
+    }
+    .specials-buttons{
+        @include flexAlign(row, center, center, wrap);
+        width: 100%;
+        margin-top:auto;
+    }
+}

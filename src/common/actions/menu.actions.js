@@ -18,14 +18,12 @@ export function getMenu(payload) {
         payload
     };
 };
-
 export function addNewMeal(payload) {
     return {
         type: ADD_NEW_MEAL,
         payload
     };
 };
-
 export function editMeal(payload) {
     return {
         type: EDIT_MEAL,

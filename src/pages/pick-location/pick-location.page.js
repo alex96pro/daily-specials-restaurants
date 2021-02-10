@@ -1,12 +1,11 @@
 import './pick-location.page.scss';
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import GoogleMap from '../../components/google-map/google-map.component';
-import { signUpFailed, noAddress } from '../../common/actions/auth.actions';
 import { finishSignUpAPI } from '../../common/api/auth.api';
+import GoogleMap from '../../components/google-map/google-map.component';
 import MessageDanger from '../../components/common/message-danger';
 import Loader from '../../images/loader.gif';
-import { useState } from 'react';
 
 export default function Map() {
 

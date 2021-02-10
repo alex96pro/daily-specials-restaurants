@@ -1,21 +1,21 @@
 import './login.page.scss';
 import { useForm } from 'react-hook-form';
-import NavBar from '../../components/nav-bar/nav-bar';
-import SubmitButton from '../../components/common/submit-button';
 import { useHistory } from 'react-router-dom';
 import { logInAPI } from '../../common/api/auth.api';
 import { useDispatch, useSelector } from 'react-redux';
-import ForgottenPasswordModal from './forgotten-password.modal';
 import { useState } from 'react';
+import NavBar from '../../components/nav-bar/nav-bar';
+import SubmitButton from '../../components/common/submit-button';
+import ForgottenPasswordModal from './forgotten-password.modal';
 import MessageDanger from '../../components/common/message-danger';
 import MessageSuccess from '../../components/common/message-success';
 import InputError from '../../components/common/input-error';
 
-export default function LoginRestaurant() {
+export default function Login() {
 
-    const {register, handleSubmit, errors} = useForm();
     const history = useHistory();
     const dispatch = useDispatch();
+    const {register, handleSubmit, errors} = useForm();
     const {loadingStatus} = useSelector(state => state.authentication);
     const [message, setMessage] = useState('');
     const [showModal, setShowModal] = useState(false);
@@ -23,17 +23,14 @@ export default function LoginRestaurant() {
     const setNewMessage = (newMessage) => {
         setMessage(newMessage);
     };
+
     const handleLogIn = (data) => {
         dispatch(logInAPI(data, loginSuccess, setNewMessage));
     };
 
-    const closeModal = () => {
-        setShowModal(false);
-    }
-
     const loginSuccess = () => {
         history.push('/menu');
-    }
+    };
 
     return(
         <div className="login-restaurant">
@@ -55,7 +52,7 @@ export default function LoginRestaurant() {
                 </div>
                 <div><button onClick={() => setShowModal(true)} type="button" className="button-link">Forgot password?</button></div>
             </div>
-            {showModal && <ForgottenPasswordModal closeModal={closeModal}/>}
+            {showModal && <ForgottenPasswordModal closeModal={() => setShowModal(false)}/>}
         </div>
     );
 };

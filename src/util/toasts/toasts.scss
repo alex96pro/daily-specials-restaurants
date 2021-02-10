@@ -1,0 +1,30 @@
+@import "../../variables";
+
+.Toastify__toast-body { 
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: auto;
+}
+
+.Toastify__toast--info {
+    background-color: $accent-color; 
+}
+.Toastify__toast--success {
+    background: $success-color;
+}
+
+// .Toastify__toast--default {
+//     background: #fff;
+//     color: #aaa;
+//     font-size: 1.8rem;
+// }
+
+// .Toastify__toast--warning {
+//     background: #f1c40f;
+//     font-size: 1.8rem;
+// }
+
+// .Toastify__toast--error {
+//     background: $danger-color;
+//     font-size: 1.8rem;
+// }

@@ -6,7 +6,7 @@ export function logInAPI(data, loginSuccess, message) {
     return async (dispatch) => {
         try{
             dispatch(loadingStatus(true));
-            let response = await axios.get(`${BACKEND_API}/auth-restaurant/login?email=${data.email}&password=${data.password}`);
+            let response = await axios.get(`${BACKEND_API}/restaurant-auth/login?email=${data.email}&password=${data.password}`);
             if(response.status === 200){
                 localStorage.setItem("ACCESS_TOKEN_RESTAURANT", response.data.accessToken);
                 localStorage.setItem("RESTAURANT_ID", response.data.restaurantId);
@@ -34,7 +34,7 @@ export function signUpFirstStepAPI(data, passedFirstStep, message) {
         try{
             dispatch(loadingStatus(true));
             data.restaurantName = data.restaurantName.trim(); //restaurant name has to be COMPLETLY unique
-            let response = await axios.post(`${BACKEND_API}/auth-restaurant/sign-up-first-step`, data);
+            let response = await axios.post(`${BACKEND_API}/restaurant-auth/sign-up-first-step`, data);
             if(response.status === 200){
                 dispatch(signUpNextStep(data));
                 passedFirstStep();
@@ -58,7 +58,7 @@ export function finishSignUpAPI(data, passedSecondStep) {
     return async (dispatch) => {
         try{
             dispatch(loadingStatus(true));
-            let response = await axios.post(`${BACKEND_API}/auth-restaurant/sign-up-complete`, data);
+            let response = await axios.post(`${BACKEND_API}/restaurant-auth/sign-up-complete`, data);
             if(response.status === 200){
                 dispatch(loadingStatus(false));
                 localStorage.clear();
@@ -75,7 +75,7 @@ export function verifyAccountAPI(hashedRestaurantId) {
     return async (dispatch) => {
         try{
             dispatch(loadingStatus(true));
-            let response = await axios.post(`${BACKEND_API}/auth-restaurant/verify-account`,{hashedRestaurantId:hashedRestaurantId});
+            let response = await axios.post(`${BACKEND_API}/restaurant-auth/verify-account`,{hashedRestaurantId:hashedRestaurantId});
             if(response.status === 200){
                 dispatch(loadingStatus(false));
             }
@@ -94,7 +94,7 @@ export function forgottenPasswordAPI(data, message) {
     return async (dispatch) => {
         try{
             dispatch(loadingStatus(true));
-            let response = await axios.post(`${BACKEND_API}/auth-restaurant/forgotten-password`, data);
+            let response = await axios.post(`${BACKEND_API}/restaurant-auth/forgotten-password`, data);
             if(response.status === 200){
                 dispatch(loadingStatus(false));
                 message('Please check your email and create new password with new link we sent you', true);
@@ -119,7 +119,7 @@ export function newPasswordAPI(data, hashedId, message) {
     return async (dispatch) => {
         try{
             dispatch(loadingStatus(true));
-            let response = await axios.post(`${BACKEND_API}/auth-restaurant/new-password`, {newPassword: data.newPassword, hashedId: hashedId});
+            let response = await axios.post(`${BACKEND_API}/restaurant-auth/new-password`, {newPassword: data.newPassword, hashedId: hashedId});
             if(response.status === 200){
                 dispatch(loadingStatus(false));
                 message('Successfully set your new password', true);
@@ -137,7 +137,7 @@ export function changePasswordAPI(data, message) {
     return async (dispatch) => {
         try{
             dispatch(loadingStatus(true));
-            await axios.post(`${BACKEND_API}/auth-restaurant/change-password`, {oldPassword: data.oldPassword, newPassword: data.newPassword}, 
+            await axios.post(`${BACKEND_API}/restaurant-auth/change-password`, {oldPassword: data.oldPassword, newPassword: data.newPassword}, 
             {headers:{'Authorization':`Basic ${localStorage.getItem("ACCESS_TOKEN_RESTAURANT")}`}});
             dispatch(loadingStatus(false));
             message("Sucessfully changed your password", true);
@@ -170,10 +170,9 @@ export function updateProfileAPI(data, message) {
                 data.lon = null;
             }
             dispatch(loadingStatus(true));
-            let response = await axios.post(`${BACKEND_API}/auth-restaurant/update-profile`, data,
+            let response = await axios.post(`${BACKEND_API}/restaurant-auth/update-profile`, data,
             {headers:{'Authorization':`Basic ${localStorage.getItem("ACCESS_TOKEN_RESTAURANT")}`}});
             dispatch(updateProfile(response.data));
-            message('Updated profile data', true);
             localStorage.removeItem('ADDRESS');
             localStorage.removeItem('POSITION');
         }catch(err){
@@ -190,7 +189,7 @@ export function disableDeliveryAPI(data, message) {
     return async (dispatch) => {
         try{
             dispatch(loadingStatus(true));
-            let response = await axios.post(`${BACKEND_API}/auth-restaurant/disable-delivery`, data,
+            let response = await axios.post(`${BACKEND_API}/restaurant-auth/disable-delivery`, data,
             {headers:{'Authorization':`Basic ${localStorage.getItem("ACCESS_TOKEN_RESTAURANT")}`}});
             dispatch(updateProfile(response.data));
             message('Successfully disabled delivery', true);

@@ -1,26 +1,32 @@
 import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addNewMealAPI } from '../../common/api/menu.api';
 import { CURRENCY } from '../../util/consts';
+import { editMenuMealAPI } from '../../common/api/menu.api';
 import AddPhoto from '../add-photo/add-photo';
 import InputError from '../../components/common/input-error';
 import SubmitButton from '../../components/common/submit-button';
 
-export default function AddMealModal(props) {
+export default function EditMealModal(props) {
 
     const dispatch = useDispatch();
-    const {register, handleSubmit, errors} = useForm();
     const [modalOpacity, setModalOpacity] = useState(0);
     const {meals, categories, loadingStatus} = useSelector(state => state.menu);
-    const [tags, setTags] = useState([]);
+    const [tags, setTags] = useState([...props.meal.tags]);
     const [newTag, setNewTag] = useState('');
     const [tagMessage, setTagMessage] = useState('');
     const [nameMessage, setNameMessage] = useState('');
     const [addPhotoModal, setAddPhotoModal] = useState(false);
     const [showPhotoModal, setShowPhotoModal] = useState(false);
     const [photo, setPhoto] = useState('');
-    
+    const {register, handleSubmit, errors} = useForm({defaultValues:{
+        name:props.meal.name, description:props.meal.description, category:props.meal.category, price:props.meal.price
+    }});
+
+    useEffect(() => {
+        setModalOpacity(1);
+    }, []);
+
     const changeNewTag = (event) => {
         if(event.target.value.length > 25){
             setTagMessage('Tag can contain maximum 25 characters');
@@ -52,34 +58,33 @@ export default function AddMealModal(props) {
         setTags(tags.filter(tagItem => tagItem !== tag));
     };
 
-    const addNewMeal = (data) => {
+    const editMeal = (data) => {
         data.name = data.name.trim();
         for(let i = 0; i < meals.length; i++){
-            if(meals[i].name === data.name){
+            if(meals[i].name === data.name && meals[i].mealId !== props.meal.mealId){
                 setNameMessage('Meal name already exists');
                 return;
             }
         }
-        setNameMessage('');
-        data.photo = photo;
+        if(photo){
+            data.newPhoto = photo;
+        }
         data.tags = tags;
-        dispatch(addNewMealAPI(data, props.closeModal));
+        data.photo = props.meal.photo;
+        data.mealId = props.meal.mealId;
+        dispatch(editMenuMealAPI(data, props.closeModal));
     };
-
-    useEffect(() => {
-        setModalOpacity(1);
-    }, []);
 
     return (
         <div className="modal">
-            <div className="modal-overlay"></div>
+            <div className="modal-overlay" onClick={props.closeModal}></div>
             <div className="modal-container" style={{opacity:modalOpacity}}>
                 <div className="modal-header">
                     <button onClick={props.closeModal} className="modal-x">x</button>
                 </div>
-             
+                <div className="modal-body">
                 <div className="modal-body" style={{display: (!addPhotoModal && !showPhotoModal) ? 'block' : 'none'}}>
-                    <form onSubmit={handleSubmit(addNewMeal)}>
+                    <form onSubmit={handleSubmit(editMeal)}>
                         <div className="label-accent-color">Name</div>
                         <input type="text" name="name" ref={register({required:true, maxLength:50})}/>
                         {errors.name && errors.name.type === "required" && <InputError text='Name is required'/>}
@@ -117,16 +122,12 @@ export default function AddMealModal(props) {
                         <button type="button" onClick={addTag} className="button-small">Add</button>
                         {tagMessage && <InputError text={tagMessage}/>}
                         
-                        {photo ? 
                         <div>
                             <div className="label-accent-color">
-                                Photo<button type="button" onClick={() => setShowPhotoModal(true)} className="button-small">See added photo</button>
+                                Photo<button type="button" onClick={() => setShowPhotoModal(true)} className="button-small">Change photo</button>
                             </div>
-                            <SubmitButton loadingStatus={loadingStatus} text='Add meal to menu'/>
+                            <SubmitButton loadingStatus={loadingStatus} text='Save changes'/>
                         </div>
-                        :
-                        <button type="button" onClick={() => setAddPhotoModal(true)} className="button-long">Add photo</button>   
-                        }
                     </form>
                 </div>
 
@@ -138,11 +139,12 @@ export default function AddMealModal(props) {
                 }
                 {showPhotoModal &&
                 <div className="modal-body">
-                    <div><img src={photo} className="meals-menu-show-photo" alt="meal"/></div>
+                    <div><img src={photo ? photo : props.meal.photo} className="meals-menu-show-photo" alt="meal"/></div>
                     <button type="button" onClick={() => setShowPhotoModal(false)} className="button-normal">Back</button>
                     <button type="button" onClick={() => {setShowPhotoModal(false); setAddPhotoModal(true);}} className="button-normal">Change</button>
                 </div>
                 }
+                </div>
             </div>
         </div>
     );

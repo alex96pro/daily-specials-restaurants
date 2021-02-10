@@ -3,7 +3,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunkMiddleware from 'redux-thunk';
 import rootReducer from './common/reducers/allReducers';
 
-// CURRENTLY ONLY KEEP SIGN UP INFO FOR RESTAURANT IN LOCAL STORAGE
+// CURRENTLY ONLY KEEP SIGN UP INFO (authentication reducer) FOR RESTAURANT IN LOCAL STORAGE
 const loadState = () => {
     const store = JSON.parse(localStorage.getItem("store-restaurant"));
     let storeObject;
@@ -26,4 +26,4 @@ export default function configureStore() {
         saveState(store.getState());
     });
     return store;
-}
+};

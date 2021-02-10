@@ -33,24 +33,24 @@ export default function ForgottenPassword() {
     return (
         <div className="forgotten-password">
             <NavBar loggedIn={false}/>
-                <div className="forgotten-password-container">
-                    {!message.success ?
-                    <form onSubmit={handleSubmit(handleNewPassword)}>
-                        <div className="label-accent-color">New password</div>
-                        <input type="password" name="newPassword" ref={register({required:true})}/>
-                        {errors.newPassword && <InputError text="New password is required"/>}
-                        <div className="label-accent-color">Retype new password</div>
-                        <input type="password" name="retypeNewPassword" ref={register({required:true})}/>
-                        {errors.retypeNewPassword && <InputError text="Retype new password"/>}
-                        <SubmitButton loadingStatus={loadingStatus} text="Confirm"/>
-                        {message.text && <MessageDanger text={message.text}/>}
-                    </form> :
-                        <div>
-                            <p className="message-success">{message.text}</p>
-                            <button onClick={() => history.push('/login')} className="button-long">Log In</button>
-                        </div>
-                    }
-                </div>
+            <div className="forgotten-password-container">
+                {!message.success ?
+                <form onSubmit={handleSubmit(handleNewPassword)}>
+                    <div className="label-accent-color">New password</div>
+                    <input type="password" name="newPassword" ref={register({required:true})}/>
+                    {errors.newPassword && <InputError text="New password is required"/>}
+                    <div className="label-accent-color">Retype new password</div>
+                    <input type="password" name="retypeNewPassword" ref={register({required:true})}/>
+                    {errors.retypeNewPassword && <InputError text="Retype new password"/>}
+                    <SubmitButton loadingStatus={loadingStatus} text="Confirm"/>
+                    {message.text && <MessageDanger text={message.text}/>}
+                </form> :
+                    <div>
+                        <p className="message-success">{message.text}</p>
+                        <button onClick={() => history.push('/login')} className="button-long">Log In</button>
+                    </div>
+                }
+            </div>
         </div>
     );
 };

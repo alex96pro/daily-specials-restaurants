@@ -6,8 +6,6 @@ import configureStore from './store';
 
 const myStore = configureStore(); 
 
-// const MyStore = createStore(rootReducer, applyMiddleware(thunkMiddleware)); //PRODUCTION
-
 ReactDOM.render(
     <Provider store={myStore}>
         <App />

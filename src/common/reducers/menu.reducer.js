@@ -40,7 +40,7 @@ export default function menuReducer(state = initialState, action) {
                 ...state,
                 loadingStatus: false,
                 meals: newMeals
-            }
+            };
         case ACTIONS.DELETE_MEAL:
             return {
                 ...state,
@@ -69,7 +69,7 @@ export default function menuReducer(state = initialState, action) {
                 loadingStatus: false,
                 categories: action.payload.categories,
                 meals: action.payload.mealIds.length > 0 ? newMeals : state.meals
-            }
+            };
         default:
             return state;
     }
