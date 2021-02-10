@@ -33,7 +33,6 @@ export default function AddPhoto(props){
                     croppedAreaPixels,
                     rotation
                 );
-                //console.log('donee', { croppedImage });
                 props.setPhoto(croppedImage);
                 props.closeModal();
             }
@@ -86,4 +85,4 @@ export default function AddPhoto(props){
         <button onClick={showCroppedImage} className="input-file-button">Done</button>
     </div>
     )
-}
+};

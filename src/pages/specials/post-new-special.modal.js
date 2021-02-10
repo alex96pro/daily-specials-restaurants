@@ -1,18 +1,18 @@
+import './specials.page.scss';
 import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addNewMealAPI } from '../../common/api/menu.api';
-import { CURRENCY } from '../../util/consts';
-import AddPhoto from '../add-photo/add-photo';
+import { addNewSpecialAPI } from '../../common/api/specials.api';
+import AddPhoto from '../../components/add-photo/add-photo'
 import InputError from '../../components/common/input-error';
 import SubmitButton from '../../components/common/submit-button';
 
-export default function AddMealModal(props) {
-
-    const dispatch = useDispatch();
+export default function PostNewSpecialModal(props) {
+    
     const {register, handleSubmit, errors} = useForm();
     const [modalOpacity, setModalOpacity] = useState(0);
-    const {meals, categories, loadingStatus} = useSelector(state => state.menu);
+    const dispatch = useDispatch();
+    const {specials, loadingStatus} = useSelector(state => state.specials);
     const [tags, setTags] = useState([]);
     const [newTag, setNewTag] = useState('');
     const [tagMessage, setTagMessage] = useState('');
@@ -52,18 +52,18 @@ export default function AddMealModal(props) {
         setTags(tags.filter(tagItem => tagItem !== tag));
     };
 
-    const addNewMeal = (data) => {
+    const addNewSpecial = (data) => {
         data.name = data.name.trim();
-        for(let i = 0; i < meals.length; i++){
-            if(meals[i].name === data.name){
-                setNameMessage('Meal name already exists');
+        for(let i = 0; i < specials.length; i++){
+            if(specials[i].name === data.name){
+                setNameMessage('Special with that name already exists');
                 return;
             }
         }
         setNameMessage('');
         data.photo = photo;
         data.tags = tags;
-        dispatch(addNewMealAPI(data, props.closeModal));
+        dispatch(addNewSpecialAPI(data, props.closeModal));
     };
 
     useEffect(() => {
@@ -79,11 +79,11 @@ export default function AddMealModal(props) {
                 </div>
              
                 <div className="modal-body" style={{display: (!addPhotoModal && !showPhotoModal) ? 'block' : 'none'}}>
-                    <form onSubmit={handleSubmit(addNewMeal)}>
+                    <form onSubmit={handleSubmit(addNewSpecial)}>
                         <div className="label-accent-color">Name</div>
                         <input type="text" name="name" ref={register({required:true, maxLength:50})}/>
                         {errors.name && errors.name.type === "required" && <InputError text='Name is required'/>}
-                        {errors.name && errors.name.type === "maxLength" && <InputError text='Name is limited to 50 characters'/>}
+                        {errors.name && errors.name.type === "maxLength" && <InputError text="Name is limited to 50 characters"/>}
                         {nameMessage && <InputError text={nameMessage}/>}
 
                         <div className="label-accent-color">Description</div>
@@ -92,16 +92,7 @@ export default function AddMealModal(props) {
                         {errors.description && errors.description.type === "minLength" && <InputError text='Description should have minimum 20 characters'/>}
                         {errors.description && errors.description.type === "maxLength" && <InputError text='Description can have maximum 200 characters'/>}
 
-                        <div className="label-accent-color">Category</div>
-                        <select name="category" ref={register()}>
-                            {categories.map((category,index) => 
-                                <option key={index}>
-                                    {category}
-                                </option>
-                            )}
-                        </select>
-
-                        <div className="label-accent-color">Price ({CURRENCY})</div>
+                        <div className="label-accent-color">Price</div>
                         <input type="number" step="0.01" name="price" ref={register({required:true, min:0.01})}/>
                         {errors.price && <InputError text='Price is required'/>}
 
@@ -113,7 +104,7 @@ export default function AddMealModal(props) {
                             </div>
                             )}
                         </div>
-                        <input type="text" name="tag" value={newTag} onChange={changeNewTag} placeholder='Add new tag' style={{width:'16rem'}}/>
+                        <input type="text" name="tag" value={newTag} onChange={changeNewTag} style={{width:'16rem'}} placeholder='Add new tag'/>
                         <button type="button" onClick={addTag} className="button-small">Add</button>
                         {tagMessage && <InputError text={tagMessage}/>}
                         
@@ -122,7 +113,7 @@ export default function AddMealModal(props) {
                             <div className="label-accent-color">
                                 Photo<button type="button" onClick={() => setShowPhotoModal(true)} className="button-small">See added photo</button>
                             </div>
-                            <SubmitButton loadingStatus={loadingStatus} text='Add meal to menu'/>
+                            <SubmitButton loadingStatus={loadingStatus} text='Post daily special'/>
                         </div>
                         :
                         <button type="button" onClick={() => setAddPhotoModal(true)} className="button-long">Add photo</button>   

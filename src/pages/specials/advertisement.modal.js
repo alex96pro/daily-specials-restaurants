@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
-import AddPhoto from '../../components/add-photo/add-photo';
 
-export default function ChangePhotoModal(props) {
+export default function Advertisement(props) {
 
     const [modalOpacity, setModalOpacity] = useState(0);
 
@@ -17,7 +16,8 @@ export default function ChangePhotoModal(props) {
                     <button onClick={props.closeModal} className="modal-x">x</button>
                 </div>
                 <div className="modal-body">
-                    <AddPhoto setPhoto={(newPhoto) => props.setPhoto(newPhoto)} closeModal={props.closeModal}/>
+                    <div className="header-accent-color">Limit of 3 specials per day is not enough for you?</div>
+                    <button className="button-long">Upgrade account</button>
                 </div>
             </div>
         </div>

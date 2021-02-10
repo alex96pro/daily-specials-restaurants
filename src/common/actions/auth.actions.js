@@ -21,12 +21,6 @@ export function changeDeliveryCheckbox(payload) {
     return {
         type: CHANGE_DELIVERY_CHECKBOX,
         payload
-    }
-}
-export function logOut(payload) {
-    return {
-        type: LOGOUT,
-        payload
     };
 };
 export function getProfileData(payload) {
@@ -38,6 +32,12 @@ export function getProfileData(payload) {
 export function updateProfile(payload) {
     return {
         type: UPDATE_PROFILE,
+        payload
+    };
+};
+export function logOut(payload) {
+    return {
+        type: LOGOUT,
         payload
     };
 };

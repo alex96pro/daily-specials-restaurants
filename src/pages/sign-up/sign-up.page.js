@@ -1,28 +1,29 @@
 import './sign-up.page.scss';
 import { useForm } from 'react-hook-form';
-import NavBar from '../../components/nav-bar/nav-bar';
-import SubmitButton from '../../components/common/submit-button';
 import { CURRENCY, DISTANCE } from '../../util/consts';
 import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import { changeDeliveryCheckbox } from '../../common/actions/auth.actions';
 import { signUpFirstStepAPI } from '../../common/api/auth.api';
 import { useDispatch, useSelector } from 'react-redux';
+import NavBar from '../../components/nav-bar/nav-bar';
+import SubmitButton from '../../components/common/submit-button';
 import MessageDanger from '../../components/common/message-danger';
 import InputError from '../../components/common/input-error';
 
 export default function SignUpRestaurant() {
 
-    const {register, handleSubmit, errors} = useForm();
     const history = useHistory();
-    const [message, setMessage] = useState('');
     const dispatch = useDispatch();
+    const {register, handleSubmit, errors} = useForm();
+    const [message, setMessage] = useState('');
     const restaurant = useSelector(state => state.authentication.restaurantSignUpInfo);
     const {loadingStatus} = useSelector(state => state.authentication);
 
     const setNewMessage = (newMessage) => {
         setMessage(newMessage);
     };
+    
     const nextStep = (data) => {
         if(data.password !== data.retypePassword){
             setMessage("Passwords don't match");

@@ -22,6 +22,7 @@ export default function Menu() {
             setSelectedCategories(selectedCategories.filter(category => category !== event.target.value));
         }
     };
+
     const setMessages = (message) => {
         setMessageNoCategories({show: true, text: message});
     };
@@ -50,4 +51,4 @@ export default function Menu() {
             {modal && <EditCategoriesModal closeModal={() => setModal(false)}/>}
         </div>
     );
-}
+};
