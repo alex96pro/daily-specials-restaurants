@@ -72,7 +72,7 @@ export default function PostNewSpecialModal(props) {
 
     return (
         <div className="modal">
-            <div className="modal-overlay"></div>
+            <div className="modal-underlay"></div>
             <div className="modal-container" style={{opacity:modalOpacity}}>
                 <div className="modal-header">
                     <button onClick={props.closeModal} className="modal-x">x</button>

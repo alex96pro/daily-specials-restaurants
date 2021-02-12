@@ -69,7 +69,7 @@ export default function EditSpecialModal(props) {
 
     return (
         <div className="modal">
-            <div className="modal-overlay" onClick={props.closeModal}></div>
+            <div className="modal-underlay" onClick={props.closeModal}></div>
             <div className="modal-container" style={{opacity:modalOpacity}}>
                 <div className="modal-header">
                     <button onClick={props.closeModal} className="modal-x">x</button>
