@@ -12,4 +12,17 @@
         background-color: $wrapper-color;
         padding:2rem;  
     }
+    .profile-photo-container{
+        @include flexAlign(row, flex-start, flex-end, nowrap);
+    }
+    .profile-restaurant-logo{
+        margin-top:0.4rem;
+        width:10rem;
+        height:10rem;
+        transition: 0.2s;
+        cursor: pointer;
+        &:hover{
+            opacity: 0.7;
+        }
+    }
 }

@@ -55,7 +55,7 @@ export default function AddPhoto(props){
     <div className="add-photo">
         <div className="crop-container" style={{border: photo ? 'none' : '2px dotted black'}}>
             <Cropper
-                image={photo}
+                image={photo ? photo : props.photo}
                 crop={crop}
                 zoom={zoom}
                 aspect={1 / 1}

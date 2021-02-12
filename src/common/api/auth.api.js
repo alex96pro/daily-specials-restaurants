@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { BACKEND_API } from '../../util/consts';
-import { loadingStatus, signUpNextStep, getProfileData, updateProfile } from '../actions/auth.actions';
+import { successToast } from '../../util/toasts/toasts';
+import { loadingStatus, signUpSecondStep, getProfileData, updateProfile, signUpComplete, disableDelivery, changeWorkingHours } from '../actions/auth.actions';
 
 export function logInAPI(data, loginSuccess, message) {
     return async (dispatch) => {
@@ -36,17 +37,17 @@ export function signUpFirstStepAPI(data, passedFirstStep, message) {
             data.restaurantName = data.restaurantName.trim(); //restaurant name has to be COMPLETLY unique
             let response = await axios.post(`${BACKEND_API}/restaurant-auth/sign-up-first-step`, data);
             if(response.status === 200){
-                dispatch(signUpNextStep(data));
+                dispatch(signUpSecondStep(data));
                 passedFirstStep();
             }
         }catch(err){
             dispatch(loadingStatus(false));
             switch(err.response.status){
                 case 400:
-                    message('Email is already in use');
+                    message('Email is already in use', "email");
                     break;
                 case 401:
-                    message('Restaurant with that name already exists');
+                    message('Restaurant with that name already exists', "name");
                     break;
                 default:
                     message('Server error');
@@ -54,15 +55,16 @@ export function signUpFirstStepAPI(data, passedFirstStep, message) {
         }
     };
 };
-export function finishSignUpAPI(data, passedSecondStep) {
+export function signUpCompleteAPI(data, successfullSignUp) {
     return async (dispatch) => {
         try{
             dispatch(loadingStatus(true));
             let response = await axios.post(`${BACKEND_API}/restaurant-auth/sign-up-complete`, data);
             if(response.status === 200){
-                dispatch(loadingStatus(false));
+                dispatch(signUpComplete());
                 localStorage.clear();
-                passedSecondStep('Successfuly signed up for your restaurant. Please check your e-mail and verify your account');
+                successfullSignUp();
+                successToast(`Successfully registered on Daily specials, please check your email ${data.email} to verify your account`, false);
             }
         }catch(err){
             dispatch(loadingStatus(false));
@@ -173,6 +175,8 @@ export function updateProfileAPI(data, message) {
             let response = await axios.post(`${BACKEND_API}/restaurant-auth/update-profile`, data,
             {headers:{'Authorization':`Basic ${localStorage.getItem("ACCESS_TOKEN_RESTAURANT")}`}});
             dispatch(updateProfile(response.data));
+            successToast('Updated profile!');
+            message('', true);
             localStorage.removeItem('ADDRESS');
             localStorage.removeItem('POSITION');
         }catch(err){
@@ -191,8 +195,9 @@ export function disableDeliveryAPI(data, message) {
             dispatch(loadingStatus(true));
             let response = await axios.post(`${BACKEND_API}/restaurant-auth/disable-delivery`, data,
             {headers:{'Authorization':`Basic ${localStorage.getItem("ACCESS_TOKEN_RESTAURANT")}`}});
-            dispatch(updateProfile(response.data));
-            message('Successfully disabled delivery', true);
+            dispatch(disableDelivery(response.data));
+            message('', true);
+            successToast('Disabled delivery!');
         }catch(err){
             dispatch(loadingStatus(false));
             switch(err.response.status){
@@ -207,4 +212,18 @@ export function disableDeliveryAPI(data, message) {
             }
         }
     }
-}
+};
+export function changeWorkingHoursAPI(data) {
+    return async (dispatch) => {
+        try{
+            dispatch(loadingStatus(true));
+            let response = await axios.post(`${BACKEND_API}/restaurant-auth/change-working-hours/${localStorage.getItem('RESTAURANT_ID')}`, data,
+            {headers:{'Authorization':`Basic ${localStorage.getItem("ACCESS_TOKEN_RESTAURANT")}`}});
+            dispatch(changeWorkingHours(response.data));
+            successToast('Successfully changed!');
+        }catch(err){
+            dispatch(loadingStatus(false));
+            console.log(err);
+        }
+    }
+};

@@ -1,0 +1,16 @@
+@import '../../mixins';
+@import '../../variables';
+
+.map{
+    //@include flexAlign(column, center, flex-start, wrap);
+    .google-maps-container{
+        background-color: white;
+        padding:2rem;
+        position:absolute;
+        top:1rem;
+        transform: translateX(calc(50vw - 50%));
+    }
+    .search-google-maps{
+        width:30rem;
+    }
+}

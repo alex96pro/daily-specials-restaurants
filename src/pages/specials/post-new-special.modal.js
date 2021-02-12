@@ -129,7 +129,7 @@ export default function PostNewSpecialModal(props) {
                 }
                 {showPhotoModal &&
                 <div className="modal-body">
-                    <div><img src={photo} className="meals-menu-show-photo" alt="meal"/></div>
+                    <div><img src={photo} className="special-show-photo" alt="meal"/></div>
                     <button type="button" onClick={() => setShowPhotoModal(false)} className="button-normal">Back</button>
                     <button type="button" onClick={() => {setShowPhotoModal(false); setAddPhotoModal(true);}} className="button-normal">Change</button>
                 </div>

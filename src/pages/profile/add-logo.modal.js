@@ -1,7 +1,13 @@
+// import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
+// import { disableDeliveryAPI } from '../../common/api/auth.api';
+// import { useDispatch, useSelector } from 'react-redux';
+// import SubmitButton from '../../components/common/submit-button';
+// import InputError from '../../components/common/input-error';
+import AddPhoto from '../../components/add-photo/add-photo';
 
-export default function Advertisement(props) {
-
+export default function AddLogoModal(props) {
+    
     const [modalOpacity, setModalOpacity] = useState(0);
 
     useEffect(() => {
@@ -16,8 +22,7 @@ export default function Advertisement(props) {
                     <button onClick={props.closeModal} className="modal-x">x</button>
                 </div>
                 <div className="modal-body">
-                    <div className="header-accent-color">Limit of 3 specials per day is not enough for you?</div>
-                    <button className="button-long">Upgrade account</button>
+                    <AddPhoto setPhoto={props.setPhoto} closeModal={props.closeModal} photo={props.photo}/>
                 </div>
             </div>
         </div>
