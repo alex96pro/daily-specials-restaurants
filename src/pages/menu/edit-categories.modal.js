@@ -48,7 +48,7 @@ export default function EditCategoriesModal(props) {
                 }
             }
         }
-        dispatch(deleteCategoryAPI(data.category, props.closeModal));
+        dispatch(deleteCategoryAPI(data.category));
         setDeleteWarning(false);
     };
 
@@ -80,7 +80,7 @@ export default function EditCategoriesModal(props) {
                             </select>
                             <SubmitButton small={true} loadingStatus={loadingStatus} text='Delete'/>
                             {deleteWarning &&
-                            <div className="label-accent-color">
+                            <div className="message-danger">
                                 You have meals in this category. Deleting category will result in affected meals having no category
                                 <div>
                                     <SubmitButton small={true} loadingStatus={loadingStatus} text='Delete'/>

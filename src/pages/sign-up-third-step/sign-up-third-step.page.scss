@@ -1,0 +1,19 @@
+@import '../../mixins';
+@import '../../variables';
+
+.sign-up-third-step{
+    @include flexAlign(column, center, center, nowrap);
+    .working-hours-container{
+        @include flexAlign(column, center, center, nowrap);
+        background-color: $wrapper-color;
+        padding:2rem;
+        transform: translateY(calc(50vh - 50% - 6rem));
+    }
+    .working-hours-row{
+        @include flexAlign(row, space-between, center, nowrap);
+        margin:0rem 0.2rem;
+    }
+    .working-hours-checkbox{
+        margin: 0rem 2rem;
+    }
+}

@@ -1,6 +1,7 @@
 @import '../../_variables.scss';
 @import '../../_mixins.scss';
 nav{
+
     background-color:rgba($color:$accent-color-2, $alpha: 0.9);
     height:6rem;
     width:100%;
@@ -46,6 +47,56 @@ nav{
     .nav-container{
         @include flexAlign(row, flex-end, center, wrap);
         height:100%;
+    }
+    .drop-down{
+        position: absolute;
+        border-radius: 0;
+        top:6.2rem;
+        background-color: $accent-color-2;
+    }
+    .drop-down-item{
+        width:100%;
+        padding:1rem 2rem;
+        color:white;
+        background-color: inherit;
+        border-radius: 0;
+        font-size:1.8rem;
+        cursor: pointer;
+        &:hover{
+            background-color: $accent-color;
+        }
+    }
+    .drop-down-underlay{
+        position: absolute;
+        top:0rem;
+        left:0rem;
+        width:100vw;
+        height:100vh;
+    }
+    .fa-bars{
+        color:white;
+        top:0rem;
+        left:0rem;
+        margin:0rem 2rem;
+        cursor: pointer;
+        &:hover{
+            color: $accent-color;
+        }
+    }
+    .nav-restaurant-logo-container{
+        position: relative;
+        margin:0rem 2rem;
+    }
+    .nav-restaurant-logo{
+        width:5rem;
+        height:5rem;
+        cursor: pointer;
+    }
+    .bar-over-image{
+        position: absolute;
+        top:80%;
+        left:80%;
+        margin:0rem;
     }
     .logo{
         position: absolute;

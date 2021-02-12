@@ -39,7 +39,7 @@ export default function Menu() {
                     <div className="menu-side-bar-header">Meal categories</div>
                     <button onClick={() => setModal(true)} type="button" className="button-long">Edit categories</button>
                     <div className="menu-categories">
-                    {messageNoCategories.show && <MessageDanger text={messageNoCategories.text}/>}
+                    {messageNoCategories.show && categories.length === 0 && <MessageDanger text={messageNoCategories.text}/>}
                         {categories.map((category, index) => <div className="menu-category" key={index}>
                             <input type="checkbox" value={category} onChange={addCategory}/>{category}
                         </div>)}

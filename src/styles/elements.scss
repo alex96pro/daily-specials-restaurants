@@ -66,6 +66,14 @@ input[type=text], input[type=password], input[type=email]{
 input[type=checkbox]{
     height:1.8rem;
     width:1.8rem;
+    margin:0rem 1rem;
+}
+input[type=time]{
+    padding:0.8rem;
+    margin:0.4rem;
+    font-size:1.8rem;
+    color:$accent-color;
+    border:1px solid $accent-color;
 }
 textarea{
     @extend input[type=text];
@@ -115,4 +123,7 @@ select, option{
 .header-accent-color-2{
     @extend .header-white;
     color:$accent-color-2;
+}
+.checkbox-margined{
+    margin: 0rem 2rem;
 }

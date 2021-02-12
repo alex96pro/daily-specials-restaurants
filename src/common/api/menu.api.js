@@ -63,14 +63,13 @@ export function deleteMenuMealAPI(mealId, closeModal) {
         }
     }
 };
-export function addCategoryAPI(category, closeModal) {
+export function addCategoryAPI(category) {
     return async (dispatch) => {
         try{
             dispatch(loadingStatus(true));
             let response = await axios.post(`${BACKEND_API}/restaurant-menu/add-category`,{category:category},
             {headers:{'Authorization':`Basic ${localStorage.getItem("ACCESS_TOKEN_RESTAURANT")}`}});
             dispatch(addCategory(response.data));
-            closeModal();
             successToast('Successfully added!');
         }catch(err){
             dispatch(loadingStatus(false));
@@ -78,14 +77,13 @@ export function addCategoryAPI(category, closeModal) {
         }
     }
 };
-export function deleteCategoryAPI(category, closeModal) {
+export function deleteCategoryAPI(category) {
     return async (dispatch) => {
         try{
             dispatch(loadingStatus(true));
             let response = await axios.delete(`${BACKEND_API}/restaurant-menu/delete-category/${category}`,
             {headers:{'Authorization':`Basic ${localStorage.getItem("ACCESS_TOKEN_RESTAURANT")}`}});
             dispatch(deleteCategory(response.data));
-            closeModal();
             successToast('Successfully deleted!');
         }catch(err){
             dispatch(loadingStatus(false));

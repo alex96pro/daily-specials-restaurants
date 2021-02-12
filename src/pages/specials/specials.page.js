@@ -9,7 +9,6 @@ import Label from '../../components/common/label';
 import PostNewSpecialModal from './post-new-special.modal';
 import ConfirmDeleteModal from './confirm-delete.modal';
 import EditSpecialModal from './edit-special.modal';
-import Advertisement from './advertisement.modal';
 
 export default function Specials() {
 
@@ -19,17 +18,10 @@ export default function Specials() {
     const [postNewSpecialModal, setPostNewSpecialModal] = useState(false);
     const [confirmDeleteModal, setConfirmDeleteModal] = useState({show:false, special:{}});
     const [editSpecialModal, setEditSpecialModal] = useState({show: false, special: {}});
-    const [advertisement, setAdvertisement] = useState(false);
 
     useEffect(() => {
         dispatch(getSpecialsAPI());
         setDate(getTodayDate());
-        if(!localStorage.getItem("ADVERTISEMENT_SET")){
-            setTimeout(() => {
-                setAdvertisement(true);
-                localStorage.setItem("ADVERTISEMENT_SET", true);
-            }, 7000);
-        }
     },[dispatch]);
 
     return (
@@ -66,7 +58,6 @@ export default function Specials() {
             {postNewSpecialModal && <PostNewSpecialModal closeModal={() => setPostNewSpecialModal(false)}/>}
             {confirmDeleteModal.show && <ConfirmDeleteModal special={confirmDeleteModal.special} closeModal={() => setConfirmDeleteModal({show: false, special:{}})}/>}
             {editSpecialModal.show && <EditSpecialModal special={editSpecialModal.special} closeModal={() => setEditSpecialModal({show: false, special: {}})}/>}
-            {advertisement && <Advertisement closeModal={() => setAdvertisement(false)}/>}
         </div>
     );
 }

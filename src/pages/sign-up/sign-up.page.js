@@ -8,33 +8,40 @@ import { signUpFirstStepAPI } from '../../common/api/auth.api';
 import { useDispatch, useSelector } from 'react-redux';
 import NavBar from '../../components/nav-bar/nav-bar';
 import SubmitButton from '../../components/common/submit-button';
-import MessageDanger from '../../components/common/message-danger';
 import InputError from '../../components/common/input-error';
 
-export default function SignUpRestaurant() {
+export default function SignUp() {
 
     const history = useHistory();
     const dispatch = useDispatch();
     const {register, handleSubmit, errors} = useForm();
-    const [message, setMessage] = useState('');
+    const [messageName, setMessageName] = useState('');
+    const [messageEmail, setMessageEmail] = useState('');
+    const [messagePasswords, setMessagePasswords] = useState('');
     const restaurant = useSelector(state => state.authentication.restaurantSignUpInfo);
     const {loadingStatus} = useSelector(state => state.authentication);
 
-    const setNewMessage = (newMessage) => {
-        setMessage(newMessage);
+    const setNewMessage = (newMessage, type) => {
+        if(type === "name"){
+            setMessageName(newMessage);
+            setMessageEmail('');
+        }else if(type === "email"){
+            setMessageEmail(newMessage);
+            setMessageName('');
+        }
     };
     
-    const nextStep = (data) => {
+    const secondStep = (data) => {
         if(data.password !== data.retypePassword){
-            setMessage("Passwords don't match");
+            setMessagePasswords("Passwords don't match");
         }else{
-            setMessage('');
+            setMessagePasswords('');
             dispatch(signUpFirstStepAPI(data, passedFirstStep, setNewMessage));
         }
     };
 
     const passedFirstStep = () => {
-        history.push('/pick-location');
+        history.push('/sign-up-second-step');
     };
 
     const changeDelivery = (event) => {
@@ -51,14 +58,16 @@ export default function SignUpRestaurant() {
             <div className="sign-up-restaurant-container">
                 <div className="form-container">
                 <div className="sign-up-restaurant-header">Create account for your restaurant</div>
-                    <form onSubmit={handleSubmit(nextStep)}>
+                    <form onSubmit={handleSubmit(secondStep)}>
                         <div className="label-accent-color">Restaurant Name</div>
                         <input type="text" name="restaurantName" ref={register({required:true})} defaultValue={restaurant.restaurantName}/>
                         {errors.restaurantName && <InputError text="Name is required"/>}
+                        {messageName && <InputError text={messageName}/>}
 
                         <div className="label-accent-color">Email</div>
                         <input type="email" name="email" ref={register({required:true})} defaultValue={restaurant.email}/>
                         {errors.email && <InputError text="Email is required"/>}
+                        {messageEmail && <InputError text={messageEmail}/>}
 
                         <div className="label-accent-color">Phone</div>
                         <input type="text" name="phone" ref={register({required:true, pattern: /^\d+$/})} defaultValue={restaurant.phone}/>
@@ -83,14 +92,15 @@ export default function SignUpRestaurant() {
                         <div className="label-accent-color">Password</div>
                         <input type="password" name="password" ref={register({required:true})} defaultValue={restaurant.password}/>
                         {errors.password && <InputError text="Password is required"/>}
+                        {messagePasswords && <InputError text={messagePasswords}/>}
 
                         <div className="label-accent-color">Retype password</div>
                         <input type="password" name="retypePassword" ref={register({required:true})} defaultValue={restaurant.retypePassword}/>
                         {errors.retypePassword && <InputError text="Retype your password"/>}
+                        {messagePasswords && <InputError text={messagePasswords}/>}
 
                         <SubmitButton text={'Next step'} loadingStatus={loadingStatus}/>
                     </form>
-                    {message && <MessageDanger text={message}/>}
                 </div>
                 <div className="label-accent-color">Already have an account?
                 <button type="button" onClick={() => history.push('/login')} className="button-link">Log In</button></div>

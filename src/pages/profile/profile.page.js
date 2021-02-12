@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateProfileAPI } from '../../common/api/auth.api';
 import {DISTANCE, CURRENCY} from '../../util/consts';
 import NavBar from '../../components/nav-bar/nav-bar';
-import ChangePasswordModal from './change-password.modal';
 import DisableDeliveryModal from './disable-delivery.modal';
+import AddLogoModal from './add-logo.modal';
 import GoogleAutocomplete from '../../components/common/google-autocomplete';
 import SubmitButton from '../../components/common/submit-button';
 import InputError from '../../components/common/input-error';
@@ -16,14 +16,18 @@ export default function Profile() {
     const dispatch = useDispatch();
     const {restaurant, loadingStatus} = useSelector(state => state.authentication);
     const {register, handleSubmit, errors} = useForm({defaultValues:{name: restaurant.name, phone: restaurant.phone, deliveryMinimum: restaurant.deliveryMinimum, deliveryRange: restaurant.deliveryRange}});
-    const [changePasswordModal, setChangePasswordModal] = useState(false);
     const [disableDeliveryModal, setDisableDeliveryModal] = useState(false);
     const [messageAddress, setMessageAddress] = useState('');
     const [messageName, setMessageName] = useState('');
     const [enabledDelivery, setEnabledDelivery] = useState(false);
+    const [addLogoModal, setAddLogoModal] = useState(false);
+    const [photo, setPhoto] = useState('');
 
-    const setNewMessageName = (newMessage) => {
+    const setNewMessageName = (newMessage, success = false) => {
         setMessageName(newMessage);
+        if(success){
+            setPhoto('');
+        }
     };
 
     const updateProfile = (data) => {
@@ -35,6 +39,10 @@ export default function Profile() {
             document.getElementById('search-google-maps').value = '';
         }else{
             setMessageAddress('');
+            data.logo = restaurant.logo; //restaurant already has logo or has no logo at all (null)
+            if(photo){
+                data.newLogo = photo; //restaurant set new logo
+            }
             dispatch(updateProfileAPI(data, setNewMessageName));
         }
     };
@@ -54,31 +62,31 @@ export default function Profile() {
                 <div className="header-accent-color">Your restaurant profile</div>
                 <div className="profile-info">
                     <form onSubmit={handleSubmit(updateProfile)}>
-                        <div className="label-accent-color">
+                        <div className="label-accent-color-2">
                             Name:
                             <input type="text" name="name" ref={register({required:true})}></input>
                             {messageName && <InputError text={messageName}/>}
                             {errors.name && <InputError text='Name is required'/>}
                         </div>
-                        <div className="label-accent-color">
+                        <div className="label-accent-color-2">
                             Location:
                             <GoogleAutocomplete placeholder={restaurant.location}/>
                         </div>
                         {messageAddress && <InputError text={messageAddress}/>}
-                        <div className="label-accent-color">
+                        <div className="label-accent-color-2">
                             Phone: 
                             <input type="text" name="phone" ref={register({required:true, pattern: /^\d+$/})}></input>
                             {errors.phone && errors.phone.type ==="required" && <InputError text='Phone is required'/>}
                             {errors.phone && errors.phone.type ==="pattern" && <InputError text='Phone number can contain numbers only'/>}
                         </div>
                         {!restaurant.delivery &&
-                            <div className="label-accent-color">
+                            <div className="label-accent-color-2">
                                 Enable delivery<input type="checkbox" name="delivery" ref={register()} value={enabledDelivery} onChange={enableDelivery}/>
                             </div>
                         }
                         {(restaurant.delivery || enabledDelivery ) &&
                         <React.Fragment> 
-                            <div className="label-accent-color">
+                            <div className="label-accent-color-2">
                                 Delivery minimum: ({CURRENCY})
                             </div>
                             <div>
@@ -86,23 +94,34 @@ export default function Profile() {
                                 ref={register({required: enabledDelivery ? true : false})} step="0.01"></input>
                                 {errors.deliveryMinimum && <InputError text='Delivery minimum is required'/>}
                             </div>
-                            <div className="label-accent-color">
+                            <div className="label-accent-color-2">
                                 Delivery range: ({DISTANCE})
                             </div>
                             <div>
                                 <input type="number" name="deliveryRange" 
                                 ref={register({required: enabledDelivery ? true : false, min: 1})} step="0.1"></input>
                                 {errors.deliveryRange && <InputError text='Delivery range is required'/>}
-                            </div> 
+                            </div>
                         </React.Fragment>
+                        }
+                        {(restaurant.logo || photo ) ?
+                            <React.Fragment>
+                                <div className="label-accent-color-2">Logo</div>
+                                <img src={photo ? photo : restaurant.logo} alt="Loading..." className="profile-restaurant-logo"
+                                onClick={() => setAddLogoModal(true)}/>
+                            </React.Fragment>
+                            :
+                            <div>
+                                <label className="label-accent-color">Your restaurant has no logo</label>
+                                <button type="button" onClick={() => setAddLogoModal(true)} className="button-small">Add logo</button>
+                            </div>
                         }
                         <SubmitButton loadingStatus={loadingStatus} text='Save changes'/>
                     </form>
                 </div>
                 <button className="button-link" type="button" onClick={() => setDisableDeliveryModal(true)}>Disable delivery</button>
-                <button className="button-link" type="button" onClick={() => setChangePasswordModal(true)}>Change password</button>
             </div>
-            {changePasswordModal && <ChangePasswordModal closeModal={() => setChangePasswordModal(false)}/>}
+            {addLogoModal && <AddLogoModal photo={restaurant.logo ? restaurant.logo : ''} setPhoto={(photo) => setPhoto(photo)} closeModal={() => setAddLogoModal(false)}/>}
             {disableDeliveryModal && <DisableDeliveryModal closeModal={() => setDisableDeliveryModal(false)} hideDeliveryFields={() => setEnabledDelivery(false)}/>}
         </div>
     );

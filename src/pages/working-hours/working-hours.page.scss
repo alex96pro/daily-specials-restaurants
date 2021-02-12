@@ -1,0 +1,13 @@
+@import '../../mixins';
+@import '../../variables';
+
+.working-hours{
+    @include flexAlign(column, center, center, nowrap);
+    .working-hours-container{
+        @include flexAlign(column, center, center, nowrap);
+        transform: translateY(calc(50vh - 50% - 6rem));
+        padding:2rem;
+        width:40rem;
+        background-color: $wrapper-color;
+    }
+}

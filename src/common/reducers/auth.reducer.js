@@ -11,7 +11,10 @@ const initialState = {
         deliveryMinimum: '',
         password: '',
         retypePassword: '',
-        firstStepSuccess: false
+        firstStepSuccess: false,
+        location:'',
+        lat:'',
+        lon:''
     },
     restaurant:{}
 };
@@ -23,13 +26,26 @@ export default function authReducer(state = initialState, action) {
                 ...state,
                 loadingStatus: action.payload
             };
-        case ACTIONS.SIGN_UP_NEXT_STEP:
+        case ACTIONS.SIGN_UP_SECOND_STEP:
             return{
                 ...state,
-                restaurantSignUpInfo: {...action.payload, firstStepSuccess: true},
+                restaurantSignUpInfo: {...action.payload, firstStepSuccess: true, location:'', lat:'', lon:''},
                 loadingStatus: false,
                 signUpMessage:''
             };
+        case ACTIONS.SIGN_UP_THIRD_STEP:
+            return{
+                ...state,
+                restaurantSignUpInfo: {
+                    ...state.restaurantSignUpInfo, 
+                    location: action.payload.location,
+                    lat: action.payload.position.lat,
+                    lon: action.payload.position.lon
+                }
+            };
+        case ACTIONS.SIGN_UP_COMPLETE:
+            return initialState;
+
         case ACTIONS.CHANGE_DELIVERY_CHECKBOX:
             return{
                 ...state,
@@ -48,8 +64,39 @@ export default function authReducer(state = initialState, action) {
             return{
                 ...state,
                 loadingStatus: false,
-                restaurant: action.payload
+                restaurant: {
+                    ...state.restaurant,
+                    name: action.payload.name,
+                    location: action.payload.location,
+                    lat: action.payload.lat,
+                    lon: action.payload.lon,
+                    delivery: action.payload.delivery,
+                    deliveryRange: action.payload.deliveryRange,
+                    deliveryMinimum: action.payload.deliveryMinimum,
+                    phone: action.payload.phone,
+                    logo: action.payload.logo
+                }
             };
+        case ACTIONS.CHANGE_WORKING_HOURS:
+            return{
+                ...state,
+                loadingStatus: false,
+                restaurant: {
+                    ...state.restaurant,
+                    workingHours: action.payload
+                }
+            };
+        case ACTIONS.DISABLE_DELIVERY:
+            return{
+                ...state,
+                loadingStatus: false,
+                restaurant: {
+                    ...state.restaurant,
+                    delivery: action.payload.delivery,
+                    deliveryRange: action.payload.deliveryRange,
+                    deliveryMinimum: action.payload.deliveryMinimum
+                }
+            }
         default:
             return state;
     }
