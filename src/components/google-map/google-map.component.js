@@ -7,7 +7,7 @@ export default function GoogleMap() {
     useEffect(() => {
         const googleMapsScript = document.getElementById('google-maps-script');
         if(googleMapsScript){
-            //WHEN SCRIPT IS ALREADY LOADED IT WONT SHOW UNTIL REFRESH
+            //WHEN SCRIPT IS ALREADY LOADED MAP WON'T SHOW UNTIL REFRESH
             history.go(0);
         }
     // eslint-disable-next-line    
