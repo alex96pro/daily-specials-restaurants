@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { BACKEND_API } from '../../util/consts';
 import { successToast } from '../../util/toasts/toasts';
-import { getClientDate } from '../../util/functions';
+import { getClientDate, compressPhoto } from '../../util/functions';
 import { loadingStatus, getSpecials, addNewSpecial, deleteSpecial, editSpecial } from '../actions/specials.actions';
 
 export function getSpecialsAPI() {
@@ -21,12 +21,18 @@ export function addNewSpecialAPI(data, closeModal) {
     return async (dispatch) => {
         try{
             dispatch(loadingStatus(true));
-            data.date = getClientDate(); //set date to client date
-            let response = await axios.post(`${BACKEND_API}/restaurant-specials/add-new-special/${localStorage.getItem('RESTAURANT_ID')}`,data,
-            {headers:{'Authorization':`Basic ${localStorage.getItem("ACCESS_TOKEN_RESTAURANT")}`}});
-            dispatch(addNewSpecial(response.data));
-            closeModal();
-            successToast('Successfully added!');
+            data.photo = await compressPhoto(data.photo);
+            if(data.photo){ //successfully compressed
+                data.date = getClientDate(); //set date to client date
+                let response = await axios.post(`${BACKEND_API}/restaurant-specials/add-new-special/${localStorage.getItem('RESTAURANT_ID')}`,data,
+                {headers:{'Authorization':`Basic ${localStorage.getItem("ACCESS_TOKEN_RESTAURANT")}`}});
+                dispatch(addNewSpecial(response.data));
+                closeModal();
+                successToast('Successfully added!');
+            }else{
+                dispatch(loadingStatus(false));
+                console.log("COMPRESSION FAILED");
+            }
         }catch(err){
             dispatch(loadingStatus(false));
             console.log(err);

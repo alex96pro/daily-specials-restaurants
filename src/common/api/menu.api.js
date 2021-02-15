@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { BACKEND_API } from '../../util/consts';
 import { successToast } from '../../util/toasts/toasts';
+import { compressPhoto } from '../../util/functions';
 import { loadingStatus, getMenu, addNewMeal, editMeal, deleteMeal, addCategory, deleteCategory } from '../actions/menu.actions';
 
 export function getMenuAPI(message) {
@@ -22,12 +23,20 @@ export function addNewMealAPI(data, closeModal) {
     return async (dispatch) => {
         try{
             dispatch(loadingStatus(true));
-            data.restaurantId = localStorage.getItem('RESTAURANT_ID');
-            let response = await axios.post(`${BACKEND_API}/restaurant-menu/add-new-meal`,data,
-            {headers:{'Authorization':`Basic ${localStorage.getItem("ACCESS_TOKEN_RESTAURANT")}`}});
-            dispatch(addNewMeal(response.data));
-            closeModal();
-            successToast('Successfully added!');
+            // console.log(performance.now());
+            data.photo = await compressPhoto(data.photo);
+            // console.log(performance.now());
+            if(data.photo){ //successfully compressed
+                data.restaurantId = localStorage.getItem('RESTAURANT_ID');
+                let response = await axios.post(`${BACKEND_API}/restaurant-menu/add-new-meal`,data,
+                {headers:{'Authorization':`Basic ${localStorage.getItem("ACCESS_TOKEN_RESTAURANT")}`}});
+                dispatch(addNewMeal(response.data));
+                closeModal();
+                successToast('Successfully added!');
+            }else{
+                dispatch(loadingStatus(false));
+                console.log("COMPRESSION FAILED");
+            }
         }catch(err){
             console.log(err);
         }
@@ -37,6 +46,14 @@ export function editMenuMealAPI(data, closeModal) {
     return async (dispatch) => {
         try{
             dispatch(loadingStatus(true));
+            if(data.newPhoto){
+                data.newPhoto = await compressPhoto(data.newPhoto);
+                if(!data.newPhoto){
+                    console.log("COMPRESSION FAILED");
+                    dispatch(loadingStatus(false));
+                    return;
+                }
+            }
             let response = await axios.post(`${BACKEND_API}/restaurant-menu/edit-menu-meal`, data,
             {headers:{'Authorization':`Basic ${localStorage.getItem("ACCESS_TOKEN_RESTAURANT")}`}});
             dispatch(editMeal(response.data));

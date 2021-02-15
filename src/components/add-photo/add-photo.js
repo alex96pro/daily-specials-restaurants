@@ -1,9 +1,9 @@
+import './add-photo.scss';
 import React, { useState, useCallback } from 'react';
-import Slider from '@material-ui/lab/Slider'
+import Slider from '@material-ui/lab/Slider';
 import Cropper from 'react-easy-crop';
 import getCroppedImg from './crop-image';
-import UploadIcon from '../../images/upload-icon.png';
-import './add-photo.scss';
+import Loader from '../../components/common/loader';
 
 export default function AddPhoto(props){
 
@@ -13,10 +13,22 @@ export default function AddPhoto(props){
     // eslint-disable-next-line
     const [rotation, setRotation] = useState(0);
     const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+    const [message, setMessage] = useState('');
+    const [loadingStatus, setLoadingStatus] = useState(false);
   
     const changePhoto = (event) => {
         const file = event.target.files[0];
+        const acceptedFiles = ["image/jpeg", "image/jpg", "image/png"];
         if(file){
+            if(!acceptedFiles.includes(file.type)){
+                setMessage('Only jpeg, jpg or png photos allowed');
+                return;
+            }
+            if(Math.trunc(file.size / 1024 / 1024) >= 10){
+                setMessage('Maximal photo size is 10MB');
+                return;
+            }
+            setMessage('');
             const reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onloadend = () => {
@@ -28,11 +40,13 @@ export default function AddPhoto(props){
     const showCroppedImage = useCallback(async () => {
         try {
             if(photo){
+                setLoadingStatus(true);
                 const croppedImage = await getCroppedImg(
                     photo,
                     croppedAreaPixels,
                     rotation
                 );
+                setLoadingStatus(false);
                 props.setPhoto(croppedImage);
                 props.closeModal();
             }
@@ -77,12 +91,13 @@ export default function AddPhoto(props){
             />
         </div>    
             
-        <input type="file" id="file" onChange={changePhoto} className="input-file"/>
+        <input type="file" accept="image/jpeg, image/jpg, image/png" id="file" onChange={changePhoto} className="input-file"/>
         <label htmlFor="file" className="input-file-button">
-            <img src={UploadIcon} alt="upload" className="upload-icon"/>
+            <i className="fas fa-cloud-upload-alt fa-1x"></i>
             Choose a photo
         </label>
-        <button onClick={showCroppedImage} className="input-file-button">Done</button>
+        <button onClick={showCroppedImage} className="input-file-button" disabled={loadingStatus}>{loadingStatus ? <Loader small={true}/> : 'Done'}</button>
+        <div className="add-photo-error">{message}</div>
     </div>
     )
 };

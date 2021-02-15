@@ -52,7 +52,7 @@ export default function AddMealModal(props) {
         setTags(tags.filter(tagItem => tagItem !== tag));
     };
 
-    const addNewMeal = (data) => {
+    const addNewMeal = async (data) => {
         data.name = data.name.trim();
         for(let i = 0; i < meals.length; i++){
             if(meals[i].name === data.name){
