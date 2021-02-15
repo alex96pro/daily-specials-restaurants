@@ -7,7 +7,7 @@ import MessageDanger from '../../components/common/message-danger';
 export default function ConfirmDelete(props) {
 
     const [modalOpacity, setModalOpacity] = useState(0);
-    const {loadingStatus} = useSelector(state => state.menu);
+    const {loadingStatus} = useSelector(state => state.specials);
     const dispatch = useDispatch();
 
     const deleteMeal = () => {
