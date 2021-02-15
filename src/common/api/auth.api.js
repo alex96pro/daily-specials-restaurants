@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { BACKEND_API } from '../../util/consts';
 import { successToast } from '../../util/toasts/toasts';
+import { compressPhoto } from '../../util/functions';
 import { loadingStatus, signUpSecondStep, getProfileData, updateProfile, signUpComplete, disableDelivery, changeWorkingHours } from '../actions/auth.actions';
 
 export function logInAPI(data, loginSuccess, message) {
@@ -161,6 +162,7 @@ export function changePasswordAPI(data, message) {
 export function updateProfileAPI(data, message) {
     return async (dispatch) => {
         try{
+            dispatch(loadingStatus(true));
             data.name = data.name.trim() // restaurant name has to be COMPLETLY unique
             data.location = localStorage.getItem('ADDRESS');
             let position = JSON.parse(localStorage.getItem('POSITION'));
@@ -171,7 +173,14 @@ export function updateProfileAPI(data, message) {
                 data.lat = null;
                 data.lon = null;
             }
-            dispatch(loadingStatus(true));
+            if(data.newLogo){
+                data.newLogo = await compressPhoto(data.newLogo);
+                if(!data.newLogo){
+                    console.log("COMPRESSION FAILED");
+                    dispatch(loadingStatus(false));
+                    return;
+                }
+            }
             let response = await axios.post(`${BACKEND_API}/restaurant-auth/update-profile`, data,
             {headers:{'Authorization':`Basic ${localStorage.getItem("ACCESS_TOKEN_RESTAURANT")}`}});
             dispatch(updateProfile(response.data));

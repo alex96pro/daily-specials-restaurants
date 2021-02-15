@@ -3,7 +3,7 @@
 
 .add-photo{
     text-align: center;
-    height: 42rem;
+    height: 44rem;
     
     .crop-container{
         border-radius: 0;
@@ -31,12 +31,14 @@
             background-color: $accent-color-2;
         }
     }
-    .upload-icon{
+    .fa-cloud-upload-alt{
+        margin:0rem 0.4rem;
+    }
+    .add-photo-error{
         position: relative;
-        top:0.5rem;
-        right:0.5rem;
-        margin-left:0.5rem;
-        width:2.5rem;
-        height:2.5rem;
+        bottom:2.5rem;
+        color:$danger-color;
+        font-size:1.6rem;
+        font-weight: bold;
     }
 }
