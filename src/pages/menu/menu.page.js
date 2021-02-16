@@ -6,11 +6,12 @@ import NavBar from '../../components/nav-bar/nav-bar';
 import MealsMenu from '../../components/meals-menu/meals-menu.component';
 import MessageDanger from '../../components/common/message-danger';
 import EditCategoriesModal from './edit-categories.modal';
+import Loader from '../../components/common/loader';
 
 export default function Menu() {
 
     const dispatch = useDispatch();
-    const {meals, categories, message} = useSelector(state => state.menu);
+    const {meals, categories, message, loadingStatus} = useSelector(state => state.menu);
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [modal, setModal] = useState(false);
     const [messageNoCategories, setMessageNoCategories] = useState({show: false, text:''});
@@ -34,6 +35,8 @@ export default function Menu() {
     return (
         <div className="menu">
             <NavBar loggedIn={true}/>
+            {loadingStatus ? <Loader className="loader-center"/>
+            :
             <div className="menu-container">
                 <div className="menu-side-bar">
                     <div className="menu-side-bar-header">Meal categories</div>
@@ -48,6 +51,7 @@ export default function Menu() {
                 <MealsMenu meals={meals} categories={categories} selectedCategories={selectedCategories}/>
                 {message && <div className="header-accent-color">{message}</div>}      
             </div>
+            }
             {modal && <EditCategoriesModal closeModal={() => setModal(false)}/>}
         </div>
     );

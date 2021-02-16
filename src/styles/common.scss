@@ -31,6 +31,13 @@ body{
     height:8rem;
     margin:1rem;
 }
+.loader-center{
+    width:8rem;
+    height:8rem;
+    position:absolute;
+    margin:auto;
+    top: 0; left: 0; bottom: 0; right: 0;
+}
 .loader-small{
     width:1.5rem;
     height:1.5rem;

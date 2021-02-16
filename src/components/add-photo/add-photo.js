@@ -96,7 +96,7 @@ export default function AddPhoto(props){
             <i className="fas fa-cloud-upload-alt fa-1x"></i>
             Choose a photo
         </label>
-        <button onClick={showCroppedImage} className="input-file-button" disabled={loadingStatus}>{loadingStatus ? <Loader small={true}/> : 'Done'}</button>
+        <button onClick={showCroppedImage} className="input-file-button" disabled={loadingStatus}>{loadingStatus ? <Loader className="loader-small"/> : 'Done'}</button>
         <div className="add-photo-error">{message}</div>
     </div>
     )
