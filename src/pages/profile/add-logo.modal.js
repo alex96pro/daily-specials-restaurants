@@ -22,7 +22,7 @@ export default function AddLogoModal(props) {
                     <button onClick={props.closeModal} className="modal-x">x</button>
                 </div>
                 <div className="modal-body">
-                    <AddPhoto setPhoto={props.setPhoto} closeModal={props.closeModal} photo={props.photo}/>
+                    <AddPhoto setPhoto={props.setPhoto} closeModal={props.closeModal}/>
                 </div>
             </div>
         </div>
