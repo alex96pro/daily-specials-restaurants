@@ -33,6 +33,9 @@ export default function EditCategoriesModal(props) {
         }else if(newCategoryTrimmed.length > 50){
             setMessage('Categories are limited to 50 characters');
         }
+        else if(newCategoryTrimmed.includes(',')){
+            setMessage("Categories can't contain sign ','");
+        }
         else{
             dispatch(addCategoryAPI(newCategoryTrimmed, props.closeModal));
             setMessage('');

@@ -35,7 +35,7 @@ export default function Menu() {
     return (
         <div className="menu">
             <NavBar loggedIn={true}/>
-            {loadingStatus ? <Loader className="loader-center"/>
+            {(loadingStatus && meals.length === 0 ) ? <Loader className="loader-center"/>
             :
             <div className="menu-container">
                 <div className="menu-side-bar">

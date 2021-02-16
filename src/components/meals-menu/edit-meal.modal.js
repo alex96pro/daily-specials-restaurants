@@ -48,7 +48,10 @@ export default function EditMealModal(props) {
             }else{
                 setTagMessage('Tag already exists');
             }
-        }else{
+        }else if(newTagTrimmed.includes(',')){
+            setTagMessage("Tags can't contain sign ','");
+        }
+        else{
             setTags([...tags, newTagTrimmed]);
             setTagMessage('');
         }  

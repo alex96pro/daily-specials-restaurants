@@ -28,7 +28,7 @@ export default function Specials() {
     return (
         <div className="specials">
             <NavBar loggedIn={true}/>
-                {loadingStatus ? <Loader className="loader-center"/>
+                {(loadingStatus && specials.length === 0) ? <Loader className="loader-center"/>
                 :
                 <React.Fragment>
                     <div className="header-accent-color">Specials for day {date}</div>
