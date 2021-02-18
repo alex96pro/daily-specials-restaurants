@@ -2,35 +2,74 @@
 @import '../../variables';
 
 .meals-menu{
-    width:70%;
-    .meals-menu-meal{
-        @include flexAlign(row, space-between, center, wrap);
-        background-color: $wrapper-color;
-        padding:1rem;
-        margin:1rem 0rem;
-    }
-    .meals-menu-container-1{
-        width:60%;
-    }
-    .meals-menu-container-2{
-        @include flexAlign(column, center, center, nowrap);
-    }
-    .meals-menu-buttons{
-        margin: 1rem 0rem;
-    }
-    .meals-menu-header{
+    @include flexAlign(row, flex-start, center, wrap);
+    width: 70vw;
+    margin-left:25vw;
+    .meals-menu-add-meal{
         width:100%;
-        text-align: center;
         font-size:3rem;
         color:$accent-color;
-        margin-top:2rem;
+        margin:1.5rem 0rem;
     }
-    .meals-menu-photo{
-        width:22rem;
-        height:22rem;
+    .menu-meal{
+        @include flexAlign(column, flex-end, center, nowrap);
+        position: relative; // this is not needed when container is flex, his child with absolute position will position relative to flex container
+        background-color: $wrapper-color;
+        margin:0rem 0.2rem 0.4rem 0.2rem;
+        border-radius: 0;
     }
-    .meals-menu-show-photo{
+    .menu-meal-header{
         width:100%;
-        height:100%;
+        @include flexAlign(row, space-between, center, nowrap);
+        padding:0.4rem 0.4rem;
+    }
+    .menu-meal-header-icons{
+        @extend .menu-meal-header;
+        justify-content: flex-end;
+    }
+    .menu-meal-name{
+        color:$accent-color;
+        font-size:1.8rem;
+    }
+    .menu-meal-price{
+        color:darkorange;
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin-left:0.2rem;
+    }
+    .menu-meal-photo{
+        width: 25rem;
+        height: 25rem;
+        transition: 0.2s;
+        border-radius: 0;
+        cursor: pointer;
+    }
+    .menu-meal-hidden-description{
+        opacity:0;
+        position: absolute;
+        @include flexAlign(row,center,center,wrap);
+        background-color: rgba($color: $accent-color, $alpha: 0.8);
+        width: 25rem;
+        height: 25rem;
+        text-align: center;
+        transition: 0.2s;
+        border-radius: 0;
+        cursor: pointer;
+    }
+    .menu-meal-description{
+        font-size: 1.8rem;
+        color:white;
+    }
+    .add-meal-photo-container, .edit-meal-photo-container{
+        text-align: center;
+        margin:0.6rem 0rem;
+    }
+    .add-meal-photo, .edit-meal-photo{
+        border-radius:0;
+        width:32rem;
+        height:32rem;
+    }
+    .finish-adding-button{
+        margin-top:1.1rem;
     }
 }

@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { CURRENCY } from '../../util/consts';
 import { editSpecialAPI } from '../../common/api/specials.api';
+import { checkTag } from '../../util/functions';
+import { infoToast } from '../../util/toasts/toasts';
 import SubmitButton from '../../components/common/submit-button';
 import InputError from '../../components/common/input-error';
 
@@ -29,24 +31,7 @@ export default function EditSpecialModal(props) {
     };
 
     const addNewTag = () => {
-        if(tags.length === 10){
-            setTagMessage('Maximal number of tags is 10');
-            return;
-        }
-        let newTagTrimmed = newTag.trim().replace(/ /g,'');
-        if(tags.includes(newTagTrimmed) || newTagTrimmed.length === 0){
-            if(newTagTrimmed.length === 0){
-                setTagMessage('Please enter valid tag name');
-            }else{
-                setTagMessage('Tag already exists');
-            }
-        }else if(newTagTrimmed.includes(',')){
-            setTagMessage("Tags can't contain sign ','");
-        }
-        else{
-            setTags([...tags, newTagTrimmed]);
-            setTagMessage('');
-        }  
+        checkTag(newTag, tags, setTags, setTagMessage);  
     };
 
     const removeTag = (tag) => {
@@ -63,7 +48,24 @@ export default function EditSpecialModal(props) {
         }
         data.tags = tags;
         data.specialId = props.special.specialId;
-        dispatch(editSpecialAPI(data, props.closeModal));
+        // check if there is need to call api for changing this special
+        let editedMeal = false;
+        if(props.special.name === data.name && props.special.description === data.description && props.special.price === +data.price && props.special.tags.length === data.tags.length){
+            for(let i = 0; i < data.tags.length; i++) {
+                if(data.tags[i] !== props.special.tags[i]){
+                    editedMeal = true;
+                    break;
+                }
+            }
+        }else{
+            editedMeal = true;
+        }
+        if(editedMeal){
+            dispatch(editSpecialAPI(data, props.closeModal));
+        }else{
+            infoToast('No changes');
+            props.closeModal();
+        }
     };
 
     useEffect(() => {
@@ -85,9 +87,9 @@ export default function EditSpecialModal(props) {
                         {errors.name && errors.name.type === "maxLength" && <InputError text="Name is limited to 50 characters"/>}
                         {nameMessage && <InputError text={nameMessage}/>}
                         <label className="label-accent-color">Description</label>
-                        <textarea name="description" ref={register({required: true, minLength: 20, maxLength: 200})}/>
+                        <textarea name="description" ref={register({required: true, minLength: 10, maxLength: 200})}/>
                         {errors.description && errors.description.type === "required" && <InputError text="Description is required"/>}
-                        {errors.description && errors.description.type === "minLength" &&<InputError text="Description minimum is 20 characters"/>}
+                        {errors.description && errors.description.type === "minLength" &&<InputError text="Description minimum is 10 characters"/>}
                         {errors.description && errors.description.type === "maxLength" &&<InputError text="Description maximum is 200 characters"/>}
                         <div className="label-accent-color">Price ({CURRENCY})</div>
                         <input type="number" name="price" step="0.01" ref={register({required: true, min: 0.01})}/>

@@ -42,7 +42,7 @@ export default function Specials() {
                     </button>
                     <div className="specials-container">
                         {specials.map(special => <div className="special" key={special.specialId}>
-                            <img src={special.photo} alt="Loading..." className="special-photo"/>
+                            <img src={special.photo} alt="Loading..." className="special-photo" onClick={() => setEditSpecialModal({show: true, special: special})}/>
                             <Label name="Name: " value={special.name}/>
                             <Label name="Description: " value={special.description}/>
                             <Label name="Price: " value={special.price + CURRENCY}/>
@@ -54,8 +54,8 @@ export default function Specials() {
                             {special.tags.length === 0 && <label className="label-accent-color">No tags</label>}
                             </div>
                             <div className="specials-buttons">
-                                <button onClick={() => setEditSpecialModal({show: true, special: special})} className="button-normal">Edit</button>
-                                <button onClick={() => setConfirmDeleteModal({show:true, special:special})} className="button-normal">Delete</button>
+                                <i className="fas fa-edit fa-3x" onClick={() => setEditSpecialModal({show: true, special: special})}></i>
+                                <i className="fas fa-trash fa-3x" onClick={() => setConfirmDeleteModal({show:true, special:special})}></i>
                             </div>
                         </div>)}
                     </div>

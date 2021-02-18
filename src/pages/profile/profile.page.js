@@ -10,6 +10,7 @@ import AddLogoModal from './add-logo.modal';
 import GoogleAutocomplete from '../../components/common/google-autocomplete';
 import SubmitButton from '../../components/common/submit-button';
 import InputError from '../../components/common/input-error';
+import { infoToast } from '../../util/toasts/toasts';
 
 export default function Profile() {
 
@@ -32,6 +33,13 @@ export default function Profile() {
 
     const updateProfile = (data) => {
         let location = localStorage.getItem('ADDRESS');
+        //check if anyhing changed
+        if(!location && data.name === restaurant.name && data.phone === restaurant.phone && !photo){
+            if(data.deliveryMinimum && +data.deliveryMinimum === restaurant.deliveryMinimum && data.deliveryRange && +data.deliveryRange === restaurant.deliveryRange){
+                infoToast('No changes');
+                return;
+            }
+        }
         if(location && location === restaurant.location){
             setMessageAddress('Your restaurant is already in that location');
             localStorage.removeItem('POSITION');

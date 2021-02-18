@@ -16,6 +16,11 @@
     .special-photo{
         width:28rem;
         height:28rem;
+        cursor: pointer;
+        transition: 0.2s;
+        &:hover{
+            opacity: 0.7;
+        }
     }
     .special-show-photo{
         width:100%;
@@ -29,5 +34,17 @@
         @include flexAlign(row, center, center, wrap);
         width: 100%;
         margin-top:auto;
+    }
+    .add-special-photo-container{
+        text-align: center;
+        margin:0.6rem 0rem;
+    }
+    .add-special-photo{
+        border-radius:0;
+        width:32rem;
+        height:32rem;
+    }
+    .finish-posting-button{
+        margin-top:7.6rem;
     }
 }

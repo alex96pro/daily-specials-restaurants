@@ -35,10 +35,44 @@
         margin:0rem 0.4rem;
     }
     .add-photo-error{
-        position: relative;
-        bottom:2.5rem;
         color:$danger-color;
         font-size:1.6rem;
         font-weight: bold;
+        position: absolute;
+        top:36.4rem;
+        left:2rem;
+    }
+    .add-photo-slider{
+        width:32rem;
+        margin-left:1.2rem;
+        margin-top:2.2rem;
+    }
+    .slider-zoom-label{
+        position: absolute;
+        top:0;
+        left:0;
+        color:$accent-color;
+        font-size:1.4rem;
+    }
+    .add-photo-slider-thumb{
+        width:1.8rem;
+        height: 1.8rem;
+        background-color: $accent-color;
+        &:hover{
+            color:red;
+        }
+    }
+    .add-photo-slider-track{
+        background-color:$accent-color-2;
+    }
+    .add-photo-slider-label{
+        position: relative;
+        top:1.4rem;
+        right:14rem;
+        font-size: 1.4rem;
+        color:$accent-color;
+    }
+    .add-photo-slider-active{
+        color:red;
     }
 }

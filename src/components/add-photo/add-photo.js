@@ -1,6 +1,7 @@
 import './add-photo.scss';
 import React, { useState, useCallback } from 'react';
 import Slider from '@material-ui/lab/Slider';
+import Typography from "@material-ui/core/Typography";
 import Cropper from 'react-easy-crop';
 import getCroppedImg from './crop-image';
 import Loader from '../../components/common/loader';
@@ -15,7 +16,7 @@ export default function AddPhoto(props){
     const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
     const [message, setMessage] = useState('');
     const [loadingStatus, setLoadingStatus] = useState(false);
-  
+
     const changePhoto = (event) => {
         const file = event.target.files[0];
         const acceptedFiles = ["image/jpeg", "image/jpg", "image/png"];
@@ -48,7 +49,9 @@ export default function AddPhoto(props){
                 );
                 setLoadingStatus(false);
                 props.setPhoto(croppedImage);
-                props.closeModal();
+                if(props.closeModal){
+                    props.closeModal();
+                }
             }
         } catch (e) {
           console.error(e)
@@ -79,25 +82,28 @@ export default function AddPhoto(props){
                 style={cropperStyle}
             />
         </div>
-        <div className="slider-container">
+            <Typography id="zoom" className="add-photo-slider-label">
+                Zoom
+            </Typography>
             <Slider
                 value={zoom}
                 min={1}
                 max={3}
                 step={0.1}
-                aria-labelledby="Zoom"
+                aria-labelledby="zoom"
                 onChange={(e, zoom) => setZoom(zoom)}
-                classes={{ container: 'slider' }}
+                classes={{root: 'add-photo-slider', thumb: 'add-photo-slider-thumb', track:'add-photo-slider-track'}}
             />
-        </div>    
-            
+        {/* show message from parrent only if message exists and if user didn't already set his photo and wants to change it*/}
+        {props.message && !props.showCancel && <div className="add-photo-error">{props.message}</div>}
+        {message && <div className="add-photo-error">{message}</div>}
         <input type="file" accept="image/jpeg, image/jpg, image/png" id="file" onChange={changePhoto} className="input-file"/>
         <label htmlFor="file" className="input-file-button">
             <i className="fas fa-cloud-upload-alt fa-1x"></i>
             Choose a photo
         </label>
+        {props.showCancel && <button onClick={props.cancel} className="button-normal">Cancel</button>}
         <button onClick={showCroppedImage} className="input-file-button" disabled={loadingStatus}>{loadingStatus ? <Loader className="loader-small"/> : 'Done'}</button>
-        <div className="add-photo-error">{message}</div>
     </div>
     )
 };

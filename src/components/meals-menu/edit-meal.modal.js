@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { CURRENCY } from '../../util/consts';
 import { editMenuMealAPI } from '../../common/api/menu.api';
+import { checkTag } from '../../util/functions';
+import { infoToast } from '../../util/toasts/toasts';
 import AddPhoto from '../add-photo/add-photo';
 import InputError from '../../components/common/input-error';
 import SubmitButton from '../../components/common/submit-button';
@@ -16,8 +18,7 @@ export default function EditMealModal(props) {
     const [newTag, setNewTag] = useState('');
     const [tagMessage, setTagMessage] = useState('');
     const [nameMessage, setNameMessage] = useState('');
-    const [addPhotoModal, setAddPhotoModal] = useState(false);
-    const [showPhotoModal, setShowPhotoModal] = useState(false);
+    const [changePhotoModal, setChangePhotoModal] = useState(false);
     const [photo, setPhoto] = useState('');
     const {register, handleSubmit, errors} = useForm({defaultValues:{
         name:props.meal.name, description:props.meal.description, category:props.meal.category, price:props.meal.price
@@ -37,24 +38,7 @@ export default function EditMealModal(props) {
     };
 
     const addTag = () => {
-        if(tags.length === 10){
-            setTagMessage('Maximal number of tags is 10');
-            return;
-        }
-        let newTagTrimmed = newTag.trim().replace(/ /g,'');
-        if(tags.includes(newTagTrimmed) || newTagTrimmed.length === 0){
-            if(newTagTrimmed.length === 0){
-                setTagMessage('Please enter valid tag name');
-            }else{
-                setTagMessage('Tag already exists');
-            }
-        }else if(newTagTrimmed.includes(',')){
-            setTagMessage("Tags can't contain sign ','");
-        }
-        else{
-            setTags([...tags, newTagTrimmed]);
-            setTagMessage('');
-        }  
+        checkTag(newTag, tags, setTags, setTagMessage);  
     };
 
     const removeTag = (tag) => {
@@ -75,18 +59,45 @@ export default function EditMealModal(props) {
         data.tags = tags;
         data.photo = props.meal.photo;
         data.mealId = props.meal.mealId;
-        dispatch(editMenuMealAPI(data, props.closeModal));
+        // check if there is need to call api for changing this meal
+        let editedMeal = false;
+        if(props.meal.name === data.name && props.meal.description === data.description && props.meal.price === +data.price && props.meal.category === data.category && props.meal.tags.length === data.tags.length && !photo){
+            for(let i = 0; i < data.tags.length; i++) {
+                if(data.tags[i] !== props.meal.tags[i]){
+                    editedMeal = true;
+                    break;
+                }
+            }
+        }else{
+            editedMeal = true;
+        }
+        if(editedMeal){
+            dispatch(editMenuMealAPI(data, props.closeModal));
+        }else{
+            infoToast('No changes');
+            props.closeModal();
+        }
     };
 
     return (
         <div className="modal">
             <div className="modal-underlay" onClick={props.closeModal}></div>
-            <div className="modal-container" style={{opacity:modalOpacity}}>
+            <div className="modal-container-double" style={{opacity:modalOpacity}}>
                 <div className="modal-header">
                     <button onClick={props.closeModal} className="modal-x">x</button>
                 </div>
                 <div className="modal-body">
-                <div className="modal-body" style={{display: (!addPhotoModal && !showPhotoModal) ? 'block' : 'none'}}>
+                    {props.meal.photo && !changePhotoModal?
+                    <div className="edit-meal-photo-container">
+                        <img src={photo || props.meal.photo} alt="Loading..." className="edit-meal-photo"/>
+                        <button onClick={() => setChangePhotoModal(true)} className="button-normal">Change photo</button>
+                    </div>
+                    :
+                    <AddPhoto setPhoto={(photo) => {setPhoto(photo); setChangePhotoModal(false)}} showCancel={true} 
+                    cancel={() => setChangePhotoModal(false)}/>
+                    }
+                </div>
+                <div className="modal-body">
                     <form onSubmit={handleSubmit(editMeal)}>
                         <div className="label-accent-color">Name</div>
                         <input type="text" name="name" ref={register({required:true, maxLength:50})}/>
@@ -95,9 +106,9 @@ export default function EditMealModal(props) {
                         {nameMessage && <InputError text={nameMessage}/>}
 
                         <div className="label-accent-color">Description</div>
-                        <textarea name="description" ref={register({required:true, minLength:20, maxLength:200})}/>
+                        <textarea name="description" ref={register({required:true, minLength:10, maxLength:200})}/>
                         {errors.description && errors.description.type === "required" && <InputError text='Description is required'/>}
-                        {errors.description && errors.description.type === "minLength" && <InputError text='Description should have minimum 20 characters'/>}
+                        {errors.description && errors.description.type === "minLength" && <InputError text='Description should have minimum 10 characters'/>}
                         {errors.description && errors.description.type === "maxLength" && <InputError text='Description can have maximum 200 characters'/>}
 
                         <div className="label-accent-color">Category</div>
@@ -124,31 +135,10 @@ export default function EditMealModal(props) {
                         <input type="text" name="tag" value={newTag} onChange={changeNewTag} placeholder='Add new tag' style={{width:'16rem'}}/>
                         <button type="button" onClick={addTag} className="button-small">Add</button>
                         {tagMessage && <InputError text={tagMessage}/>}
-                        
-                        <div>
-                            <div className="label-accent-color">
-                                Photo<button type="button" onClick={() => setShowPhotoModal(true)} className="button-small">Change photo</button>
-                            </div>
-                            <SubmitButton loadingStatus={loadingStatus} text='Save changes'/>
-                        </div>
+                        <SubmitButton loadingStatus={loadingStatus} text='Save changes'/>
                     </form>
                 </div>
-
-                {addPhotoModal &&
-                <div className="modal-body">
-                    <button type="button" onClick={() => setAddPhotoModal(false)} className="button-normal">Back</button>
-                    <AddPhoto setPhoto={(photo) => setPhoto(photo)} closeModal={() => setAddPhotoModal(false)} />
-                </div>
-                }
-                {showPhotoModal &&
-                <div className="modal-body">
-                    <div><img src={photo ? photo : props.meal.photo} className="meals-menu-show-photo" alt="meal"/></div>
-                    <button type="button" onClick={() => setShowPhotoModal(false)} className="button-normal">Back</button>
-                    <button type="button" onClick={() => {setShowPhotoModal(false); setAddPhotoModal(true);}} className="button-normal">Change</button>
-                </div>
-                }
-                </div>
-            </div>
-        </div>
+            </div>   
+    </div>
     );
 };
