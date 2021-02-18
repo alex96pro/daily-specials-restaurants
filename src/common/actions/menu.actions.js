@@ -1,4 +1,5 @@
 export const LOADING_STATUS_MENU = "LOADING_STATUS_MENU";
+export const LOADING_MENU_PAGE = "LOADING_MENU_PAGE";
 export const GET_MENU = "GET_MENU";
 export const ADD_NEW_MEAL = "ADD_NEW_MEAL";
 export const EDIT_MEAL = "EDIT_MEAL";
@@ -9,6 +10,12 @@ export const DELETE_CATEGORY = "DELETE_CATEGORY";
 export function loadingStatus(payload) {
     return {
         type: LOADING_STATUS_MENU,
+        payload
+    };
+};
+export function loadingMenuPage(payload) {
+    return {
+        type: LOADING_MENU_PAGE,
         payload
     };
 };

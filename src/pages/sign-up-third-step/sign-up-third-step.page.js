@@ -36,6 +36,12 @@ export default function SignUpThirdStep() {
         setCheckedDays(newChecked);
     };
 
+    const secondStep = () => {
+        if(window.confirm("Changes for your working hours won't be saved, you will have to add them again")){
+            history.push('/sign-up-second-step');
+        }
+    };
+
     const finishSignUp = (data) => {
         if(!restaurantSignUpInfo.firstStepSuccess){
             setMessage('First step is not completed');
@@ -72,7 +78,10 @@ export default function SignUpThirdStep() {
                             onChange={(event) => changeWorkingDay(event, index)}/>
                         </div>
                     </div>)}
-                    <SubmitButton loadingStatus={loadingStatus} text='Finish sign up'/>
+                    <div>
+                        <button onClick={secondStep} type="button" className="button-normal">Previous step</button>
+                        <SubmitButton loadingStatus={loadingStatus} text='Finish sign up' small={true}/>
+                    </div>
                     {message && <MessageDanger text={message}/>}
                 </form>
             </div>

@@ -2,6 +2,7 @@ import * as ACTIONS from '../actions/specials.actions';
 
 const initialState = {
     loadingStatus: false,
+    loadingSpecialsPage:false,
     specials: [],
     usedSpecials: ''
 };
@@ -14,10 +15,15 @@ export default function specialsReducer(state = initialState, action) {
                 ...state,
                 loadingStatus: action.payload
             };
+        case ACTIONS.LOADING_SPECIALS_PAGE:
+            return {
+                ...state,
+                loadingSpecialsPage: action.payload
+            };
         case ACTIONS.GET_SPECIALS:
             return {
                 ...state,
-                loadingStatus: false,
+                loadingSpecialsPage: false,
                 specials: action.payload.specials,
                 usedSpecials: action.payload.usedSpecials
             };

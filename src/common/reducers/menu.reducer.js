@@ -2,6 +2,7 @@ import * as ACTIONS from '../actions/menu.actions';
 
 const initialState = {
     loadingStatus: false,
+    loadingMenuPage: false,
     meals: [],
     categories: [],
     message: ''
@@ -15,10 +16,15 @@ export default function menuReducer(state = initialState, action) {
                 ...state,
                 loadingStatus: action.payload
             };
+        case ACTIONS.LOADING_MENU_PAGE:
+            return {
+                ...state,
+                loadingMenuPage: action.payload
+            };
         case ACTIONS.GET_MENU:
             return {
                 ...state,
-                loadingStatus: false,
+                loadingMenuPage: false,
                 meals: action.payload.meals,
                 categories: action.payload.categories
             };

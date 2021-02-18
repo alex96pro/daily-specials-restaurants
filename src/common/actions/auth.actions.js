@@ -1,5 +1,6 @@
 export const LOADING_STATUS_AUTH = "LOADING_STATUS_AUTH";
 export const SIGN_UP_SECOND_STEP = "SIGN_UP_SECOND_STEP";
+export const SIGN_UP_RETURN_FROM_SECOND_STEP = "SIGN_UP_RETURN_FROM_SECOND_STEP";
 export const SIGN_UP_THIRD_STEP = "SIGN_UP_THIRD_STEP";
 export const SIGN_UP_COMPLETE = "SIGN_UP_COMPLETE";
 export const CHANGE_DELIVERY_CHECKBOX = "CHANGE_DELIVERY_CHECKBOX";
@@ -18,6 +19,12 @@ export function loadingStatus(payload) {
 export function signUpSecondStep(payload) {
     return {
         type: SIGN_UP_SECOND_STEP,
+        payload
+    };
+};
+export function signUpReturnFromSecondStep(payload) {
+    return {
+        type: SIGN_UP_RETURN_FROM_SECOND_STEP,
         payload
     };
 };

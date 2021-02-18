@@ -64,11 +64,6 @@ export default function SignUp() {
                         {errors.restaurantName && <InputError text="Name is required"/>}
                         {messageName && <InputError text={messageName}/>}
 
-                        <div className="label-accent-color">Email</div>
-                        <input type="email" name="email" ref={register({required:true})} defaultValue={restaurant.email}/>
-                        {errors.email && <InputError text="Email is required"/>}
-                        {messageEmail && <InputError text={messageEmail}/>}
-
                         <div className="label-accent-color">Phone</div>
                         <input type="text" name="phone" ref={register({required:true, pattern: /^\d+$/})} defaultValue={restaurant.phone}/>
                         {errors.phone?.type === 'required' && <InputError text="Phone is required"/>}
@@ -88,6 +83,11 @@ export default function SignUp() {
                             <label className="label-accent-color">{CURRENCY}</label>
                             {errors.deliveryMinimum && <InputError text="Minimal amount for delivery is required"/>}
                         </div>}
+
+                        <div className="label-accent-color">Email</div>
+                        <input type="email" name="email" ref={register({required:true})} defaultValue={restaurant.email}/>
+                        {errors.email && <InputError text="Email is required"/>}
+                        {messageEmail && <InputError text={messageEmail}/>}
 
                         <div className="label-accent-color">Password</div>
                         <input type="password" name="password" ref={register({required:true})} defaultValue={restaurant.password}/>

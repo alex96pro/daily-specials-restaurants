@@ -14,7 +14,7 @@ import EditSpecialModal from './edit-special.modal';
 export default function Specials() {
 
     const dispatch = useDispatch();
-    const {specials, usedSpecials, loadingStatus} = useSelector(state => state.specials);
+    const {specials, usedSpecials, loadingSpecialsPage} = useSelector(state => state.specials);
     const [date, setDate] = useState('');
     const [postNewSpecialModal, setPostNewSpecialModal] = useState(false);
     const [confirmDeleteModal, setConfirmDeleteModal] = useState({show:false, special:{}});
@@ -28,7 +28,7 @@ export default function Specials() {
     return (
         <div className="specials">
             <NavBar loggedIn={true}/>
-                {(loadingStatus && specials.length === 0) ? <Loader className="loader-center"/>
+                {loadingSpecialsPage ? <Loader className="loader-center"/>
                 :
                 <React.Fragment>
                     <div className="header-accent-color">Specials for day {date}</div>

@@ -2,17 +2,17 @@ import axios from 'axios';
 import { BACKEND_API } from '../../util/consts';
 import { successToast } from '../../util/toasts/toasts';
 import { getClientDate, compressPhoto } from '../../util/functions';
-import { loadingStatus, getSpecials, addNewSpecial, deleteSpecial, editSpecial } from '../actions/specials.actions';
+import { loadingStatus, loadingSpecialsPage, getSpecials, addNewSpecial, deleteSpecial, editSpecial } from '../actions/specials.actions';
 
 export function getSpecialsAPI() {
     return async (dispatch) => {
         try{
-            dispatch(loadingStatus(true));
+            dispatch(loadingSpecialsPage(true));
             let clientDate = getClientDate();
             let response = await axios.get(`${BACKEND_API}/restaurant-specials/specials/${localStorage.getItem('RESTAURANT_ID')}?date=${clientDate}`);
             dispatch(getSpecials(response.data));
         }catch(err){
-            dispatch(loadingStatus(false));
+            dispatch(loadingSpecialsPage(false));
             console.log(err);
         }
     };

@@ -4,7 +4,7 @@
 .sign-up-third-step{
     @include flexAlign(column, center, center, nowrap);
     .working-hours-container{
-        @include flexAlign(column, center, center, nowrap);
+        text-align: center;
         background-color: $wrapper-color;
         padding:2rem;
         transform: translateY(calc(50vh - 50% - 6rem));

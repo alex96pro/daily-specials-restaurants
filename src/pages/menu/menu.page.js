@@ -11,7 +11,7 @@ import Loader from '../../components/common/loader';
 export default function Menu() {
 
     const dispatch = useDispatch();
-    const {meals, categories, message, loadingStatus} = useSelector(state => state.menu);
+    const {meals, categories, message, loadingMenuPage} = useSelector(state => state.menu);
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [modal, setModal] = useState(false);
     const [messageNoCategories, setMessageNoCategories] = useState({show: false, text:''});
@@ -35,7 +35,7 @@ export default function Menu() {
     return (
         <div className="menu">
             <NavBar loggedIn={true}/>
-            {(loadingStatus && meals.length === 0 ) ? <Loader className="loader-center"/>
+            {loadingMenuPage ? <Loader className="loader-center"/>
             :
             <div className="menu-container">
                 <div className="menu-side-bar">

@@ -2,19 +2,19 @@ import axios from 'axios';
 import { BACKEND_API } from '../../util/consts';
 import { successToast } from '../../util/toasts/toasts';
 import { compressPhoto } from '../../util/functions';
-import { loadingStatus, getMenu, addNewMeal, editMeal, deleteMeal, addCategory, deleteCategory } from '../actions/menu.actions';
+import { loadingStatus, loadingMenuPage, getMenu, addNewMeal, editMeal, deleteMeal, addCategory, deleteCategory } from '../actions/menu.actions';
 
 export function getMenuAPI(message) {
     return async (dispatch) => {
         try{
-            dispatch(loadingStatus(true));
+            dispatch(loadingMenuPage(true));
             let response = await axios.get(`${BACKEND_API}/restaurant-menu/menu/${localStorage.getItem('RESTAURANT_ID')}`);
             if(response.data.categories.length === 0){
                 message('Your restaurant has no categories');
             }
             dispatch(getMenu(response.data));
         }catch(err){
-            dispatch(loadingStatus(false));
+            dispatch(loadingMenuPage(false));
             console.log(err);
         }
     };

@@ -29,9 +29,23 @@ export default function authReducer(state = initialState, action) {
         case ACTIONS.SIGN_UP_SECOND_STEP:
             return{
                 ...state,
-                restaurantSignUpInfo: {...action.payload, firstStepSuccess: true, location:'', lat:'', lon:''},
+                restaurantSignUpInfo: {...action.payload, 
+                    firstStepSuccess: true, 
+                    location:state.restaurantSignUpInfo.location, 
+                    lat:state.restaurantSignUpInfo.lat, 
+                    lon:state.restaurantSignUpInfo.lon},
                 loadingStatus: false,
                 signUpMessage:''
+            };
+        case ACTIONS.SIGN_UP_RETURN_FROM_SECOND_STEP:
+            return{
+                ...state,
+                restaurantSignUpInfo: {
+                    ...state.restaurantSignUpInfo,
+                    location: action.payload.location,
+                    lat: action.payload.position.lat,
+                    lon: action.payload.position.lon
+                }
             };
         case ACTIONS.SIGN_UP_THIRD_STEP:
             return{

@@ -2,7 +2,7 @@ import './sign-up-second-step.page.scss';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { signUpThirdStep } from '../../common/actions/auth.actions';
+import { signUpThirdStep, signUpReturnFromSecondStep } from '../../common/actions/auth.actions';
 import GoogleMap from '../../components/google-map/google-map.component';
 import InputError from '../../components/common/input-error';
 
@@ -13,6 +13,16 @@ export default function SignUpSecondStep() {
     const [message, setMesage] = useState('');
     const { restaurantSignUpInfo } = useSelector(state => state.authentication);
 
+    const firstStep = () => {
+        if(localStorage.getItem('ADDRESS')){ //user picked address so we need to persist address from local storage in store
+            const data = {
+                location: localStorage.getItem('ADDRESS'),
+                position: JSON.parse(localStorage.getItem('POSITION'))
+            }
+            dispatch(signUpReturnFromSecondStep(data));
+        }
+        history.push('/sign-up');
+    }
     const thirdStep = () => {
         if(localStorage.getItem('ADDRESS') === null){
             setMesage('Restaurant address is required');
@@ -33,9 +43,9 @@ export default function SignUpSecondStep() {
             <GoogleMap/>
             <div className="google-maps-container">
                 <input type="text" className="search-google-maps" id="search-google-maps" 
-                placeholder={restaurantSignUpInfo.location ? restaurantSignUpInfo.location : 'Your restaurant address'}></input>
+                placeholder={restaurantSignUpInfo.location ? restaurantSignUpInfo.location : 'Your restaurant addres'}></input>
                 {message && <InputError text={message}/>}
-                <button onClick={() => history.push('/sign-up')} className="button-normal">Previous step</button>
+                <button onClick={firstStep} className="button-normal">Previous step</button>
                 <button onClick={thirdStep} className="button-normal">
                     Next step
                 </button> 
