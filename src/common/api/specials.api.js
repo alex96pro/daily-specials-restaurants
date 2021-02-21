@@ -1,15 +1,15 @@
 import axios from 'axios';
 import { BACKEND_API } from '../../util/consts';
 import { successToast } from '../../util/toasts/toasts';
-import { getClientDate, compressPhoto } from '../../util/functions';
+import { getClientDateAndTime, compressPhoto } from '../../util/functions';
 import { loadingStatus, loadingSpecialsPage, getSpecials, addNewSpecial, deleteSpecial, editSpecial } from '../actions/specials.actions';
 
 export function getSpecialsAPI() {
     return async (dispatch) => {
         try{
             dispatch(loadingSpecialsPage(true));
-            let clientDate = getClientDate();
-            let response = await axios.get(`${BACKEND_API}/restaurant-specials/specials/${localStorage.getItem('RESTAURANT_ID')}?date=${clientDate}`);
+            let clientDateAndTime = getClientDateAndTime();
+            let response = await axios.get(`${BACKEND_API}/restaurant-specials/specials/${localStorage.getItem('RESTAURANT_ID')}?dateAndTime=${clientDateAndTime}`);
             dispatch(getSpecials(response.data));
         }catch(err){
             dispatch(loadingSpecialsPage(false));
@@ -23,7 +23,7 @@ export function addNewSpecialAPI(data, closeModal) {
             dispatch(loadingStatus(true));
             data.photo = await compressPhoto(data.photo);
             if(data.photo){ //successfully compressed
-                data.date = getClientDate(); //set date to client date
+                data.dateAndTime = getClientDateAndTime(); //set date to client date
                 let response = await axios.post(`${BACKEND_API}/restaurant-specials/add-new-special/${localStorage.getItem('RESTAURANT_ID')}`,data,
                 {headers:{'Authorization':`Basic ${localStorage.getItem("ACCESS_TOKEN_RESTAURANT")}`}});
                 dispatch(addNewSpecial(response.data));

@@ -5,9 +5,13 @@ export function getTodayDate() {
     return today.getDate()+"."+(today.getMonth()+1)+"."+today.getFullYear();
 };
 
-export function getClientDate() {
+export function getClientDateAndTime() {
     let today = new Date();
-    return today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    let minutes = today.getMinutes();
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    let seconds = today.getSeconds();
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+    return today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + ' ' + today.getHours() + ':' + minutes + ':' + seconds;
 };
 
 export function checkTag(newTagForCheck, tags, setTags, setTagMessage) {
