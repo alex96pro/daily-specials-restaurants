@@ -3,10 +3,10 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 import {getMenuAPI} from '../../common/api/menu.api';
 import NavBar from '../../components/nav-bar/nav-bar';
-import MealsMenu from '../../components/meals-menu/meals-menu.component';
-import MessageDanger from '../../components/common/message-danger';
+import MealsMenu from '../../components/meals-menu/meals-menu';
+import MessageDanger from '../../components/message-danger';
 import EditCategoriesModal from './edit-categories.modal';
-import Loader from '../../components/common/loader';
+import Loader from '../../components/loader';
 
 export default function Menu() {
 

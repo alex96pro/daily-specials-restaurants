@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteMenuMealAPI } from '../../common/api/menu.api';
-import ConfirmButton from '../../components/common/confirm-button';
+import ConfirmButton from '../../components/confirm-button';
 
 export default function ConfirmDelete(props) {
 

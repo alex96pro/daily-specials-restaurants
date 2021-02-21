@@ -6,8 +6,8 @@ import { editMenuMealAPI } from '../../common/api/menu.api';
 import { checkTag } from '../../util/functions';
 import { infoToast } from '../../util/toasts/toasts';
 import AddPhoto from '../add-photo/add-photo';
-import InputError from '../../components/common/input-error';
-import SubmitButton from '../../components/common/submit-button';
+import InputError from '../../components/input-error';
+import SubmitButton from '../../components/submit-button';
 
 export default function EditMealModal(props) {
 

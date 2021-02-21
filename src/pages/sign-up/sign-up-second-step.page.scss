@@ -2,7 +2,7 @@
 @import '../../variables';
 
 .map{
-    //@include flexAlign(column, center, flex-start, wrap);
+    //@include flex-align(column, center, flex-start, wrap);
     .google-maps-container{
         background-color: white;
         padding:2rem;

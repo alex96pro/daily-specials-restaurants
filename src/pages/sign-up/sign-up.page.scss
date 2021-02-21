@@ -2,10 +2,10 @@
 @import '../../variables';
 
 .sign-up-restaurant{
-    @include flexAlign(column, center, center, nowrap);
+    @include flex-align(column, center, center, nowrap);
 
     .sign-up-restaurant-container{
-        @include flexAlign(column, center, center, nowrap);
+        @include flex-align(column, center, center, nowrap);
         transform: translateY(calc(50vh - 50% - 6rem));
     }
     .sign-up-restaurant-header{

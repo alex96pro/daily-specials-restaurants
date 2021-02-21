@@ -3,14 +3,14 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateProfileAPI } from '../../common/api/auth.api';
+import { infoToast } from '../../util/toasts/toasts';
 import {DISTANCE, CURRENCY} from '../../util/consts';
 import NavBar from '../../components/nav-bar/nav-bar';
 import DisableDeliveryModal from './disable-delivery.modal';
 import AddLogoModal from './add-logo.modal';
-import GoogleAutocomplete from '../../components/common/google-autocomplete';
-import SubmitButton from '../../components/common/submit-button';
-import InputError from '../../components/common/input-error';
-import { infoToast } from '../../util/toasts/toasts';
+import GoogleAutocomplete from '../../components/google-autocomplete';
+import SubmitButton from '../../components/submit-button';
+import InputError from '../../components/input-error';
 
 export default function Profile() {
 

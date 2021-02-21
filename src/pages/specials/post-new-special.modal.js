@@ -5,8 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addNewSpecialAPI } from '../../common/api/specials.api';
 import { checkTag } from '../../util/functions';
 import AddPhoto from '../../components/add-photo/add-photo'
-import InputError from '../../components/common/input-error';
-import SubmitButton from '../../components/common/submit-button';
+import InputError from '../../components/input-error';
+import SubmitButton from '../../components/submit-button';
 import { CURRENCY } from '../../util/consts';
 
 export default function PostNewSpecialModal(props) {

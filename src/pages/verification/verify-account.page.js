@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { verifyAccountAPI } from '../../common/api/auth.api';
 import { useDispatch, useSelector } from 'react-redux';
-import Loader from '../../components/common/loader';
+import Loader from '../../components/loader';
 import NavBar from '../../components/nav-bar/nav-bar';
 
 export default function VerifyAccount() {

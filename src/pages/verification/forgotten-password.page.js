@@ -4,10 +4,10 @@ import { useHistory, useParams } from 'react-router-dom';
 import { newPasswordAPI } from '../../common/api/auth.api';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import SubmitButton from '../../components/common/submit-button';
+import SubmitButton from '../../components/submit-button';
 import NavBar from '../../components/nav-bar/nav-bar';
-import InputError from '../../components/common/input-error';
-import MessageDanger from '../../components/common/message-danger';
+import InputError from '../../components/input-error';
+import MessageDanger from '../../components/message-danger';
 
 export default function ForgottenPassword() {
 

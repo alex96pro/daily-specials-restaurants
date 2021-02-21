@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteSpecialAPI } from '../../common/api/specials.api';
-import ConfirmButton from '../../components/common/confirm-button';
-import MessageDanger from '../../components/common/message-danger';
+import ConfirmButton from '../../components/confirm-button';
+import MessageDanger from '../../components/message-danger';
 
 export default function ConfirmDelete(props) {
 

@@ -2,7 +2,7 @@
 @import '../../variables';
 
 .verify-account{
-    @include flexAlign(column, center, center, wrap);
+    @include flex-align(column, center, center, wrap);
     
     .verify-account-container{
         padding:2rem;

@@ -71,7 +71,7 @@ body{
         border-radius: 0;
     }
     .modal-container{
-        @include flexAlign(row,flex-start,flex-start,nowrap);
+        @include flex-align(row,flex-start,flex-start,nowrap);
         position:fixed;
         z-index: 1;
         background-color: white;
@@ -97,7 +97,7 @@ body{
         border-radius: 0;
         width: 100%;
         position:fixed;
-        @include flexAlign(row,flex-end,center,nowrap);
+        @include flex-align(row,flex-end,center,nowrap);
         background-color: $wrapper-color;
         .modal-x{
             background-color: $accent-color;
@@ -116,7 +116,7 @@ body{
     } 
 }
 .tags{
-    @include flexAlign(row, flex-start, center, wrap);
+    @include flex-align(row, flex-start, center, wrap);
     margin-bottom:0.4rem;
 }
 .tag{

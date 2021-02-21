@@ -2,7 +2,7 @@ import {toast} from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import "./toasts.scss";
 
-export function infoToast(text, time = 1200){
+export function infoToast(text, time = 2000){
     return toast.info(text, {
         autoClose: time,
         pauseOnHover: false,
@@ -10,7 +10,7 @@ export function infoToast(text, time = 1200){
     });
 };
 
-export function successToast(text, time = 1500){
+export function successToast(text, time = 2000){
     return toast.success(text, {
         autoClose: time,
         pauseOnHover: false,

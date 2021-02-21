@@ -2,11 +2,11 @@ import './working-hours.page.scss';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import NavBar from '../../components/nav-bar/nav-bar';
 import { DAYS_OF_THE_WEEK } from '../../util/consts';
 import { changeWorkingHoursAPI } from '../../common/api/auth.api';
-import InputError from '../../components/common/input-error';
-import SubmitButton from '../../components/common/submit-button';
+import NavBar from '../../components/nav-bar/nav-bar';
+import InputError from '../../components/input-error';
+import SubmitButton from '../../components/submit-button';
 
 export default function WorkingHours() {
     

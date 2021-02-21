@@ -2,9 +2,9 @@
 @import '../../variables';
 
 .profile{
-    @include flexAlign(column, center, center, nowrap);
+    @include flex-align(column, center, center, nowrap);
     .profile-container{
-        @include flexAlign(column, center, center, nowrap);
+        @include flex-align(column, center, center, nowrap);
         transform: translateY(calc(50vh - 50% - 6rem));
     }
     .profile-info{
@@ -13,7 +13,7 @@
         padding:2rem;  
     }
     .profile-photo-container{
-        @include flexAlign(row, flex-start, flex-end, nowrap);
+        @include flex-align(row, flex-start, flex-end, nowrap);
     }
     .profile-restaurant-logo{
         margin-top:0.4rem;

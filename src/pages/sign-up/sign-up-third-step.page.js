@@ -6,8 +6,8 @@ import { DAYS_OF_THE_WEEK } from '../../util/consts';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import NavBar from '../../components/nav-bar/nav-bar';
-import SubmitButton from '../../components/common/submit-button';
-import MessageDanger from '../../components/common/message-danger';
+import SubmitButton from '../../components/submit-button';
+import MessageDanger from '../../components/message-danger';
 
 export default function SignUpThirdStep() {
 

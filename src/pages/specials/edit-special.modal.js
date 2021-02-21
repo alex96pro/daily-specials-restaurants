@@ -5,8 +5,8 @@ import { CURRENCY } from '../../util/consts';
 import { editSpecialAPI } from '../../common/api/specials.api';
 import { checkTag } from '../../util/functions';
 import { infoToast } from '../../util/toasts/toasts';
-import SubmitButton from '../../components/common/submit-button';
-import InputError from '../../components/common/input-error';
+import SubmitButton from '../../components/submit-button';
+import InputError from '../../components/input-error';
 
 export default function EditSpecialModal(props) {
    

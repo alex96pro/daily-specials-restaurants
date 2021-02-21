@@ -7,8 +7,8 @@ import { changeDeliveryCheckbox } from '../../common/actions/auth.actions';
 import { signUpFirstStepAPI } from '../../common/api/auth.api';
 import { useDispatch, useSelector } from 'react-redux';
 import NavBar from '../../components/nav-bar/nav-bar';
-import SubmitButton from '../../components/common/submit-button';
-import InputError from '../../components/common/input-error';
+import SubmitButton from '../../components/submit-button';
+import InputError from '../../components/input-error';
 
 export default function SignUp() {
 

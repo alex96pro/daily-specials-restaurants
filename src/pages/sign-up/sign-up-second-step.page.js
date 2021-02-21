@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { signUpThirdStep, signUpReturnFromSecondStep } from '../../common/actions/auth.actions';
-import GoogleMap from '../../components/google-map/google-map.component';
-import InputError from '../../components/common/input-error';
+import GoogleMap from '../../components/google-map';
+import InputError from '../../components/input-error';
 
 export default function SignUpSecondStep() {
 

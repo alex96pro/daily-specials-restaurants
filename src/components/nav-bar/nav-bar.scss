@@ -45,7 +45,7 @@ nav{
         }
     }
     .nav-container{
-        @include flexAlign(row, flex-end, center, wrap);
+        @include flex-align(row, flex-end, center, wrap);
         height:100%;
     }
     .drop-down{

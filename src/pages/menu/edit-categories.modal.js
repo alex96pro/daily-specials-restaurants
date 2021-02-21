@@ -2,9 +2,9 @@ import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addCategoryAPI, deleteCategoryAPI} from '../../common/api/menu.api';
-import InputError from '../../components/common/input-error';
-import ConfirmButton from '../../components/common/confirm-button';
-import SubmitButton from '../../components/common/submit-button';
+import InputError from '../../components/input-error';
+import ConfirmButton from '../../components/confirm-button';
+import SubmitButton from '../../components/submit-button';
 
 export default function EditCategoriesModal(props) {
     

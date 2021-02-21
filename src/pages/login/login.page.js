@@ -5,11 +5,11 @@ import { logInAPI } from '../../common/api/auth.api';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import NavBar from '../../components/nav-bar/nav-bar';
-import SubmitButton from '../../components/common/submit-button';
+import SubmitButton from '../../components/submit-button';
 import ForgottenPasswordModal from './forgotten-password.modal';
-import MessageDanger from '../../components/common/message-danger';
-import MessageSuccess from '../../components/common/message-success';
-import InputError from '../../components/common/input-error';
+import MessageDanger from '../../components/message-danger';
+import MessageSuccess from '../../components/message-success';
+import InputError from '../../components/input-error';
 
 export default function Login() {
 

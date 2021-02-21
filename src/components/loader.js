@@ -1,4 +1,4 @@
-import LoaderGif from '../../images/loader.gif';
+import LoaderGif from '../images/loader.gif';
 
 export default function Loader(props) {
     return(

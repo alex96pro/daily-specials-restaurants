@@ -2,10 +2,10 @@
 @import '../../variables';
 
 .login-restaurant{
-    @include flexAlign(column, center, center, nowrap);
+    @include flex-align(column, center, center, nowrap);
 
     .login-restaurant-container{
-        @include flexAlign(column, center, center, nowrap);
+        @include flex-align(column, center, center, nowrap);
         padding:2rem;
         transform: translateY(calc(50vh - 50% - 6rem));
     }

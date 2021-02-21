@@ -4,7 +4,7 @@ import Slider from '@material-ui/lab/Slider';
 import Typography from "@material-ui/core/Typography";
 import Cropper from 'react-easy-crop';
 import getCroppedImg from './crop-image';
-import Loader from '../../components/common/loader';
+import Loader from '../../components/loader';
 
 export default function AddPhoto(props){
 

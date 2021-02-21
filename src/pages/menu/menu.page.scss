@@ -3,7 +3,7 @@
 
 .menu{
     .menu-container{
-        @include flexAlign(row, flex-start, flex-start, wrap);
+        @include flex-align(row, flex-start, flex-start, wrap);
     }
     .menu-side-bar{
         position:fixed;

@@ -1,4 +1,4 @@
-import './meals-menu.component.scss';
+import './meals-menu.scss';
 import {CURRENCY} from '../../util/consts';
 import { useState } from 'react';
 import ConfirmDeleteModal from './confirm-delete.modal';

@@ -2,12 +2,12 @@
 @import '../../variables';
 
 .specials{
-    @include flexAlign(column, center, center, nowrap);
+    @include flex-align(column, center, center, nowrap);
     .specials-container{
-        @include flexAlign(row, center, stretch, wrap);
+        @include flex-align(row, center, stretch, wrap);
     }
     .special{
-        @include flexAlign(column, stretch, flex-start, wrap);
+        @include flex-align(column, stretch, flex-start, wrap);
         background-color: $wrapper-color;
         width:30rem;
         padding:1rem;
@@ -31,7 +31,7 @@
         height: 15rem;
     }
     .specials-buttons{
-        @include flexAlign(row, center, center, wrap);
+        @include flex-align(row, center, center, wrap);
         width: 100%;
         margin-top:auto;
     }

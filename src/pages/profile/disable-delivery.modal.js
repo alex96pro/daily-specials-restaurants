@@ -2,8 +2,8 @@ import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
 import { disableDeliveryAPI } from '../../common/api/auth.api';
 import { useDispatch, useSelector } from 'react-redux';
-import SubmitButton from '../../components/common/submit-button';
-import InputError from '../../components/common/input-error';
+import SubmitButton from '../../components/submit-button';
+import InputError from '../../components/input-error';
 
 export default function DisableDeliveryModal(props) {
     

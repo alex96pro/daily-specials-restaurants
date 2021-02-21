@@ -61,7 +61,6 @@ export default function menuReducer(state = initialState, action) {
             };
         case ACTIONS.DELETE_CATEGORY:
             if(action.payload.mealIds.length > 0){
-                console.log(action.payload.mealIds);
                 for(let i = 0; i < state.meals.length; i++){
                     if(action.payload.mealIds.includes(state.meals[i].mealId)){
                         newMeals.push({...state.meals[i], category: null});

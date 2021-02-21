@@ -2,7 +2,7 @@
 @import '../../variables';
 
 .sign-up-third-step{
-    @include flexAlign(column, center, center, nowrap);
+    @include flex-align(column, center, center, nowrap);
     .working-hours-container{
         text-align: center;
         background-color: $wrapper-color;
@@ -10,7 +10,7 @@
         transform: translateY(calc(50vh - 50% - 6rem));
     }
     .working-hours-row{
-        @include flexAlign(row, space-between, center, nowrap);
+        @include flex-align(row, space-between, center, nowrap);
         margin:0rem 0.2rem;
     }
     .working-hours-checkbox{

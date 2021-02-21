@@ -1,4 +1,4 @@
-import Loader from '../../images/loader.gif';
+import Loader from '../images/loader.gif';
 
 export default function ConfirmButton(props) {
 

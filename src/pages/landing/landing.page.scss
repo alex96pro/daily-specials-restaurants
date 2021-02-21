@@ -9,7 +9,7 @@
     border-radius: 0;
     
     .landing-container{
-        @include flexAlign(column, center, center, wrap);
+        @include flex-align(column, center, center, wrap);
         transform: translateY(calc(50vh - 50% - 6rem));
     }
 
