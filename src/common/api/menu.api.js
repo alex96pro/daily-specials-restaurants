@@ -1,110 +1,108 @@
-import axios from 'axios';
-import { BACKEND_API } from '../../util/consts';
+import { get, post, deleteRequest } from './api';
 import { successToast } from '../../util/toasts/toasts';
 import { compressPhoto } from '../../util/functions';
 import { loadingStatus, loadingMenuPage, getMenu, addNewMeal, editMeal, deleteMeal, addCategory, deleteCategory } from '../actions/menu.actions';
 
 export function getMenuAPI(message) {
     return async (dispatch) => {
-        try{
-            dispatch(loadingMenuPage(true));
-            let response = await axios.get(`${BACKEND_API}/restaurant-menu/menu/${localStorage.getItem('RESTAURANT_ID')}`);
+        dispatch(loadingMenuPage(true));
+        let response = await get(`/restaurant-menu/menu/${localStorage.getItem('RESTAURANT_ID')}`, false, {401:'Unauthorized'});
+        if(response.status === 200){
             if(response.data.categories.length === 0){
                 message('Your restaurant has no categories');
             }
             dispatch(getMenu(response.data));
-        }catch(err){
+        }else{
             dispatch(loadingMenuPage(false));
-            console.log(err);
+            alert(response);
         }
     };
 };
+
 export function addNewMealAPI(data, closeModal) {
     return async (dispatch) => {
-        try{
-            dispatch(loadingStatus(true));
-            // console.log(performance.now());
-            data.photo = await compressPhoto(data.photo);
-            // console.log(performance.now());
-            if(data.photo){ //successfully compressed
-                data.restaurantId = localStorage.getItem('RESTAURANT_ID');
-                let response = await axios.post(`${BACKEND_API}/restaurant-menu/add-new-meal`,data,
-                {headers:{'Authorization':`Basic ${localStorage.getItem("ACCESS_TOKEN_RESTAURANT")}`}});
-                dispatch(addNewMeal(response.data));
-                closeModal();
-                successToast('Successfully added!');
-            }else{
-                dispatch(loadingStatus(false));
-                console.log("COMPRESSION FAILED");
-            }
-        }catch(err){
-            console.log(err);
+        dispatch(loadingStatus(true));
+        data.photo = await compressPhoto(data.photo);
+        if(!data.photo){
+            dispatch(loadingStatus(false));
+            console.log("COMPRESSION FAILED");
+            return;
+        }
+        data.restaurantId = localStorage.getItem('RESTAURANT_ID');
+        let response = await post(`/restaurant-menu/add-new-meal`, data, true, {401:'Unauthorized'});
+        if(response.status === 200){
+            dispatch(addNewMeal(response.data));
+            closeModal();
+            successToast('Successfully added!');
+        }else{
+            dispatch(loadingStatus(false));
+            alert(response);
         }
     };
 };
+
 export function editMenuMealAPI(data, closeModal) {
     return async (dispatch) => {
-        try{
-            dispatch(loadingStatus(true));
-            if(data.newPhoto){
-                data.newPhoto = await compressPhoto(data.newPhoto);
-                if(!data.newPhoto){
-                    console.log("COMPRESSION FAILED");
-                    dispatch(loadingStatus(false));
-                    return;
-                }
+        dispatch(loadingStatus(true));
+        if(data.newPhoto){
+            data.newPhoto = await compressPhoto(data.newPhoto);
+            if(!data.newPhoto){
+                console.log("COMPRESSION FAILED");
+                dispatch(loadingStatus(false));
+                return;
             }
-            let response = await axios.post(`${BACKEND_API}/restaurant-menu/edit-menu-meal`, data,
-            {headers:{'Authorization':`Basic ${localStorage.getItem("ACCESS_TOKEN_RESTAURANT")}`}});
+        }
+        let response = await post(`/restaurant-menu/edit-menu-meal`, data, true, {401:'Unauthorized'});
+        if(response.status === 200){
             dispatch(editMeal(response.data));
             closeModal();
             successToast('Successfully edited!');
-        }catch(err){
+        }else{
             dispatch(loadingStatus(false));
-            console.log(err);
+            alert(response)
         }
-    }
+    };
 };
+
 export function deleteMenuMealAPI(mealId, closeModal) {
     return async (dispatch) => {
-        try{
-            dispatch(loadingStatus(true));
-            let response = await axios.delete(`${BACKEND_API}/restaurant-menu/delete-menu-meal/${mealId}`,
-            {headers:{'Authorization':`Basic ${localStorage.getItem("ACCESS_TOKEN_RESTAURANT")}`}});
+        dispatch(loadingStatus(true));
+        let response = await deleteRequest(`/restaurant-menu/delete-menu-meal/${mealId}`, true, {401:'Unauthorized'});
+        if(response.status === 200){
             dispatch(deleteMeal(response.data));
             closeModal();
             successToast('Successfully deleted!');
-        }catch(err){
-            dispatch(loadingStatus(false));
-            console.log(err);
+        }else{
+            dispatch(loadingStatus(false))
+            alert(response);
         }
-    }
+    };
 };
+
 export function addCategoryAPI(category) {
     return async (dispatch) => {
-        try{
-            dispatch(loadingStatus(true));
-            let response = await axios.post(`${BACKEND_API}/restaurant-menu/add-category`,{category:category},
-            {headers:{'Authorization':`Basic ${localStorage.getItem("ACCESS_TOKEN_RESTAURANT")}`}});
+        dispatch(loadingStatus(true));
+        let response = await post(`/restaurant-menu/add-category`, {category:category}, true, {401:'Unauthorized'}); 
+        if(response.status === 200){
             dispatch(addCategory(response.data));
             successToast('Successfully added!');
-        }catch(err){
+        }else{
             dispatch(loadingStatus(false));
-            console.log(err);
+            alert(response);
         }
-    }
+    };
 };
+
 export function deleteCategoryAPI(category) {
     return async (dispatch) => {
-        try{
-            dispatch(loadingStatus(true));
-            let response = await axios.delete(`${BACKEND_API}/restaurant-menu/delete-category/${category}`,
-            {headers:{'Authorization':`Basic ${localStorage.getItem("ACCESS_TOKEN_RESTAURANT")}`}});
+        dispatch(loadingStatus(true));
+        let response = await deleteRequest(`/restaurant-menu/delete-category/${category}`, true, {401:'Unauthorized'});
+        if(response.status === 200){
             dispatch(deleteCategory(response.data));
             successToast('Successfully deleted!');
-        }catch(err){
+        }else{
             dispatch(loadingStatus(false));
-            console.log(err);
+            alert(response);
         }
-    }
+    };
 };

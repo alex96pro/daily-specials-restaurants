@@ -21,13 +21,13 @@ export default function SignUp() {
     const restaurant = useSelector(state => state.authentication.restaurantSignUpInfo);
     const {loadingStatus} = useSelector(state => state.authentication);
 
-    const setNewMessage = (newMessage, type) => {
-        if(type === "name"){
-            setMessageName(newMessage);
-            setMessageEmail('');
-        }else if(type === "email"){
+    const setNewMessage = (newMessage) => {
+        if(newMessage === "Email already in use"){
             setMessageEmail(newMessage);
             setMessageName('');
+        }else{
+            setMessageName(newMessage);
+            setMessageEmail('');
         }
     };
     

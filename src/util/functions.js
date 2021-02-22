@@ -14,7 +14,7 @@ export function getClientDateAndTime() {
     return today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + ' ' + today.getHours() + ':' + minutes + ':' + seconds;
 };
 
-export function checkTag(newTagForCheck, tags, setTags, setTagMessage) {
+export function checkTag(newTagForCheck, setNewTag, tags, setTags, setTagMessage) {
     if(tags.length === 10){
         setTagMessage('Maximal number of tags is 10');
         return;
@@ -32,6 +32,7 @@ export function checkTag(newTagForCheck, tags, setTags, setTagMessage) {
     else{
         setTags([...tags, newTag]);
         setTagMessage('');
+        setNewTag('');
     }  
 };
 export async function compressPhoto(croppedPhoto) {

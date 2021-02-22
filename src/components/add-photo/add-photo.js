@@ -34,6 +34,7 @@ export default function AddPhoto(props){
             reader.readAsDataURL(file);
             reader.onloadend = () => {
                 setPhoto(reader.result);
+                props.setPhotoData({...props.photoData, photoCropped: false, message:''});
             }
         }
     };
@@ -48,7 +49,7 @@ export default function AddPhoto(props){
                     rotation
                 );
                 setLoadingStatus(false);
-                props.setPhoto(croppedImage);
+                props.setPhotoData({...props.photoData, photo: croppedImage, changePhoto: false, photoCropped: true, message:''});
                 if(props.closeModal){
                     props.closeModal();
                 }
@@ -94,15 +95,14 @@ export default function AddPhoto(props){
                 onChange={(e, zoom) => setZoom(zoom)}
                 classes={{root: 'add-photo-slider', thumb: 'add-photo-slider-thumb', track:'add-photo-slider-track'}}
             />
-        {/* show message from parrent only if message exists and if user didn't already set his photo and wants to change it*/}
-        {props.message && !props.showCancel && <div className="add-photo-error">{props.message}</div>}
+        {props.photoData.message && <div className="add-photo-crop-error">{props.photoData.message}</div>}
         {message && <div className="add-photo-error">{message}</div>}
         <input type="file" accept="image/jpeg, image/jpg, image/png" id="file" onChange={changePhoto} className="input-file"/>
         <label htmlFor="file" className="input-file-button">
             <i className="fas fa-cloud-upload-alt fa-1x"></i>
             Choose a photo
         </label>
-        {props.showCancel && <button onClick={props.cancel} className="button-normal">Cancel</button>}
+        {props.photoData.changePhoto && <button onClick={() => props.setPhotoData({...props.photoData, changePhoto: false, photoCropped: true})} className="button-normal">Cancel</button>}
         <button onClick={showCroppedImage} className="input-file-button" disabled={loadingStatus}>{loadingStatus ? <Loader className="loader-small"/> : 'Done'}</button>
     </div>
     )

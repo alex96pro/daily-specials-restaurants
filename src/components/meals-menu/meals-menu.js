@@ -37,12 +37,15 @@ export default function MealsMenu(props) {
                     <i className="fas fa-edit fa-2x" onClick={() => setEditMealModal({show: true, meal: meal})}></i>
                     <i className="fas fa-trash fa-2x" onClick={() => setConfirmDeleteModal({show: true, meal: meal})}></i>
                 </div>
-                <img src={meal.photo} className="menu-meal-photo" alt="Loading..."/>
-                <div className="menu-meal-hidden-description" onClick={() => setEditMealModal({show: true, meal: meal})}
-                    onMouseEnter={() => showHiddenDiv(index)}
-                    onMouseLeave={() => hideHiddenDiv(index)}>
-                    <div className="menu-meal-description">{meal.description}</div>
+                <div className="menu-meal-photo-container">
+                    <img src={meal.photo} className="menu-meal-photo" alt="Loading..."/>
+                    <div className="menu-meal-hidden-description" onClick={() => setEditMealModal({show: true, meal: meal})}
+                        onMouseEnter={() => showHiddenDiv(index)}
+                        onMouseLeave={() => hideHiddenDiv(index)}>
+                        <div className="menu-meal-description">{meal.description}</div>
+                    </div>
                 </div>
+                
             </div>
             )}
             {confirmDeleteModal.show && 

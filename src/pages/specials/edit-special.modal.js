@@ -31,7 +31,7 @@ export default function EditSpecialModal(props) {
     };
 
     const addNewTag = () => {
-        checkTag(newTag, tags, setTags, setTagMessage);  
+        checkTag(newTag, setNewTag, tags, setTags, setTagMessage);  
     };
 
     const removeTag = (tag) => {

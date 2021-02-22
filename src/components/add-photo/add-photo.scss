@@ -34,13 +34,21 @@
     .fa-cloud-upload-alt{
         margin:0rem 0.4rem;
     }
-    .add-photo-error{
+    .add-photo-crop-error{
         color:$danger-color;
         font-size:1.6rem;
         font-weight: bold;
         position: absolute;
-        top:36.4rem;
-        left:2rem;
+        top:40.4rem;
+        left:1rem;
+    }
+    .add-photo-required-error{
+        color:$danger-color;
+        font-size:1.6rem;
+        font-weight: bold;
+        position: absolute;
+        top:19.4rem;
+        left:11.4rem;
     }
     .add-photo-slider{
         width:32rem;

@@ -22,19 +22,19 @@ export default function Profile() {
     const [messageName, setMessageName] = useState('');
     const [enabledDelivery, setEnabledDelivery] = useState(false);
     const [addLogoModal, setAddLogoModal] = useState(false);
-    const [photo, setPhoto] = useState('');
+    const [photoData, setPhotoData] = useState({photo:'', photoCropped: true, changePhoto: false, message:''});
 
     const setNewMessageName = (newMessage, success = false) => {
         setMessageName(newMessage);
         if(success){
-            setPhoto('');
+            setPhotoData({photo:'', photoCropped: true, changePhoto: false, message:''});
         }
     };
 
     const updateProfile = (data) => {
         let location = localStorage.getItem('ADDRESS');
         //check if anyhing changed
-        if(!location && data.name === restaurant.name && data.phone === restaurant.phone && !photo){
+        if(!location && data.name === restaurant.name && data.phone === restaurant.phone && !photoData.photo){
             if(data.deliveryMinimum && +data.deliveryMinimum === restaurant.deliveryMinimum && data.deliveryRange && +data.deliveryRange === restaurant.deliveryRange){
                 infoToast('No changes');
                 return;
@@ -48,8 +48,8 @@ export default function Profile() {
         }else{
             setMessageAddress('');
             data.logo = restaurant.logo; //restaurant already has logo or has no logo at all (null)
-            if(photo){
-                data.newLogo = photo; //restaurant set new logo
+            if(photoData.photo){
+                data.newLogo = photoData.photo; //restaurant set new logo
             }
             dispatch(updateProfileAPI(data, setNewMessageName));
         }
@@ -70,6 +70,15 @@ export default function Profile() {
                 <div className="header-accent-color">Your restaurant profile</div>
                 <div className="profile-info">
                     <form onSubmit={handleSubmit(updateProfile)}>
+                        {(restaurant.logo || photoData.photo ) ?
+                            <img src={photoData.photo ? photoData.photo : restaurant.logo} alt="Loading..." className="profile-restaurant-logo"
+                            onClick={() => setAddLogoModal(true)}/>
+                            :
+                            <div>
+                                <label className="label-accent-color">Your restaurant has no logo</label>
+                                <button type="button" onClick={() => setAddLogoModal(true)} className="button-small">Add logo</button>
+                            </div>
+                        }
                         <div className="label-accent-color-2">
                             Name:
                             <input type="text" name="name" ref={register({required:true})}></input>
@@ -112,24 +121,12 @@ export default function Profile() {
                             </div>
                         </React.Fragment>
                         }
-                        {(restaurant.logo || photo ) ?
-                            <React.Fragment>
-                                <div className="label-accent-color-2">Logo</div>
-                                <img src={photo ? photo : restaurant.logo} alt="Loading..." className="profile-restaurant-logo"
-                                onClick={() => setAddLogoModal(true)}/>
-                            </React.Fragment>
-                            :
-                            <div>
-                                <label className="label-accent-color">Your restaurant has no logo</label>
-                                <button type="button" onClick={() => setAddLogoModal(true)} className="button-small">Add logo</button>
-                            </div>
-                        }
                         <SubmitButton loadingStatus={loadingStatus} text='Save changes'/>
                     </form>
                 </div>
                 <button className="button-link" type="button" onClick={() => setDisableDeliveryModal(true)}>Disable delivery</button>
             </div>
-            {addLogoModal && <AddLogoModal photo={restaurant.logo ? restaurant.logo : ''} setPhoto={(photo) => setPhoto(photo)} closeModal={() => setAddLogoModal(false)}/>}
+            {addLogoModal && <AddLogoModal photoData={photoData} setPhotoData={setPhotoData} closeModal={() => setAddLogoModal(false)}/>}
             {disableDeliveryModal && <DisableDeliveryModal closeModal={() => setDisableDeliveryModal(false)} hideDeliveryFields={() => setEnabledDelivery(false)}/>}
         </div>
     );

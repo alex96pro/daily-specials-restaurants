@@ -18,9 +18,7 @@ export default function AddMealModal(props) {
     const [newTag, setNewTag] = useState('');
     const [tagMessage, setTagMessage] = useState('');
     const [nameMessage, setNameMessage] = useState('');
-    const [photoMessage, setPhotoMessage] = useState('');
-    const [changePhoto, setChangePhoto] = useState(false);
-    const [photo, setPhoto] = useState('');
+    const [photoData, setPhotoData] = useState({photo:'', photoCropped: true, changePhoto: false, message:''});
     
     const changeNewTag = (event) => {
         if(event.target.value.length > 25){
@@ -32,7 +30,7 @@ export default function AddMealModal(props) {
     };
 
     const addTag = () => {
-        checkTag(newTag, tags, setTags, setTagMessage);
+        checkTag(newTag, setNewTag, tags, setTags, setTagMessage);
     };
 
     const removeTag = (tag) => {
@@ -47,13 +45,15 @@ export default function AddMealModal(props) {
                 return;
             }
         }
-        if(!photo){
-            setPhotoMessage('Photo is required');
+        if(!photoData.photoCropped){
+            setPhotoData({...photoData, message:'Please press button done to crop photo'});
             return;
         }
-        setNameMessage('');
-        setPhotoMessage('');
-        data.photo = photo;
+        if(!photoData.photo){
+            setPhotoData({...photoData, message:'Photo is required'});
+            return;
+        }
+        data.photo = photoData.photo;
         data.tags = tags;
         dispatch(addNewMealAPI(data, props.closeModal));
     };
@@ -65,21 +65,19 @@ export default function AddMealModal(props) {
     return (
         <div className="modal">
             <div className="modal-underlay"></div>
-            
             <div className="modal-container-double" style={{opacity:modalOpacity}}>
             <div className="modal-header">
                     <button onClick={props.closeModal} className="modal-x">x</button>
                 </div>
 
                 <div className="modal-body">
-                    {photo && !changePhoto ? 
+                    {photoData.photo && !photoData.changePhoto ? 
                         <div className="add-meal-photo-container">
-                            <img src={photo} alt="Loading..." className="add-meal-photo"></img>
-                            <button onClick={() => setChangePhoto(true)} className="button-normal">Change photo</button>
+                            <img src={photoData.photo} alt="Loading..." className="add-meal-photo"></img>
+                            <button onClick={() => setPhotoData({...photoData, changePhoto: true})} className="button-normal">Change photo</button>
                         </div>
                         :
-                        <AddPhoto setPhoto={(photo) => {setPhoto(photo); setChangePhoto(false);}} showCancel={photo} 
-                            cancel={() => setChangePhoto(false)} message={photoMessage}/>
+                        <AddPhoto photoData={photoData} setPhotoData={setPhotoData}/>
                     }
                 </div>
              

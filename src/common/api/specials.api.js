@@ -1,72 +1,66 @@
-import axios from 'axios';
-import { BACKEND_API } from '../../util/consts';
+import { get, post, deleteRequest } from './api';
 import { successToast } from '../../util/toasts/toasts';
 import { getClientDateAndTime, compressPhoto } from '../../util/functions';
 import { loadingStatus, loadingSpecialsPage, getSpecials, addNewSpecial, deleteSpecial, editSpecial } from '../actions/specials.actions';
 
 export function getSpecialsAPI() {
     return async (dispatch) => {
-        try{
-            dispatch(loadingSpecialsPage(true));
-            let clientDateAndTime = getClientDateAndTime();
-            let response = await axios.get(`${BACKEND_API}/restaurant-specials/specials/${localStorage.getItem('RESTAURANT_ID')}?dateAndTime=${clientDateAndTime}`);
-            dispatch(getSpecials(response.data));
-        }catch(err){
-            dispatch(loadingSpecialsPage(false));
-            console.log(err);
-        }
+        dispatch(loadingSpecialsPage(true));
+        let clientDateAndTime = getClientDateAndTime();
+        let response = await get(`/restaurant-specials/specials/${localStorage.getItem('RESTAURANT_ID')}?dateAndTime=${clientDateAndTime}`);
+        dispatch(getSpecials(response.data));
     };
 };
+
 export function addNewSpecialAPI(data, closeModal) {
     return async (dispatch) => {
-        try{
-            dispatch(loadingStatus(true));
-            data.photo = await compressPhoto(data.photo);
-            if(data.photo){ //successfully compressed
-                data.dateAndTime = getClientDateAndTime(); //set date to client date
-                let response = await axios.post(`${BACKEND_API}/restaurant-specials/add-new-special/${localStorage.getItem('RESTAURANT_ID')}`,data,
-                {headers:{'Authorization':`Basic ${localStorage.getItem("ACCESS_TOKEN_RESTAURANT")}`}});
-                dispatch(addNewSpecial(response.data));
-                closeModal();
-                successToast('Successfully added!');
-            }else{
-                dispatch(loadingStatus(false));
-                console.log("COMPRESSION FAILED");
-            }
-        }catch(err){
+        dispatch(loadingStatus(true));
+        data.photo = await compressPhoto(data.photo);
+        if(!data.photo){
             dispatch(loadingStatus(false));
-            console.log(err);
+            console.log("COMPRESSION FAILED");
+            return;
+        }
+        data.dateAndTime = getClientDateAndTime(); //set date to client date
+        let response = await post(`/restaurant-specials/add-new-special/${localStorage.getItem('RESTAURANT_ID')}`, data, true, {401:'Unauthorized'});
+        if(response.status === 200){
+            dispatch(addNewSpecial(response.data));
+            closeModal();
+            successToast('Successfully added!');
+        }else{
+            dispatch(loadingStatus(true));
+            alert(response);
         }
     };
 };
+
 export function editSpecialAPI(data, closeModal) {
     return async (dispatch) => {
-        try{
-            dispatch(loadingStatus(true));
-            let response = await axios.post(`${BACKEND_API}/restaurant-specials/edit-special`,data,
-            {headers:{'Authorization':`Basic ${localStorage.getItem("ACCESS_TOKEN_RESTAURANT")}`}});
+        dispatch(loadingStatus(true));
+        let response = await post(`/restaurant-specials/edit-special`, data, true, {401:'Unauthorized'});
+        if(response.status === 200){
             dispatch(editSpecial(response.data));
             closeModal();
             successToast('Successfully edited!');
-        }catch(err){
-            dispatch(loadingStatus(false));
-            console.log(err);
+        }else{
+            dispatch(loadingStatus(false))
+            alert(response);
         }
     };
 };
+
 export function deleteSpecialAPI(data, closeModal) {
     return async (dispatch) => {
-        try{
-            dispatch(loadingStatus(true));
-            let response = await axios.delete(`${BACKEND_API}/restaurant-specials/delete-special/${data}`,
-            {headers:{'Authorization':`Basic ${localStorage.getItem("ACCESS_TOKEN_RESTAURANT")}`}});
+        dispatch(loadingStatus(true));
+        let response = await deleteRequest(`/restaurant-specials/delete-special/${data}`, true, {401:'Unauthorized'});
+        if(response.status === 200){
             dispatch(deleteSpecial(response.data));
             closeModal();
             successToast('Successfully deleted!');
-        }catch(err){
+        }else{
             dispatch(loadingStatus(false));
-            console.log(err);
+            alert(response);
         }
-    }
-}
+    };
+};
 

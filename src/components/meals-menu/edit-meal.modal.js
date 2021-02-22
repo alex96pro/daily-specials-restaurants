@@ -18,8 +18,7 @@ export default function EditMealModal(props) {
     const [newTag, setNewTag] = useState('');
     const [tagMessage, setTagMessage] = useState('');
     const [nameMessage, setNameMessage] = useState('');
-    const [changePhotoModal, setChangePhotoModal] = useState(false);
-    const [photo, setPhoto] = useState('');
+    const [photoData, setPhotoData] = useState({photo:'', photoCropped: true, changePhoto: false, message:''});
     const {register, handleSubmit, errors} = useForm({defaultValues:{
         name:props.meal.name, description:props.meal.description, category:props.meal.category, price:props.meal.price
     }});
@@ -38,7 +37,7 @@ export default function EditMealModal(props) {
     };
 
     const addTag = () => {
-        checkTag(newTag, tags, setTags, setTagMessage);  
+        checkTag(newTag, setNewTag, tags, setTags, setTagMessage);  
     };
 
     const removeTag = (tag) => {
@@ -53,15 +52,19 @@ export default function EditMealModal(props) {
                 return;
             }
         }
-        if(photo){
-            data.newPhoto = photo;
+        if(!photoData.photoCropped){
+            setPhotoData({...photoData, message:'Please press button done to crop photo'});
+            return;
+        }
+        if(photoData.photo){
+            data.newPhoto = photoData.photo;
         }
         data.tags = tags;
         data.photo = props.meal.photo;
         data.mealId = props.meal.mealId;
         // check if there is need to call api for changing this meal
         let editedMeal = false;
-        if(props.meal.name === data.name && props.meal.description === data.description && props.meal.price === +data.price && props.meal.category === data.category && props.meal.tags.length === data.tags.length && !photo){
+        if(props.meal.name === data.name && props.meal.description === data.description && props.meal.price === +data.price && props.meal.category === data.category && props.meal.tags.length === data.tags.length && !photoData.photo){
             for(let i = 0; i < data.tags.length; i++) {
                 if(data.tags[i] !== props.meal.tags[i]){
                     editedMeal = true;
@@ -87,14 +90,13 @@ export default function EditMealModal(props) {
                     <button onClick={props.closeModal} className="modal-x">x</button>
                 </div>
                 <div className="modal-body">
-                    {props.meal.photo && !changePhotoModal?
+                    {props.meal.photo && !photoData.changePhoto ?
                     <div className="edit-meal-photo-container">
-                        <img src={photo || props.meal.photo} alt="Loading..." className="edit-meal-photo"/>
-                        <button onClick={() => setChangePhotoModal(true)} className="button-normal">Change photo</button>
+                        <img src={photoData.photo || props.meal.photo} alt="Loading..." className="edit-meal-photo"/>
+                        <button onClick={() => setPhotoData({...photoData, changePhoto: true})} className="button-normal">Change photo</button>
                     </div>
                     :
-                    <AddPhoto setPhoto={(photo) => {setPhoto(photo); setChangePhotoModal(false)}} showCancel={true} 
-                    cancel={() => setChangePhotoModal(false)}/>
+                    <AddPhoto photoData={photoData} setPhotoData={setPhotoData}/>
                     }
                 </div>
                 <div className="modal-body">

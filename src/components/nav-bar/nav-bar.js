@@ -32,7 +32,7 @@ export default function NavBar(props) {
                 {logo ?
                 <div className="nav-restaurant-logo-container">
                     <img src={logo} className="nav-restaurant-logo" alt="Loading..." onClick={() => setDropDown(!dropDown)}/>
-                    <i className="fas fa-bars bar-over-image" onClick={() => setDropDown(!dropDown)}></i>
+                    <i className="fas fa-bars fa-2x bar-over-image" onClick={() => setDropDown(!dropDown)}></i>
                 </div>
                 :
                 <i className="fas fa-bars fa-3x" onClick={() => setDropDown(!dropDown)}></i>
