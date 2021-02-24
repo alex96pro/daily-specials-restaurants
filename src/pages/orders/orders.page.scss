@@ -15,11 +15,13 @@
         display:flex;
         justify-content: space-between;
     }
-    .order-meal{
+    .order-header{
         @include flex-align(row, space-between, center, wrap);
-        background-color: $accent-color-3;
         border-radius: 0;
         padding:0.2rem;
+    }
+    .order-meal{
+        background-color: $accent-color-3;
     }
     .order-buttons{
         text-align: center;

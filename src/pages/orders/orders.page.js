@@ -61,12 +61,15 @@ export default function Orders() {
                     <div className="label-white">Time: {order.time}</div>
                 </div>
                 {order.meals.map((meal,index) => <div key={index} className="order-meal">
-                    <div className="label-white">
-                        {meal.name}
+                    <div className="order-header">
+                        <div className="label-white">
+                            {meal.name}
+                        </div>
+                        <div className="label-white">
+                            x{meal.amount}
+                        </div>
                     </div>
-                    <div className="label-white">
-                        x{meal.amount}
-                    </div>
+                    <div className="label-white">Notes: {meal.notes || 'none'}</div>
                 </div>)}
                 <div className="label-white">Delivery address: {order.deliveryAddress}</div>
                 <div className="label-white">Phone: {order.phone}</div>
