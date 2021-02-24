@@ -40,7 +40,6 @@ export default function Landing() {
         }
         // eslint-disable-next-line
     }, []);
-
     return (
     <div className="landing">
         <NavBar loggedIn={false}/>

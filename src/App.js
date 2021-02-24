@@ -12,6 +12,7 @@ import SignUpSecondStep from './pages/sign-up/sign-up-second-step.page';
 import SignUpThirdStep from './pages/sign-up/sign-up-third-step.page';
 import Menu from './pages/menu/menu.page';
 import Specials from './pages/specials/specials.page';
+import Orders from './pages/orders/orders.page';
 import './styles/common.scss';
 import './styles/elements.scss';
 
@@ -35,6 +36,7 @@ export default function App() {
           <Route path="/sign-up-third-step" exact component={SignUpThirdStep}></Route>
           <Route path="/menu" exact component={Menu}></Route>
           <Route path="/specials" exact component={Specials}></Route>
+          <Route path="/orders" exact component={Orders}></Route>
       </Router>
     );
 }

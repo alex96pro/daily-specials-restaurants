@@ -12,6 +12,7 @@ export default function NavBar(props) {
     const [currentPage, setCurrentPage] = useState('');
     const [dropDown, setDropDown] = useState(false);
     const logo = useSelector(state => state.authentication.restaurant.logo);
+    const {newOrdersCount} = useSelector(state => state.orders);
 
     const handleLogout = () => {
         dispatch(logOut());
@@ -28,7 +29,9 @@ export default function NavBar(props) {
             <div className="nav-container">
                 <button className={currentPage==="/menu" ? "nav-card-active" : "nav-card"} onClick={() => history.push('/menu')}>Menu</button>
                 <button className={currentPage==="/specials" ? "nav-card-active" : "nav-card"} onClick={() => history.push('/specials')}>Specials</button>
-                <button className={currentPage==="/orders" ? "nav-card-active" : "nav-card"}>Orders</button>
+                <button className={currentPage==="/orders" ? "nav-card-active" : "nav-card"} onClick={() => history.push('/orders')}>
+                    {newOrdersCount > 0 && <label className="new-orders-count" onClick={() => history.push('/orders')}>{newOrdersCount}</label>} Orders
+                </button>
                 {logo ?
                 <div className="nav-restaurant-logo-container">
                     <img src={logo} className="nav-restaurant-logo" alt="Loading..." onClick={() => setDropDown(!dropDown)}/>

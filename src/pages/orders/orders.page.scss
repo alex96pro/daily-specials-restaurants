@@ -1,0 +1,39 @@
+@import '../../mixins';
+@import '../../variables';
+
+.orders{
+    @include flex-align(column,center,center,nowrap);
+    .orders-container{
+        width:30vw;
+    }
+    .order{
+        background-color: $accent-color;
+        margin:0.2rem 0rem;
+        padding:1rem;
+    }
+    .order-header{
+        display:flex;
+        justify-content: space-between;
+    }
+    .order-meal{
+        @include flex-align(row, space-between, center, wrap);
+        background-color: $accent-color-3;
+        border-radius: 0;
+        padding:0.2rem;
+    }
+    .order-buttons{
+        text-align: center;
+    }
+    .order-button-reject{
+        background-color: $danger-color;
+        color:white;
+        font-size: 1.8rem;
+        padding:1rem;
+        margin:0.2rem 0.8rem;
+        cursor: pointer;
+    }
+    .order-button-accept{
+        @extend .order-button-reject;
+        background-color: $success-color;
+    }
+}

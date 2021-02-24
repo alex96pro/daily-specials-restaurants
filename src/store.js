@@ -10,6 +10,9 @@ const loadState = () => {
     if(store !== null){
         storeObject = {
             authentication: store.authentication,
+            menu: store.menu,
+            specials: store.specials,
+            orders: store.orders
         };
     }
     return storeObject;

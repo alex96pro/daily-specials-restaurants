@@ -2,13 +2,15 @@ import { combineReducers } from 'redux';
 import authReducer from './auth.reducer';
 import menuReducer from './menu.reducer';
 import specialsReducer from './specials.reducer';
+import ordersReducer from './orders.reducer';
 import { LOGOUT } from '../actions/auth.actions';
 
 const allReducers = combineReducers(
     {
         authentication: authReducer,
         menu: menuReducer,
-        specials: specialsReducer
+        specials: specialsReducer,
+        orders: ordersReducer
     }
 );
 

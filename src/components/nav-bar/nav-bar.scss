@@ -24,6 +24,7 @@ nav{
         }
     }
     .nav-card{
+        position: relative;
         background-color: inherit;
         color:white;
         padding:1rem 1rem;
@@ -72,6 +73,17 @@ nav{
         left:0rem;
         width:100vw;
         height:100vh;
+    }
+    .new-orders-count{
+        position: absolute;
+        top:0.2rem;
+        left:0.2rem;
+        background-color: $accent-color-3;
+        color:$accent-color-2;
+        padding:0.2rem 0.6rem;
+        font-size:2rem;
+        font-weight: bold;
+        cursor: pointer;
     }
     .fa-bars{
         color:white;
