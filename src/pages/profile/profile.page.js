@@ -1,10 +1,11 @@
 import './profile.page.scss';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateProfileAPI } from '../../common/api/auth.api';
 import { infoToast } from '../../util/toasts/toasts';
-import {DISTANCE, CURRENCY} from '../../util/consts';
+import { useHistory } from 'react-router-dom';
+import { DISTANCE, CURRENCY } from '../../util/consts';
 import NavBar from '../../components/nav-bar/nav-bar';
 import DisableDeliveryModal from './disable-delivery.modal';
 import AddLogoModal from './add-logo.modal';
@@ -15,6 +16,7 @@ import InputError from '../../components/input-error';
 export default function Profile() {
 
     const dispatch = useDispatch();
+    const history = useHistory();
     const {restaurant, loadingStatus} = useSelector(state => state.authentication);
     const {register, handleSubmit, errors} = useForm({defaultValues:{name: restaurant.name, phone: restaurant.phone, deliveryMinimum: restaurant.deliveryMinimum, deliveryRange: restaurant.deliveryRange}});
     const [disableDeliveryModal, setDisableDeliveryModal] = useState(false);
@@ -62,6 +64,13 @@ export default function Profile() {
             setEnabledDelivery(false);
         }
     };
+
+    useEffect(() => {
+        if(!localStorage.getItem('ACCESS_TOKEN_RESTAURANT')){
+            history.push('/login');
+            return;
+        }
+    }, [history])
 
     return(
         <div className="profile">

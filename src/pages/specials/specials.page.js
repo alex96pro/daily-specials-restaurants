@@ -1,6 +1,7 @@
 import './specials.page.scss';
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { getSpecialsAPI } from '../../common/api/specials.api';
 import { CURRENCY, DAILY_SPECIALS_LIMIT } from '../../util/consts';
 import { getTodayDate } from '../../util/functions';
@@ -14,6 +15,7 @@ import EditSpecialModal from './edit-special.modal';
 export default function Specials() {
 
     const dispatch = useDispatch();
+    const history = useHistory();
     const {specials, usedSpecials, loadingSpecialsPage} = useSelector(state => state.specials);
     const [date, setDate] = useState('');
     const [postNewSpecialModal, setPostNewSpecialModal] = useState(false);
@@ -21,9 +23,13 @@ export default function Specials() {
     const [editSpecialModal, setEditSpecialModal] = useState({show: false, special: {}});
 
     useEffect(() => {
+        if(!localStorage.getItem('ACCESS_TOKEN_RESTAURANT')){
+            history.push('/login');
+            return;
+        }
         dispatch(getSpecialsAPI());
         setDate(getTodayDate());
-    },[dispatch]);
+    },[dispatch, history]);
 
     return (
         <div className="specials">

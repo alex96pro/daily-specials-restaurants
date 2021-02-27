@@ -1,5 +1,6 @@
 import './working-hours.page.scss';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { DAYS_OF_THE_WEEK } from '../../util/consts';
@@ -12,16 +13,17 @@ export default function WorkingHours() {
     
     const {register, handleSubmit} = useForm();
     const dispatch = useDispatch();
+    const history = useHistory();
     const workingHours = useSelector(state => state.authentication.restaurant.workingHours);
     const loadingStatus = useSelector(state => state.authentication.loadingStatus);
-    const [checkedDays, setCheckedDays] = useState(
+    const [checkedDays, setCheckedDays] = useState(workingHours ?
         [workingHours[0].from ? true : false,
         workingHours[1].from ? true : false,
         workingHours[2].from ? true : false,
         workingHours[3].from ? true : false,
         workingHours[4].from ? true : false,
         workingHours[5].from ? true : false,
-        workingHours[6].from ? true : false]
+        workingHours[6].from ? true : false] : null
     );
     const [message, setMessage] = useState({day:-1, text:''});
 
@@ -52,9 +54,17 @@ export default function WorkingHours() {
         setCheckedDays(newChecked);
     };
 
+    useEffect(() => {
+        if(!localStorage.getItem('ACCESS_TOKEN_RESTAURANT')){
+            history.push('/login');
+            return;
+        }
+    }, [history]);
+
     return (
         <div className="working-hours">
             <NavBar loggedIn={true}/>
+            {workingHours &&
                 <div className="working-hours-container">
                     <form onSubmit={handleSubmit(changeWorkingHours)}>
                         {DAYS_OF_THE_WEEK.map((day, index) => <div key={index}>
@@ -73,6 +83,7 @@ export default function WorkingHours() {
                         <SubmitButton loadingStatus={loadingStatus} text="Save changes"/>
                     </form>
                 </div>
+            }
             </div>
     );
 };

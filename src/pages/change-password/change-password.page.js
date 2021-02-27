@@ -1,6 +1,6 @@
 import './change-password.page.scss';
 import { useForm } from 'react-hook-form';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { changePasswordAPI } from '../../common/api/auth.api';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -34,6 +34,12 @@ export default function ChangePasswor(props) {
             dispatch(changePasswordAPI(data, setNewMessage));
         }
     };
+
+    useEffect(() => {
+        if(!localStorage.getItem('ACCESS_TOKEN_RESTAURANT')){
+            history.push('/login');
+        }
+    }, [history]);
 
     return (
         <div className="change-password">

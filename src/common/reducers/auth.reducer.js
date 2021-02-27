@@ -110,7 +110,9 @@ export default function authReducer(state = initialState, action) {
                     deliveryRange: action.payload.deliveryRange,
                     deliveryMinimum: action.payload.deliveryMinimum
                 }
-            }
+            };
+        case ACTIONS.LOGOUT:
+            return initialState;
         default:
             return state;
     }

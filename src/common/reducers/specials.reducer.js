@@ -1,4 +1,5 @@
 import * as ACTIONS from '../actions/specials.actions';
+import { LOGOUT } from '../actions/auth.actions';
 
 const initialState = {
     loadingStatus: false,
@@ -53,6 +54,8 @@ export default function specialsReducer(state = initialState, action) {
                 loadingStatus: false,
                 specials: state.specials.filter(special => special.specialId !== action.payload)
             };
+        case LOGOUT:
+            return initialState;
         default:
             return state;
     }

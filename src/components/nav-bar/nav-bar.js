@@ -16,6 +16,8 @@ export default function NavBar(props) {
 
     const handleLogout = () => {
         dispatch(logOut());
+        localStorage.removeItem('ACCESS_TOKEN_RESTAURANT');
+        localStorage.removeItem('RESTAURANT_ID');
         history.push('/');
     };
 

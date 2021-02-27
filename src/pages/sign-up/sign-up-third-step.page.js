@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { signUpCompleteAPI } from '../../common/api/auth.api';
 import { DAYS_OF_THE_WEEK } from '../../util/consts';
 import { useForm } from 'react-hook-form';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import NavBar from '../../components/nav-bar/nav-bar';
 import SubmitButton from '../../components/submit-button';
 import MessageDanger from '../../components/message-danger';
@@ -35,6 +35,12 @@ export default function SignUpThirdStep() {
         }
         setCheckedDays(newChecked);
     };
+
+    useEffect(() => {
+        if(localStorage.getItem('ACCESS_TOKEN_RESTAURANT')){
+            history.push('/orders');
+        }
+    }, [history]);
 
     const secondStep = () => {
         if(window.confirm("Changes for your working hours won't be saved, you will have to add them again")){

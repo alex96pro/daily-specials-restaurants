@@ -1,7 +1,8 @@
 import './menu.page.scss';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
-import {getMenuAPI} from '../../common/api/menu.api';
+import { useHistory } from 'react-router-dom';
+import { getMenuAPI } from '../../common/api/menu.api';
 import NavBar from '../../components/nav-bar/nav-bar';
 import MealsMenu from '../../components/meals-menu/meals-menu';
 import MessageDanger from '../../components/message-danger';
@@ -11,6 +12,7 @@ import Loader from '../../components/loader';
 export default function Menu() {
 
     const dispatch = useDispatch();
+    const history = useHistory();
     const {meals, categories, message, loadingMenuPage} = useSelector(state => state.menu);
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [modal, setModal] = useState(false);
@@ -29,8 +31,12 @@ export default function Menu() {
     };
 
     useEffect(() => {
+        if(!localStorage.getItem('ACCESS_TOKEN_RESTAURANT')){
+            history.push('/login');
+            return;
+        }
         dispatch(getMenuAPI(setMessages));
-    },[dispatch]);
+    },[dispatch, history]);
 
     return (
         <div className="menu">

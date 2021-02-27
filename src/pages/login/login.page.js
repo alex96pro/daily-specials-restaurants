@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import { logInAPI } from '../../common/api/auth.api';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import NavBar from '../../components/nav-bar/nav-bar';
 import SubmitButton from '../../components/submit-button';
 import ForgottenPasswordModal from './forgotten-password.modal';
@@ -29,8 +29,14 @@ export default function Login() {
     };
 
     const loginSuccess = () => {
-        history.push('/menu');
+        history.push('/orders');
     };
+
+    useEffect(() => {
+        if(localStorage.getItem('ACCESS_TOKEN_RESTAURANT')){
+            history.push('/orders');
+        }
+    }, [history]);
 
     return(
         <div className="login-restaurant">

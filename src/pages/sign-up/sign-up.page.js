@@ -2,7 +2,7 @@ import './sign-up.page.scss';
 import { useForm } from 'react-hook-form';
 import { CURRENCY, DISTANCE } from '../../util/consts';
 import { useHistory } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { changeDeliveryCheckbox } from '../../common/actions/auth.actions';
 import { signUpFirstStepAPI } from '../../common/api/auth.api';
 import { useDispatch, useSelector } from 'react-redux';
@@ -51,6 +51,12 @@ export default function SignUp() {
             dispatch(changeDeliveryCheckbox(false));
         }
     };
+
+    useEffect(() => {
+        if(localStorage.getItem('ACCESS_TOKEN_RESTAURANT')){
+            history.push('/orders');
+        }
+    }, [history]);
 
     return(
         <div className="sign-up-restaurant">

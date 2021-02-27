@@ -3,7 +3,6 @@ import authReducer from './auth.reducer';
 import menuReducer from './menu.reducer';
 import specialsReducer from './specials.reducer';
 import ordersReducer from './orders.reducer';
-import { LOGOUT } from '../actions/auth.actions';
 
 const allReducers = combineReducers(
     {
@@ -14,12 +13,4 @@ const allReducers = combineReducers(
     }
 );
 
-const rootReducer = (state, action) => {
-    if (action.type === LOGOUT) {
-        state = undefined;
-        localStorage.clear();
-    }
-    return allReducers(state, action);
-};
-
-export default rootReducer;
+export default allReducers;

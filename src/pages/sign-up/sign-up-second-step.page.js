@@ -1,5 +1,5 @@
 import './sign-up-second-step.page.scss';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { signUpThirdStep, signUpReturnFromSecondStep } from '../../common/actions/auth.actions';
@@ -37,6 +37,12 @@ export default function SignUpSecondStep() {
             history.push('/sign-up-third-step');
         }
     };
+
+    useEffect(() => {
+        if(localStorage.getItem('ACCESS_TOKEN_RESTAURANT')){
+            history.push('/orders');
+        }
+    }, [history]);
 
     return(
         <div className="map" id="map">

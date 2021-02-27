@@ -2,9 +2,11 @@ import './orders.page.scss';
 import socketClient from 'socket.io-client';
 import NavBar from '../../components/nav-bar/nav-bar';
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { BACKEND_API, CURRENCY } from '../../util/consts';
 import { useDispatch, useSelector } from 'react-redux';
 import { addNewOrder, acceptOrder, rejectOrder } from '../../common/actions/orders.actions';
+import NewOrderSound from '../../audio/new-order-sound.mp3';
 import AcceptModal from './accept.modal';
 import RejectModal from './reject.modal';
 var socket;
@@ -12,7 +14,9 @@ var socket;
 export default function Orders() {
     
     const dispatch = useDispatch();
-    const {orders} = useSelector(state => state.orders);
+    const history = useHistory();
+    const { orders } = useSelector(state => state.orders);
+    const { name } = useSelector(state => state.authentication.restaurant);
     const [acceptModal, setAcceptModal] = useState({show: false, userId:'', time: ''});
     const [rejectModal, setRejectModal] = useState({show: false, userId:'', time: ''});
 
@@ -20,6 +24,8 @@ export default function Orders() {
         dispatch(acceptOrder({userId: acceptModal.userId, time: acceptModal.time}));
         socket.emit('accept-order',{
             userId: acceptModal.userId,
+            restaurantId: localStorage.getItem('RESTAURANT_ID'),
+            restaurantName: name,
             estimatedTime: estimatedTime
         });
     };
@@ -28,11 +34,17 @@ export default function Orders() {
         dispatch(rejectOrder({userId: rejectModal.userId, time: rejectModal.time}));
         socket.emit('reject-order',{
             userId: rejectModal.userId,
+            restaurantId: localStorage.getItem('RESTAURANT_ID'),
+            restaurantName: name,
             rejectReason: rejectReason
         });
     };
 
     useEffect(() => {
+        if(!localStorage.getItem('ACCESS_TOKEN_RESTAURANT')){
+            history.push('/login');
+            return;
+        }
         socket = socketClient (BACKEND_API);
         socket.on('connection', () => {
             socket.emit('send-id',{restaurantId: localStorage.getItem('RESTAURANT_ID')});
@@ -48,8 +60,12 @@ export default function Orders() {
                 time: args.time,
                 status: 'waiting'
             }));
+            const newOrderSound = document.getElementById('new-order-sound');
+            if(newOrderSound){
+                newOrderSound.play();
+            }
         });
-    },[dispatch]);
+    },[dispatch, history]);
 
     return <div className="orders">
         <NavBar loggedIn={true}/>
@@ -91,5 +107,8 @@ export default function Orders() {
         </div>
         {acceptModal.show && <AcceptModal closeModal={() => setAcceptModal({show:false, userId:'', time: ''})} accept={(estimatedTime) => handleAcceptOrder(estimatedTime)}/>}
         {rejectModal.show && <RejectModal closeModal={() => setRejectModal({show:false, userId:'', time: ''})} reject={(rejectReason) => handleRejectOrder(rejectReason)}/>}
+        <audio style={{display:'none'}} id="new-order-sound">
+	        <source src={NewOrderSound} type="audio/mpeg"/>
+	    </audio>
     </div>
 }

@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunkMiddleware from 'redux-thunk';
-import rootReducer from './common/reducers/allReducers';
+import allReducers from './common/reducers/allReducers';
 
 // CURRENTLY ONLY KEEP SIGN UP INFO (authentication reducer) FOR RESTAURANT IN LOCAL STORAGE
 const loadState = () => {
@@ -24,7 +24,7 @@ const saveState = (state) => {
 
 export default function configureStore() {
     const state = loadState();
-    const store = createStore(rootReducer, state, composeWithDevTools(applyMiddleware(thunkMiddleware)));
+    const store = createStore(allReducers, state, composeWithDevTools(applyMiddleware(thunkMiddleware)));
     store.subscribe(() => {
         saveState(store.getState());
     });

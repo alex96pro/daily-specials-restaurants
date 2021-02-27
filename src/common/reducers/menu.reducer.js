@@ -1,4 +1,5 @@
 import * as ACTIONS from '../actions/menu.actions';
+import { LOGOUT } from '../actions/auth.actions';
 
 const initialState = {
     loadingStatus: false,
@@ -75,6 +76,8 @@ export default function menuReducer(state = initialState, action) {
                 categories: action.payload.categories,
                 meals: action.payload.mealIds.length > 0 ? newMeals : state.meals
             };
+        case LOGOUT:
+            return initialState;
         default:
             return state;
     }
