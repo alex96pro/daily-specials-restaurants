@@ -1,0 +1,21 @@
+@import '../../variables';
+
+.fill-bar{
+    width:100%;
+    background-color: white;
+    color:$accent-color;
+    position: relative;
+    .fill-bar-label{
+        font-size: 2rem;
+        font-weight: bold;
+        text-align: center;
+    }
+    .fill-bar-amount{
+        position: absolute;
+        top:0;
+        left:0;
+        width:0%;
+        height:100%;
+        background-color: rgba($color: $success-color, $alpha: 0.5);
+    }
+}

@@ -110,6 +110,10 @@ select, option{
     @extend .label-white;
     color:$accent-color-2;
 }
+.label-accent-color-3{
+    @extend .label-white;
+    color:$accent-color-3;
+}
 .header-white{
     color:white;
     margin: 1rem 1rem;

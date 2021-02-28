@@ -1,7 +1,33 @@
+@import './variables';
+
 @mixin flex-align($direction, $justify-content, $align-items, $wrap){
     display:flex;
     flex-direction:$direction;
     justify-content: $justify-content;
     align-items: $align-items;
     flex-wrap: $wrap;
+}
+
+@mixin mobile-range {
+    @media(max-width: $mobile-large-size) {
+        @content;
+    }
+}
+
+@mixin tablet-range {
+    @media(max-width: $tablet-size) {
+        @content;
+    }
+}
+
+@mixin small-desktop-range {
+    @media(max-width: $small-desktop-size) {
+        @content;
+    }
+}
+
+@mixin large-desktop-range {
+    @media(min-width: $small-desktop-size + 1) {
+        @content;
+    }
 }

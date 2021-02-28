@@ -9,11 +9,13 @@
         position:fixed;
         z-index: 1;
         width:25vw;
+        height:100vh;
         margin:0rem 0.5rem;
         padding: 0rem 1rem;
     }
     .menu-categories{
         background-color: $wrapper-color;
+        height:100%;
         padding:1rem;
     }
     .menu-category{
@@ -26,5 +28,34 @@
         font-size:3rem;
         color:$accent-color;
         margin:2.8rem 0rem;
+    }
+    .menu-footer-mobile{
+        display:none;
+    }
+}
+@include mobile-range{
+    .menu{
+        .menu-side-bar{
+            background-color: $wrapper-color;
+            visibility: hidden;
+            width:100vw;
+            margin:0;
+            padding:0;
+            left:0;
+            top:100vh;
+            transition:0.4s;
+        }
+        .menu-footer-mobile{
+            z-index:2;
+            display:block;
+            position:fixed;
+            bottom:0;
+            width:100vw;
+            background-color: $accent-color;
+            border-radius: 0;
+            color:white;
+            padding:1rem;
+            font-size: 1.6rem;
+        }
     }
 }

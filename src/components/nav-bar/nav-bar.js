@@ -27,7 +27,7 @@ export default function NavBar(props) {
 
     return(
         <nav>
-            {props.loggedIn ?
+            {props.loggedIn &&
             <div className="nav-container">
                 <button className={currentPage==="/menu" ? "nav-card-active" : "nav-card"} onClick={() => history.push('/menu')}>Menu</button>
                 <button className={currentPage==="/specials" ? "nav-card-active" : "nav-card"} onClick={() => history.push('/specials')}>Specials</button>
@@ -54,11 +54,6 @@ export default function NavBar(props) {
                 </div>
                 </React.Fragment>
                 }
-            </div>
-            :
-            <div className="nav-container">
-                <button className="nav-link">How it works</button> 
-                <button className="nav-link">About</button>
             </div>
             }
             <img src={Logo} alt="logo" className="logo"/>

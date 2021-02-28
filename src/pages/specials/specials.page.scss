@@ -3,48 +3,71 @@
 
 .specials{
     @include flex-align(column, center, center, nowrap);
-    .specials-container{
-        @include flex-align(row, center, stretch, wrap);
+    .special-container{
+        @include flex-align(row, flex-start, flex-start, nowrap);
+        background-color: white;
+        width:25%;
     }
-    .special{
-        @include flex-align(column, stretch, flex-start, wrap);
+    .specials-date-container{
+        @include flex-align(column,center,center,nowrap);
+    }
+    .specials-date-card{
+        @include flex-align(row,space-between,center,nowrap);
+        width:60vw;
         background-color: $wrapper-color;
-        width:30rem;
         padding:1rem;
-        margin:1rem;
+        margin:0.4rem 0rem;
+    }
+    .specials-date{
+        font-size: 2.5rem;
+        color:$accent-color;
     }
     .special-photo{
-        width:28rem;
-        height:28rem;
+        width:10rem;
+        height:10rem;
+        margin-right:0.2rem;
         cursor: pointer;
         transition: 0.2s;
         &:hover{
             opacity: 0.7;
         }
     }
-    .special-show-photo{
-        width:100%;
-        height:100%;
-    }
-    .special-photo-edit-modal{
-        width: 15rem;
-        height: 15rem;
-    }
-    .specials-buttons{
-        @include flex-align(row, center, center, wrap);
-        width: 100%;
-        margin-top:auto;
-    }
-    .add-special-photo-container{
+    .add-special-photo-container, .edit-special-photo-container{
         text-align: center;
         margin:0.6rem 0rem;
     }
-    .add-special-photo{
+    .add-special-photo, .edit-special-photo{
         border-radius:0;
         width:32rem;
         height:32rem;
     }
     .finish-posting-button{
         margin-top:7.6rem;
+    }
+    .deleted-special-label{
+        font-size: 2rem;
+        color:$danger-color;
+    }
+    .fa-ban{
+        color:$accent-color;
+        margin:auto 0.4rem;
+    }
+    .special-input-time{
+        margin:0;
+        padding:0.6rem;
+        font-weight: bold;
+    }
+}
+@include mobile-range{
+    .specials{
+        .specials-date-card{
+            @include flex-align(column, center, center, nowrap);
+            width: 100vw;
+            margin:1rem 0rem;
+        }
+        .special-container{
+            width:100%;
+            margin:0.4rem;
+        }
     }
 }

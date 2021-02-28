@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { getSpecialsAPI } from '../../common/api/specials.api';
 import { CURRENCY, DAILY_SPECIALS_LIMIT } from '../../util/consts';
-import { getTodayDate } from '../../util/functions';
+import { getClientDateAndTime, getNextWeekDates } from '../../util/functions';
 import NavBar from '../../components/nav-bar/nav-bar';
 import Loader from '../../components/loader';
-import Label from '../../components/label';
+import FillBar from '../../components/fill-bar/fill-bar';
 import PostNewSpecialModal from './post-new-special.modal';
 import ConfirmDeleteModal from './confirm-delete.modal';
 import EditSpecialModal from './edit-special.modal';
@@ -16,20 +16,57 @@ export default function Specials() {
 
     const dispatch = useDispatch();
     const history = useHistory();
-    const {specials, usedSpecials, loadingSpecialsPage} = useSelector(state => state.specials);
-    const [date, setDate] = useState('');
-    const [postNewSpecialModal, setPostNewSpecialModal] = useState(false);
-    const [confirmDeleteModal, setConfirmDeleteModal] = useState({show:false, special:{}});
+    const {specials, loadingSpecialsPage} = useSelector(state => state.specials);
+    const [usedSpecials, setUsedSpecials] = useState([]);
+    const [days, setDays] = useState([]);
+    const [postNewSpecialModal, setPostNewSpecialModal] = useState({show: false, date: '', today:''});
+    const [confirmDeleteModal, setConfirmDeleteModal] = useState({show:false, special:{}, date: '', today: ''});
     const [editSpecialModal, setEditSpecialModal] = useState({show: false, special: {}});
 
+    const handleNewSpecial = (day) => {
+        if(day.dbFormat === getClientDateAndTime(true, false)){
+            setPostNewSpecialModal({show: true, date: day, today: true});
+        }else{
+            setPostNewSpecialModal({show: true, date: day, today: false});
+        }
+    };
+
+    const handleEditSpecial = (special, day) => {
+        if(day.dbFormat === getClientDateAndTime(true, false)){
+            setEditSpecialModal({show: true, special: special, date: day, today: true});
+        }else{
+            setEditSpecialModal({show: true, special: special, date: day, today: false});
+        }
+    };
+
+    const handleDeleteSpecial = (special, day) => {
+        if(day.dbFormat === getClientDateAndTime(true, false)){
+            setConfirmDeleteModal({show: true, special: special, today: true});
+        }else{
+            setConfirmDeleteModal({show: true, special: special, today: false});
+        }
+    };
+    
     useEffect(() => {
         if(!localStorage.getItem('ACCESS_TOKEN_RESTAURANT')){
             history.push('/login');
             return;
         }
         dispatch(getSpecialsAPI());
-        setDate(getTodayDate());
+        setDays(getNextWeekDates());
     },[dispatch, history]);
+
+    useEffect(() => {
+        let usedSpecialsPerDay = [0,0,0,0,0,0,0];
+        for(let i = 0; i < specials.length; i++){
+            for(let j = 0; j < days.length; j++){
+                if(specials[i].date === days[j].dbFormat){
+                    usedSpecialsPerDay[j]++;
+                }
+            } 
+        }
+        setUsedSpecials(usedSpecialsPerDay);
+    }, [specials, days]);
 
     return (
         <div className="specials">
@@ -37,39 +74,41 @@ export default function Specials() {
                 {loadingSpecialsPage ? <Loader className="loader-center"/>
                 :
                 <React.Fragment>
-                    <div className="header-accent-color">Specials for day {date}</div>
-                    {usedSpecials !== '' && 
-                    <div className="header-accent-color">
-                        Used specials {usedSpecials}/{DAILY_SPECIALS_LIMIT}
-                        {specials.length !== usedSpecials && ` (${usedSpecials - specials.length} deleted)`}
-                    </div>}
-                    <button onClick={() => setPostNewSpecialModal(true)} className={usedSpecials === DAILY_SPECIALS_LIMIT ? "button-normal-disabled" : "button-normal"}>
-                        {usedSpecials === DAILY_SPECIALS_LIMIT ? 'Daily limit for specials is full' : 'Post new special'} 
-                    </button>
-                    <div className="specials-container">
-                        {specials.map(special => <div className="special" key={special.specialId}>
-                            <img src={special.photo} alt="Loading..." className="special-photo" onClick={() => setEditSpecialModal({show: true, special: special})}/>
-                            <Label name="Name: " value={special.name}/>
-                            <Label name="Description: " value={special.description}/>
-                            <Label name="Price: " value={special.price + CURRENCY}/>
-                            <div className="tags">
-                            <label className="label-accent-color-2">Tags:</label>
-                            {special.tags.map((tag, index) => <label className="tag" key={index}>
-                                #{tag}
-                            </label>)}
-                            {special.tags.length === 0 && <label className="label-accent-color">No tags</label>}
-                            </div>
-                            <div className="specials-buttons">
-                                <i className="fas fa-edit fa-3x" onClick={() => setEditSpecialModal({show: true, special: special})}></i>
-                                <i className="fas fa-trash fa-3x" onClick={() => setConfirmDeleteModal({show:true, special:special})}></i>
+                    <div className="header-accent-color">Your specials for this week</div>
+                    {days.map((day,index) => <div className="specials-date-card" key={index}>
+                        <div className="specials-date-container">
+                            <div className="specials-date">{day.value}</div>
+                            <FillBar label={usedSpecials[index]+'/'+DAILY_SPECIALS_LIMIT +' used'} percentage={usedSpecials[index]/DAILY_SPECIALS_LIMIT}/>
+                        </div>
+                        {specials.map(special => special.date === day.dbFormat && 
+                        <div className="special-container" key={special.specialId}>
+                            {special.deleted ? <i className="fas fa-ban fa-6x"></i>
+                            :
+                            <img src={special.photo} alt="Loading..." onClick={() => handleEditSpecial(special, day)} className="special-photo"></img>
+                            }
+                            <div>
+                                <div className="label-accent-color">{special.name}</div>
+                                <div className="label-accent-color-3">{special.price + CURRENCY}</div>
+                                <div className="label-accent-color">{special.time}</div>
+                                {special.deleted ?
+                                    <div className="deleted-special-label">Deleted</div>
+                                :
+                                <React.Fragment>
+                                    <i className="fas fa-edit fa-2x" onClick={() => handleEditSpecial(special, day)}></i>
+                                    <i className="fas fa-trash fa-2x" onClick={() => handleDeleteSpecial(special, day)}></i>
+                                </React.Fragment>
+                                } 
                             </div>
                         </div>)}
-                    </div>
+                        {usedSpecials[index] !== DAILY_SPECIALS_LIMIT && 
+                        <button onClick={() => handleNewSpecial(day)} className='button-normal' style={{margin:0}}>Post new special</button>
+                        }
+                    </div>)}
                 </React.Fragment>
                 }
-            {postNewSpecialModal && <PostNewSpecialModal closeModal={() => setPostNewSpecialModal(false)}/>}
-            {confirmDeleteModal.show && <ConfirmDeleteModal special={confirmDeleteModal.special} closeModal={() => setConfirmDeleteModal({show: false, special:{}})}/>}
-            {editSpecialModal.show && <EditSpecialModal special={editSpecialModal.special} closeModal={() => setEditSpecialModal({show: false, special: {}})}/>}
+            {postNewSpecialModal.show && <PostNewSpecialModal date={postNewSpecialModal.date} today={postNewSpecialModal.today} closeModal={() => setPostNewSpecialModal({...postNewSpecialModal, show: false})}/>}
+            {confirmDeleteModal.show && <ConfirmDeleteModal special={confirmDeleteModal.special} today={confirmDeleteModal.today} closeModal={() => setConfirmDeleteModal({show: false, special:{}})}/>}
+            {editSpecialModal.show && <EditSpecialModal data={editSpecialModal} closeModal={() => setEditSpecialModal({show: false, special: {}})}/>}
         </div>
     );
 }

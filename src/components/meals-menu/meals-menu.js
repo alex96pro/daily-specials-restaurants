@@ -34,6 +34,7 @@ export default function MealsMenu(props) {
                     <div className="menu-meal-price">{meal.price}{CURRENCY}</div>
                 </div>
                 <div className="menu-meal-header-icons">
+                    <i className="fas fa-bullhorn fa-2x"></i>
                     <i className="fas fa-edit fa-2x" onClick={() => setEditMealModal({show: true, meal: meal})}></i>
                     <i className="fas fa-trash fa-2x" onClick={() => setConfirmDeleteModal({show: true, meal: meal})}></i>
                 </div>

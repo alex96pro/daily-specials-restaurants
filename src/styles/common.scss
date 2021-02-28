@@ -59,6 +59,10 @@ body{
     font-size:2rem;
     margin:1rem;
 }
+.flex-space-between{
+    display: flex;
+    justify-content: space-between;
+}
 .modal{
     .modal-underlay{
         position:fixed;
@@ -142,9 +146,9 @@ body{
         background-color: $accent-color-2;
     }
 }
-.fa-edit, .fa-trash{
+.fa-edit, .fa-trash, .fa-bullhorn{
     color:$accent-color;
-    margin:0rem 0.4rem;
+    margin:0rem 0.5rem;
     cursor: pointer;
     &:hover{
         color:$accent-color-2;
@@ -153,6 +157,7 @@ body{
 @media (max-width:760px){
     .modal{
         .modal-container-double{
+            z-index:100;
             width: 36rem;
             flex-wrap: wrap;
             overflow-y: scroll; // for fixed element to be scrollable

@@ -17,6 +17,7 @@ export default function Menu() {
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [modal, setModal] = useState(false);
     const [messageNoCategories, setMessageNoCategories] = useState({show: false, text:''});
+    const [showMobileFooter, setShowMobileFooter] = useState(false);
 
     const addCategory = (event) => {
         if(event.target.checked){
@@ -28,6 +29,20 @@ export default function Menu() {
 
     const setMessages = (message) => {
         setMessageNoCategories({show: true, text: message});
+    };
+
+    const showOrHideMobileFooter = () => {
+        let categories = document.getElementsByClassName('menu-side-bar')[0];
+        if(categories){
+            if(showMobileFooter){
+                categories.style.visibility = "hidden";
+                categories.style.top = '100vh';
+            }else{
+                categories.style.visibility = "visible";
+                categories.style.top = '0';
+            }
+        }
+        setShowMobileFooter(!showMobileFooter);
     };
 
     useEffect(() => {
@@ -58,6 +73,9 @@ export default function Menu() {
                 {message && <div className="header-accent-color">{message}</div>}      
             </div>
             }
+            <button onClick={showOrHideMobileFooter} className="menu-footer-mobile">
+                {showMobileFooter ? 'Back to menu' : 'Categories'}
+            </button>
             {modal && <EditCategoriesModal closeModal={() => setModal(false)}/>}
         </div>
     );

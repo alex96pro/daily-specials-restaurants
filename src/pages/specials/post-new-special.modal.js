@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addNewSpecialAPI } from '../../common/api/specials.api';
-import { checkTag } from '../../util/functions';
+import { checkTag, getClientDateAndTime } from '../../util/functions';
 import AddPhoto from '../../components/add-photo/add-photo'
 import InputError from '../../components/input-error';
 import SubmitButton from '../../components/submit-button';
@@ -55,6 +55,11 @@ export default function PostNewSpecialModal(props) {
             setPhotoData({...photoData, message:'Photo is required'});
             return;
         }
+        if(data.time){ //not today's date
+            data.dateAndTime = props.date.dbFormat + ' ' + data.time + ':00';
+        }else{ //today's date
+            data.dateAndTime = getClientDateAndTime();
+        }
         data.photo = photoData.photo;
         data.tags = tags;
         dispatch(addNewSpecialAPI(data, props.closeModal));
@@ -94,11 +99,26 @@ export default function PostNewSpecialModal(props) {
                         {errors.description && errors.description.type === "required" && <InputError text='Description is required'/>}
                         {errors.description && errors.description.type === "minLength" && <InputError text='Description should have minimum 10 characters'/>}
                         {errors.description && errors.description.type === "maxLength" && <InputError text='Description can have maximum 200 characters'/>}
-
-                        <div className="label-accent-color">Price ({CURRENCY})</div>
-                        <input type="number" step="0.01" name="price" ref={register({required:true, min:0.01})}/>
-                        {errors.price && <InputError text='Price is required'/>}
-
+                        <div className="flex-space-between">
+                            <div>
+                                <div className="label-accent-color">Price ({CURRENCY})</div>
+                                <input type="number" step="0.01" name="price" ref={register({required:true, min:0.01})}/>
+                                {errors.price && <InputError text='Price is required'/>}
+                            </div>
+                            <div>
+                                <div className="label-accent-color">Date</div>
+                                {props.today ? <div className="label-accent-color">Today</div>
+                                :
+                                <div className="label-accent-color">{props.date.value}</div>
+                                }
+                            </div>
+                            {!props.today &&
+                            <div>
+                                <div className="label-accent-color">Time</div>
+                                <input type="time" defaultValue="00:00" name="time" ref={register()} className="special-input-time"/>
+                            </div>
+                            }
+                        </div>
                         <div className="label-accent-color">Tags</div>
                         <div className="tags">
                             {tags.map((tag,index) => 

@@ -1,17 +1,39 @@
 import imageCompression from 'browser-image-compression'; 
 
-export function getTodayDate() {
+export function getClientDateAndTime(dateOnly = false, dateWithMidnightTime = false) {
     let today = new Date();
-    return today.getDate()+"."+(today.getMonth()+1)+"."+today.getFullYear();
-};
-
-export function getClientDateAndTime() {
-    let today = new Date();
+    let day = today.getDate();
+    day = day < 10 ? '0' + day : day;
+    let month = today.getMonth() + 1;
+    month = month < 10 ? '0' + month : month;
+    if(dateOnly){
+        return today.getFullYear() + '-' + month + '-' + day;
+    }
+    if(dateWithMidnightTime){
+        return today.getFullYear() + '-' + month + '-' + day + ' 00:00:00';
+    }
+    let hours = today.getHours();
+    hours = hours < 10 ? '0' + hours : hours;
     let minutes = today.getMinutes();
     minutes = minutes < 10 ? '0' + minutes : minutes;
     let seconds = today.getSeconds();
     seconds = seconds < 10 ? '0' + seconds : seconds;
-    return today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + ' ' + today.getHours() + ':' + minutes + ':' + seconds;
+    return today.getFullYear() + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+};
+
+export function getNextWeekDates() {
+    let days = [];
+    for(let i = 0; i < 7; i++){
+        let date = new Date();
+        date.setDate(date.getDate() + i);
+        let day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
+        let month = (date.getMonth() + 1 ) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1);
+        days.push({
+            dbFormat: date.getFullYear() + '-' + month + '-' + day,
+            value: day + '-' + month + '-' + date.getFullYear()
+        });
+    }
+    return days;
 };
 
 export function checkTag(newTagForCheck, setNewTag, tags, setTags, setTagMessage) {

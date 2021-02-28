@@ -4,6 +4,7 @@ export const GET_SPECIALS = "GET_SPECIALS";
 export const ADD_NEW_SPECIAL = "ADD_NEW_SPECIAL";
 export const EDIT_SPECIAL = "EDIT_SPECIAL";
 export const DELETE_SPECIAL = "DELETE_SPECIAL";
+export const DELETE_SPECIAL_FROM_TODAY = "DELETE_SPECIAL_FROM_TODAY";
 
 export function loadingStatus(payload) {
     return {
@@ -38,6 +39,12 @@ export function editSpecial(payload) {
 export function deleteSpecial(payload) {
     return {
         type: DELETE_SPECIAL,
+        payload
+    };
+};
+export function deleteSpecialFromToday(payload) {
+    return {
+        type: DELETE_SPECIAL_FROM_TODAY,
         payload
     };
 };

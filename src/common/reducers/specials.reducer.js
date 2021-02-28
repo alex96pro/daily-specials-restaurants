@@ -4,8 +4,7 @@ import { LOGOUT } from '../actions/auth.actions';
 const initialState = {
     loadingStatus: false,
     loadingSpecialsPage:false,
-    specials: [],
-    usedSpecials: ''
+    specials: []
 };
 
 export default function specialsReducer(state = initialState, action) {
@@ -25,8 +24,7 @@ export default function specialsReducer(state = initialState, action) {
             return {
                 ...state,
                 loadingSpecialsPage: false,
-                specials: action.payload.specials,
-                usedSpecials: action.payload.usedSpecials
+                specials: action.payload
             };
         case ACTIONS.ADD_NEW_SPECIAL:
             return {
@@ -53,6 +51,19 @@ export default function specialsReducer(state = initialState, action) {
                 ...state,
                 loadingStatus: false,
                 specials: state.specials.filter(special => special.specialId !== action.payload)
+            };
+        case ACTIONS.DELETE_SPECIAL_FROM_TODAY:
+            for(let i = 0; i < state.specials.length; i++){
+                if(+state.specials[i].specialId === +action.payload){
+                    newSpecials.push({...state.specials[i], deleted: true});
+                }else{
+                    newSpecials.push(state.specials[i]);
+                }
+            }
+            return {
+                ...state,
+                loadingStatus: false,
+                specials: newSpecials
             };
         case LOGOUT:
             return initialState;

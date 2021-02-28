@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteSpecialAPI } from '../../common/api/specials.api';
+import { deleteSpecialAPI, deleteSpecialFromTodayAPI } from '../../common/api/specials.api';
 import ConfirmButton from '../../components/confirm-button';
 import MessageDanger from '../../components/message-danger';
 
@@ -11,7 +11,11 @@ export default function ConfirmDelete(props) {
     const dispatch = useDispatch();
 
     const deleteMeal = () => {
-        dispatch(deleteSpecialAPI(props.special.specialId, props.closeModal));
+        if(props.today){
+            dispatch(deleteSpecialFromTodayAPI(props.special.specialId, props.closeModal));
+        }else{
+            dispatch(deleteSpecialAPI(props.special.specialId, props.closeModal));
+        }
     };
 
     useEffect(() => {
@@ -27,7 +31,7 @@ export default function ConfirmDelete(props) {
                 </div>
                 <div className="modal-body">
                     <div className="label-accent-color">Are you sure you want to delete "{props.special.name}"?</div>
-                    <MessageDanger text="Used specials count won't decrease."/>
+                    {props.today && <MessageDanger text="Used specials count won't decrease."/>}
                     <ConfirmButton loadingStatus={loadingStatus} onClick={deleteMeal} text="Delete"/>
                 </div>
             </div>
