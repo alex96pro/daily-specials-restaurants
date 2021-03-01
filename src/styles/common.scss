@@ -23,7 +23,8 @@ body{
     }
 }
 .form-container{
-    background-color: $wrapper-color;
+    background-color: white;
+    box-shadow: 0 0 1rem $wrapper-color;
     padding:3rem;
 }
 .loader{

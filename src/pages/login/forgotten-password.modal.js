@@ -38,11 +38,16 @@ export default function ForgottenPasswordModal(props) {
                             <div className="label">Please enter your e-mail address and we will send you a link to change your password</div>
                             <input type="email" name="email" ref={register({required:true})}/>
                             {errors.email && <InputError text="Email is required"/>}
+                            {message.text && <InputError text={message.text}/>}
                             <SubmitButton loadingStatus={loadingStatus} text="Send"/>
                         </form>
                     }
-                    {message.text && <p className={message.success? "message-success" : "message-danger"}>{message.text}</p>}
-                    {message.success && <button onClick={props.closeModal} className="button-long">OK</button>}
+                    {message.success &&
+                    <div className="message-success">
+                        {message.text}
+                        <button onClick={props.closeModal} className="button-long">OK</button>
+                    </div>
+                    }
                 </div>
             </div>
         </div>

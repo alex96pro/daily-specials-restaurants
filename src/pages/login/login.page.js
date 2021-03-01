@@ -51,10 +51,10 @@ export default function Login() {
                         <div className="label">Password</div>
                         <input type="password" name="password" ref={register({required:true})}/>
                         {errors.password && <InputError text="Password is required"/>}
+                        {message && <MessageDanger text={message}/>}
                         <SubmitButton loadingStatus={loadingStatus} text="Log In"/>
                         {history.location.message && <MessageSuccess text={history.location.message}/>}
                     </form>
-                    {message && <MessageDanger text={message}/>}
                 </div>
                 <div><button onClick={() => setShowModal(true)} type="button" className="button-link">Forgot password?</button></div>
             </div>
