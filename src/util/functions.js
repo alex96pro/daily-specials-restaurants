@@ -1,6 +1,7 @@
 import imageCompression from 'browser-image-compression'; 
 
 export function getClientDateAndTime(dateOnly = false, dateWithMidnightTime = false) {
+    console.log(222);
     let today = new Date();
     let day = today.getDate();
     day = day < 10 ? '0' + day : day;

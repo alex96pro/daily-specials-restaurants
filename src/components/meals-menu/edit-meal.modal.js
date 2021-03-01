@@ -1,9 +1,9 @@
 import { useForm } from 'react-hook-form';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { CURRENCY } from '../../util/consts';
-import { editMenuMealAPI } from '../../common/api/menu.api';
-import { checkTag } from '../../util/functions';
+import { editMenuMealAPI, convertMealToSpecialAPI } from '../../common/api/menu.api';
+import { checkTag, getClientDateAndTime } from '../../util/functions';
 import { infoToast } from '../../util/toasts/toasts';
 import AddPhoto from '../add-photo/add-photo';
 import InputError from '../../components/input-error';
@@ -19,13 +19,18 @@ export default function EditMealModal(props) {
     const [tagMessage, setTagMessage] = useState('');
     const [nameMessage, setNameMessage] = useState('');
     const [photoData, setPhotoData] = useState({photo:'', photoCropped: true, changePhoto: false, message:''});
+    const [messageSpecialsDate, setMessageSpecialsDate] = useState('');
     const {register, handleSubmit, errors} = useForm({defaultValues:{
-        name:props.meal.name, description:props.meal.description, category:props.meal.category, price:props.meal.price
+        name:props.meal.name, description:props.meal.description, category:props.meal.category, price:props.meal.price, time:"00:00"
     }});
 
     useEffect(() => {
         setModalOpacity(1);
     }, []);
+
+    const messageSpecialsLimitFull = (message) => {
+        setMessageSpecialsDate(message);
+    };
 
     const changeNewTag = (event) => {
         if(event.target.value.length > 25){
@@ -45,40 +50,55 @@ export default function EditMealModal(props) {
     };
 
     const editMeal = (data) => {
-        data.name = data.name.trim();
-        for(let i = 0; i < meals.length; i++){
-            if(meals[i].name === data.name && meals[i].mealId !== props.meal.mealId){
-                setNameMessage('Meal name already exists');
+        if(props.convertMealToSpecial){
+            delete data.category;
+            data.tags = tags;
+            if(!photoData.photoCropped){
+                setPhotoData({...photoData, message:'Please press button done to crop photo'});
                 return;
             }
-        }
-        if(!photoData.photoCropped){
-            setPhotoData({...photoData, message:'Please press button done to crop photo'});
-            return;
-        }
-        if(photoData.photo){
-            data.newPhoto = photoData.photo;
-        }
-        data.tags = tags;
-        data.photo = props.meal.photo;
-        data.mealId = props.meal.mealId;
-        // check if there is need to call api for changing this meal
-        let editedMeal = false;
-        if(props.meal.name === data.name && props.meal.description === data.description && props.meal.price === +data.price && props.meal.category === data.category && props.meal.tags.length === data.tags.length && !photoData.photo){
-            for(let i = 0; i < data.tags.length; i++) {
-                if(data.tags[i] !== props.meal.tags[i]){
-                    editedMeal = true;
-                    break;
+            if(photoData.photo){
+                data.newPhoto = photoData.photo;
+            }else{
+                data.photo = props.meal.photo;
+            }
+            dispatch(convertMealToSpecialAPI(data, messageSpecialsLimitFull, props.closeModal));
+        }else{
+            data.name = data.name.trim();
+            for(let i = 0; i < meals.length; i++){
+                if(meals[i].name === data.name && meals[i].mealId !== props.meal.mealId){
+                    setNameMessage('Meal name already exists');
+                    return;
                 }
             }
-        }else{
-            editedMeal = true;
-        }
-        if(editedMeal){
-            dispatch(editMenuMealAPI(data, props.closeModal));
-        }else{
-            infoToast('No changes');
-            props.closeModal();
+            if(!photoData.photoCropped){
+                setPhotoData({...photoData, message:'Please press button done to crop photo'});
+                return;
+            }
+            if(photoData.photo){
+                data.newPhoto = photoData.photo;
+            }
+            data.tags = tags;
+            data.photo = props.meal.photo;
+            data.mealId = props.meal.mealId;
+            // check if there is need to call api for changing this meal
+            let editedMeal = false;
+            if(props.meal.name === data.name && props.meal.description === data.description && props.meal.price === +data.price && props.meal.category === data.category && props.meal.tags.length === data.tags.length && !photoData.photo){
+                for(let i = 0; i < data.tags.length; i++) {
+                    if(data.tags[i] !== props.meal.tags[i]){
+                        editedMeal = true;
+                        break;
+                    }
+                }
+            }else{
+                editedMeal = true;
+            }
+            if(editedMeal){
+                dispatch(editMenuMealAPI(data, props.closeModal));
+            }else{
+                infoToast('No changes');
+                props.closeModal();
+            }
         }
     };
 
@@ -113,14 +133,30 @@ export default function EditMealModal(props) {
                         {errors.description && errors.description.type === "minLength" && <InputError text='Description should have minimum 10 characters'/>}
                         {errors.description && errors.description.type === "maxLength" && <InputError text='Description can have maximum 200 characters'/>}
 
-                        <div className="label-accent-color">Category</div>
-                        <select name="category" ref={register()}>
-                            {categories.map((category,index) => 
-                                <option key={index}>
-                                    {category}
-                                </option>
-                            )}
-                        </select>
+                        {props.convertMealToSpecial ? 
+                        <div className="flex-space-between">
+                            <div>
+                                <label className="label-accent-color">Date</label>
+                                <input type="date" name="date" ref={register()} defaultValue={getClientDateAndTime(true, false)}/>
+                                {messageSpecialsDate && <InputError text={messageSpecialsDate}/>}
+                            </div>
+                            <div>
+                                <label className="label-accent-color">Time</label>
+                                <input type="time" name="time" ref={register()}/>
+                            </div>
+                        </div>:
+                        <React.Fragment>
+                            <div className="label-accent-color">Category</div>
+                            <select name="category" ref={register()}>
+                                {categories.map((category,index) => 
+                                    <option key={index}>
+                                        {category}
+                                    </option>
+                                )}
+                            </select>
+                        </React.Fragment>
+                        }
+                        
 
                         <div className="label-accent-color">Price ({CURRENCY})</div>
                         <input type="number" step="0.01" name="price" ref={register({required:true, min:0.01})}/>
@@ -137,7 +173,7 @@ export default function EditMealModal(props) {
                         <input type="text" name="tag" value={newTag} onChange={changeNewTag} placeholder='Add new tag' style={{width:'16rem'}}/>
                         <button type="button" onClick={addTag} className="button-small">Add</button>
                         {tagMessage && <InputError text={tagMessage}/>}
-                        <SubmitButton loadingStatus={loadingStatus} text='Save changes'/>
+                        <SubmitButton loadingStatus={loadingStatus} text={props.convertMealToSpecial ? 'Post new special' : 'Save changes'}/>
                     </form>
                 </div>
             </div>   

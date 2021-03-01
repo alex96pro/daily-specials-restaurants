@@ -2,6 +2,7 @@ import { get, post, deleteRequest } from './api';
 import { successToast } from '../../util/toasts/toasts';
 import { compressPhoto } from '../../util/functions';
 import { loadingStatus, loadingMenuPage, getMenu, addNewMeal, editMeal, deleteMeal, addCategory, deleteCategory } from '../actions/menu.actions';
+import { addNewSpecial } from '../actions/specials.actions';
 
 export function getMenuAPI(message) {
     return async (dispatch) => {
@@ -75,6 +76,23 @@ export function deleteMenuMealAPI(mealId, closeModal) {
         }else{
             dispatch(loadingStatus(false))
             alert(response);
+        }
+    };
+};
+
+export function convertMealToSpecialAPI(data, message, closeModal) {
+    return async (dispatch) => {
+        dispatch(loadingStatus(true));
+        data.restaurantId = localStorage.getItem('RESTAURANT_ID');
+        let response = await post(`/restaurant-menu/convert-meal-to-special`, data, true, {401:'Unauthorized', 403:'Your daily limit for this date is full'}); 
+        if(response.status === 200){
+            dispatch(addNewSpecial(response.data));
+            dispatch(loadingStatus(false)); // because action addNewSpecial sets to false loadingStatus for specials reducer
+            successToast('Successfully posted!');
+            closeModal();
+        }else{
+            dispatch(loadingStatus(false));
+            message(response);
         }
     };
 };
