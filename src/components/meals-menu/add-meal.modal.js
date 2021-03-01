@@ -67,7 +67,7 @@ export default function AddMealModal(props) {
             <div className="modal-underlay"></div>
             <div className="modal-container-double" style={{opacity:modalOpacity}}>
             <div className="modal-header">
-                    <button onClick={props.closeModal} className="modal-x">x</button>
+                    <i className="fas fa-times fa-2x" onClick={() => props.closeModal()}></i>
                 </div>
 
                 <div className="modal-body">
@@ -83,19 +83,19 @@ export default function AddMealModal(props) {
              
                 <div className="modal-body">
                     <form onSubmit={handleSubmit(addNewMeal)}>
-                        <div className="label-accent-color">Name</div>
+                        <div className="label">Name</div>
                         <input type="text" name="name" ref={register({required:true, maxLength:50})}/>
                         {errors.name && errors.name.type === "required" && <InputError text='Name is required'/>}
                         {errors.name && errors.name.type === "maxLength" && <InputError text='Name is limited to 50 characters'/>}
                         {nameMessage && <InputError text={nameMessage}/>}
 
-                        <div className="label-accent-color">Description</div>
+                        <div className="label">Description</div>
                         <textarea name="description" ref={register({required:true, minLength:10, maxLength:200})}/>
                         {errors.description && errors.description.type === "required" && <InputError text='Description is required'/>}
                         {errors.description && errors.description.type === "minLength" && <InputError text='Description should have minimum 10 characters'/>}
                         {errors.description && errors.description.type === "maxLength" && <InputError text='Description can have maximum 200 characters'/>}
 
-                        <div className="label-accent-color">Category</div>
+                        <div className="label">Category</div>
                         <select name="category" ref={register()}>
                             {categories.map((category,index) => 
                                 <option key={index}>
@@ -104,11 +104,11 @@ export default function AddMealModal(props) {
                             )}
                         </select>
 
-                        <div className="label-accent-color">Price ({CURRENCY})</div>
+                        <div className="label">Price ({CURRENCY})</div>
                         <input type="number" step="0.01" name="price" ref={register({required:true, min:0.01})}/>
                         {errors.price && <InputError text='Price is required'/>}
 
-                        <div className="label-accent-color">Tags</div>
+                        <div className="label">Tags</div>
                         <div className="tags">
                             {tags.map((tag,index) => 
                                 <div className="tag-rounded" key={index}>#{tag}

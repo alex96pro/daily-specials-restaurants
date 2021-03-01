@@ -3,7 +3,7 @@
 
 .button-link{
     background-color: transparent;
-    color:$accent-color;
+    color:$text-color;
     text-decoration: underline;
     margin:1rem 1rem;
     font-size: 1.6rem;
@@ -41,18 +41,18 @@
 }
 .button-normal-disabled{
     @extend .button-normal;
-    background-color: gray;
+    background-color: $accent-color-2;
     pointer-events: none;
     cursor:none;
 }
 .button-long-disabled{
     @extend .button-long;
-    background-color: gray;
+    background-color: $accent-color-2;
     pointer-events: none;
     cursor:none;
 }
 input[type=text], input[type=password], input[type=email]{
-    border:1px solid $accent-color;
+    border:1px solid rgba(0, 0, 0, 0.4);
     width:100%;
     height:3.4rem;
     font-size: 1.6rem;
@@ -60,7 +60,7 @@ input[type=text], input[type=password], input[type=email]{
     padding: 0rem 1rem;
     &:focus{
         outline:none;
-        box-shadow: 0 0 0.8rem rgba(17, 90, 110, 0.753);
+        box-shadow: 0 0 0.8rem $accent-color;
     }
 }
 input[type=checkbox]{
@@ -72,8 +72,8 @@ input[type=time], input[type=date]{
     padding:0.8rem;
     margin:0.4rem;
     font-size:1.6rem;
-    color:$accent-color;
-    border:1px solid $accent-color;
+    color:$text-color;
+    border:1px solid rgba(0, 0, 0, 0.4);
 }
 textarea{
     @extend input[type=text];
@@ -95,37 +95,41 @@ select, option{
     width:100%;
     font-size:1.6rem;
     padding:0.8rem;
-    border:1px solid $accent-color;
+    border:1px solid rgba(0, 0, 0, 0.4);
 }
-.label-white{
+.label{
     font-size:1.8rem;
-    color:white;
+    color:$text-color;
     margin:0.4rem 0.1rem;
 }
+.label-white{
+    @extend .label;
+    color:white;
+}
 .label-accent-color{
-    @extend .label-white;
+    @extend .label;
     color:$accent-color;
 }
 .label-accent-color-2{
-    @extend .label-white;
+    @extend .label;
     color:$accent-color-2;
 }
-.label-accent-color-3{
-    @extend .label-white;
-    color:$accent-color-3;
-}
-.header-white{
-    color:white;
+.header{
+    color:$text-color;
     margin: 1rem 1rem;
     font-size: 3rem;
     text-align: center;
 }
+.header-white{
+    @extend .header;
+    color:white;
+}
 .header-accent-color{
-    @extend .header-white;
+    @extend .header;
     color:$accent-color;
 }
 .header-accent-color-2{
-    @extend .header-white;
+    @extend .header;
     color:$accent-color-2;
 }
 .checkbox-margined{

@@ -74,7 +74,7 @@ export default function Specials() {
                 {loadingSpecialsPage ? <Loader className="loader-center"/>
                 :
                 <React.Fragment>
-                    <div className="header-accent-color">Your specials for this week</div>
+                    <div className="header">Your specials for this week</div>
                     {days.map((day,index) => <div className="specials-date-card" key={index}>
                         <div className="specials-date-container">
                             <div className="specials-date">{day.value}</div>
@@ -87,9 +87,9 @@ export default function Specials() {
                             <img src={special.photo} alt="Loading..." onClick={() => handleEditSpecial(special, day)} className="special-photo"></img>
                             }
                             <div>
-                                <div className="label-accent-color">{special.name}</div>
-                                <div className="label-accent-color-3">{special.price + CURRENCY}</div>
-                                <div className="label-accent-color">{special.time}</div>
+                                <div className="label">{special.name}</div>
+                                <div className="label-accent-color">{special.price + CURRENCY}</div>
+                                <div className="label">{special.time}</div>
                                 {special.deleted ?
                                     <div className="deleted-special-label">Deleted</div>
                                 :

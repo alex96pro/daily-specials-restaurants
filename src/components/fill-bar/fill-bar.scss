@@ -2,10 +2,10 @@
 
 .fill-bar{
     width:100%;
-    background-color: white;
-    color:$accent-color;
+    background-color: $wrapper-color;
     position: relative;
     .fill-bar-label{
+        color:$text-color;
         font-size: 2rem;
         font-weight: bold;
         text-align: center;

@@ -56,7 +56,7 @@ export default function NavBar(props) {
                 }
             </div>
             }
-            <img src={Logo} alt="logo" className="logo"/>
+            <img src={Logo} alt="logo" className="nav-logo"/>
         </nav>
     );
 };

@@ -65,12 +65,12 @@ export default function SignUp() {
                 <div className="form-container">
                 <div className="sign-up-restaurant-header">Create account for your restaurant</div>
                     <form onSubmit={handleSubmit(secondStep)}>
-                        <div className="label-accent-color">Restaurant Name</div>
+                        <div className="label">Restaurant Name</div>
                         <input type="text" name="restaurantName" ref={register({required:true})} defaultValue={restaurant.restaurantName}/>
                         {errors.restaurantName && <InputError text="Name is required"/>}
                         {messageName && <InputError text={messageName}/>}
 
-                        <div className="label-accent-color">Phone</div>
+                        <div className="label">Phone</div>
                         <input type="text" name="phone" ref={register({required:true, pattern: /^\d+$/})} defaultValue={restaurant.phone}/>
                         {errors.phone?.type === 'required' && <InputError text="Phone is required"/>}
                         {errors.phone?.type === 'pattern' && <InputError text="Phone can contain only numbers"/>}
@@ -80,27 +80,27 @@ export default function SignUp() {
 
                         {restaurant.delivery && 
                         <div>
-                            <div className="label-accent-color">Maximal delivery range</div>
+                            <div className="label">Maximal delivery range</div>
                             <input type="number" name="deliveryRange" ref={register({required:true})} step="0.1" defaultValue={restaurant.deliveryRange}/>
-                            <label className="label-accent-color">{DISTANCE}</label>
+                            <label className="label">{DISTANCE}</label>
                             {errors.deliveryRange && <InputError text="Maximal delivery range is required"/>}
-                            <div className="label-accent-color">Minimal amount for delivery</div>
+                            <div className="label">Minimal amount for delivery</div>
                             <input type="number" name="deliveryMinimum" ref={register({required:true})} step="0.01" defaultValue={restaurant.deliveryMinimum}/>
-                            <label className="label-accent-color">{CURRENCY}</label>
+                            <label className="label">{CURRENCY}</label>
                             {errors.deliveryMinimum && <InputError text="Minimal amount for delivery is required"/>}
                         </div>}
 
-                        <div className="label-accent-color">Email</div>
+                        <div className="label">Email</div>
                         <input type="email" name="email" ref={register({required:true})} defaultValue={restaurant.email}/>
                         {errors.email && <InputError text="Email is required"/>}
                         {messageEmail && <InputError text={messageEmail}/>}
 
-                        <div className="label-accent-color">Password</div>
+                        <div className="label">Password</div>
                         <input type="password" name="password" ref={register({required:true})} defaultValue={restaurant.password}/>
                         {errors.password && <InputError text="Password is required"/>}
                         {messagePasswords && <InputError text={messagePasswords}/>}
 
-                        <div className="label-accent-color">Retype password</div>
+                        <div className="label">Retype password</div>
                         <input type="password" name="retypePassword" ref={register({required:true})} defaultValue={restaurant.retypePassword}/>
                         {errors.retypePassword && <InputError text="Retype your password"/>}
                         {messagePasswords && <InputError text={messagePasswords}/>}
@@ -108,7 +108,7 @@ export default function SignUp() {
                         <SubmitButton text={'Next step'} loadingStatus={loadingStatus}/>
                     </form>
                 </div>
-                <div className="label-accent-color">Already have an account?
+                <div className="label">Already have an account?
                 <button type="button" onClick={() => history.push('/login')} className="button-link">Log In</button></div>
             </div>
         </div>

@@ -26,10 +26,10 @@ export default function AcceptModal(props) {
             <div className="modal-underlay" onClick={props.closeModal}></div>
             <div className="modal-container" style={{opacity:modalOpacity}}>
                 <div className="modal-header">
-                    <button onClick={props.closeModal} className="modal-x">x</button>
+                    <i className="fas fa-times fa-2x" onClick={() => props.closeModal()}></i>
                 </div>
                 <div className="modal-body">
-                    <label className="label-accent-color">Estimated time for delivery</label>
+                    <label className="label">Estimated time for delivery</label>
                     <form onSubmit={handleSubmit(acceptOrder)}>
                         <select name="estimatedTime" ref={register()}>
                             <option value='15 minutes'>15 minutes</option>

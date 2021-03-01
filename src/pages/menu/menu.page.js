@@ -64,9 +64,13 @@ export default function Menu() {
                     <div className="menu-categories">
                     <i className="fas fa-edit fa-3x" onClick={() => setModal(true)}></i>
                     {messageNoCategories.show && categories.length === 0 && <MessageDanger text={messageNoCategories.text}/>}
-                        {categories.map((category, index) => <div className="menu-category" key={index}>
-                            <input type="checkbox" value={category} onChange={addCategory}/>{category}
+                        {categories.map((category, index) => <div key={index}>
+                            <label className="menu-category" htmlFor={`category${index}`}>
+                                <input type="checkbox" value={category} onChange={addCategory} id={`category${index}`}/>
+                                {category}
+                            </label>
                         </div>)}
+                            
                     </div>
                 </div>
                 <MealsMenu meals={meals} categories={categories} selectedCategories={selectedCategories}/>

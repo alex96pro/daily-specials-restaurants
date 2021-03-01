@@ -30,12 +30,12 @@ export default function ForgottenPasswordModal(props) {
             <div className="modal-underlay" onClick={props.closeModal}></div>
             <div className="modal-container" style={{opacity:modalOpacity}}>
                 <div className="modal-header">
-                    <button onClick={props.closeModal} className="modal-x">x</button>
+                    <i className="fas fa-times fa-2x" onClick={() => props.closeModal()}></i>
                 </div>
                 <div className="modal-body">
                     {!message.success && 
                         <form onSubmit={handleSubmit(submitEmail)}>
-                            <div className="label-accent-color">Please enter your e-mail address and we will send you a link to change your password</div>
+                            <div className="label">Please enter your e-mail address and we will send you a link to change your password</div>
                             <input type="email" name="email" ref={register({required:true})}/>
                             {errors.email && <InputError text="Email is required"/>}
                             <SubmitButton loadingStatus={loadingStatus} text="Send"/>

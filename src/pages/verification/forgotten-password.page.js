@@ -36,10 +36,10 @@ export default function ForgottenPassword() {
             <div className="forgotten-password-container">
                 {!message.success ?
                 <form onSubmit={handleSubmit(handleNewPassword)}>
-                    <div className="label-accent-color">New password</div>
+                    <div className="label">New password</div>
                     <input type="password" name="newPassword" ref={register({required:true})}/>
                     {errors.newPassword && <InputError text="New password is required"/>}
-                    <div className="label-accent-color">Retype new password</div>
+                    <div className="label">Retype new password</div>
                     <input type="password" name="retypeNewPassword" ref={register({required:true})}/>
                     {errors.retypeNewPassword && <InputError text="Retype new password"/>}
                     <SubmitButton loadingStatus={loadingStatus} text="Confirm"/>

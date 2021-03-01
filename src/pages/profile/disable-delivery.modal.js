@@ -34,10 +34,10 @@ export default function DisableDeliveryModal(props) {
             <div className="modal-underlay" onClick={props.closeModal}></div>
             <div className="modal-container" style={{opacity:modalOpacity}}>
                 <div className="modal-header">
-                    <button onClick={props.closeModal} className="modal-x">x</button>
+                    <i className="fas fa-times fa-2x" onClick={() => props.closeModal()}></i>
                 </div>
                 <div className="modal-body">
-                    <div className="label-accent-color">
+                    <div className="label">
                         In order to disable delivery for your restaurant please enter your password
                     </div>
                     <form onSubmit={handleSubmit(handleDisableDelivery)}>

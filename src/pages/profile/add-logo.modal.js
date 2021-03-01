@@ -14,7 +14,7 @@ export default function AddLogoModal(props) {
             <div className="modal-underlay" onClick={props.closeModal}></div>
             <div className="modal-container" style={{opacity:modalOpacity}}>
                 <div className="modal-header">
-                    <button onClick={props.closeModal} className="modal-x">x</button>
+                    <i className="fas fa-times fa-2x" onClick={() => props.closeModal()}></i>
                 </div>
                 <div className="modal-body">
                     <AddPhoto photoData={props.photoData} setPhotoData={props.setPhotoData} closeModal={props.closeModal}/>

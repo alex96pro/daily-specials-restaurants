@@ -85,7 +85,7 @@ export default function EditSpecialModal(props) {
             <div className="modal-underlay" onClick={props.closeModal}></div>
             <div className={props.data.today ? "modal-container" : "modal-container-double"} style={{opacity:modalOpacity}}>
                 <div className="modal-header">
-                    <button onClick={props.closeModal} className="modal-x">x</button>
+                    <i className="fas fa-times fa-2x" onClick={() => props.closeModal()}></i>
                 </div>
                 {!props.data.today && <div className="modal-body">
                 {props.data.special.photo && !photoData.changePhoto ?
@@ -99,34 +99,34 @@ export default function EditSpecialModal(props) {
                 </div>}
                 <div className="modal-body">
                     <form onSubmit={handleSubmit(editSpecial)}>
-                        <label className="label-accent-color">Name</label>
+                        <label className="label">Name</label>
                         <input type="text" name="name" ref={register({required: true, maxLength:50})}/>
                         {errors.name && errors.name.type === "required" && <InputError text="Name is required"/>}
                         {errors.name && errors.name.type === "maxLength" && <InputError text="Name is limited to 50 characters"/>}
-                        <label className="label-accent-color">Description</label>
+                        <label className="label">Description</label>
                         <textarea name="description" ref={register({required: true, minLength: 10, maxLength: 200})}/>
                         {errors.description && errors.description.type === "required" && <InputError text="Description is required"/>}
                         {errors.description && errors.description.type === "minLength" &&<InputError text="Description minimum is 10 characters"/>}
                         {errors.description && errors.description.type === "maxLength" &&<InputError text="Description maximum is 200 characters"/>}
                         <div className="flex-space-between">
                             <div>
-                                <div className="label-accent-color">Price ({CURRENCY})</div>
+                                <div className="label">Price ({CURRENCY})</div>
                                 <input type="number" name="price" step="0.01" ref={register({required: true, min: 0.01})}/>
                                 {errors.price && <InputError text="Price is required"/>}
                             </div>
                             <div>
-                                <div className="label-accent-color">Date</div>
-                                {props.data.today ? <div className="label-accent-color">Today</div>
+                                <div className="label">Date</div>
+                                {props.data.today ? <div className="label">Today</div>
                                 :
-                                <div className="label-accent-color">{props.data.date.value}</div>
+                                <div className="label">{props.data.date.value}</div>
                                 }
                             </div>
                             <div>
-                                <div className="label-accent-color">Time</div>
+                                <div className="label">Time</div>
                                 <input type="time" name="time" ref={register()} className="special-input-time" disabled={props.data.today}/>
                             </div>
                         </div>
-                        <div className="label-accent-color">Tags</div>
+                        <div className="label">Tags</div>
                         <div className="tags">
                             {tags.map((tag, index) => <div className="tag-rounded" key={index}>
                                 #{tag}<button type="button" onClick={() => removeTag(tag)} className="tag-button-x">x</button>

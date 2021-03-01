@@ -84,6 +84,14 @@ export function convertMealToSpecialAPI(data, message, closeModal) {
     return async (dispatch) => {
         dispatch(loadingStatus(true));
         data.restaurantId = localStorage.getItem('RESTAURANT_ID');
+        if(data.newPhoto){
+            data.newPhoto = await compressPhoto(data.newPhoto);
+            if(!data.newPhoto){
+                console.log("COMPRESSION FAILED");
+                dispatch(loadingStatus(false));
+                return;
+            }
+        }
         let response = await post(`/restaurant-menu/convert-meal-to-special`, data, true, {401:'Unauthorized', 403:'Your daily limit for this date is full'}); 
         if(response.status === 200){
             dispatch(addNewSpecial(response.data));

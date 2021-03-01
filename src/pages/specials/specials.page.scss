@@ -5,7 +5,7 @@
     @include flex-align(column, center, center, nowrap);
     .special-container{
         @include flex-align(row, flex-start, flex-start, nowrap);
-        background-color: white;
+        background-color: $wrapper-color;
         width:25%;
     }
     .specials-date-container{
@@ -14,13 +14,13 @@
     .specials-date-card{
         @include flex-align(row,space-between,center,nowrap);
         width:60vw;
-        background-color: $wrapper-color;
+        background-color: white;
         padding:1rem;
         margin:0.4rem 0rem;
     }
     .specials-date{
         font-size: 2.5rem;
-        color:$accent-color;
+        color:$accent-color-2;
     }
     .special-photo{
         width:10rem;
@@ -49,13 +49,16 @@
         color:$danger-color;
     }
     .fa-ban{
-        color:$accent-color;
+        color:$accent-color-2;
         margin:auto 0.4rem;
     }
     .special-input-time{
         margin:0;
         padding:0.6rem;
         font-weight: bold;
+    }
+    .special-date-margined{
+        margin:0.8rem 0rem;
     }
 }
 @include mobile-range{

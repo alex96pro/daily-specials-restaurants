@@ -14,20 +14,26 @@
         padding: 0rem 1rem;
     }
     .menu-categories{
-        background-color: $wrapper-color;
+        background-color: white;
         height:100%;
         padding:1rem;
     }
     .menu-category{
-        font-size:2.2rem;
-        color:$accent-color;
-        margin:2rem 0rem;
+        @include flex-align(row,flex-start,center,wrap);
+        font-size: 2rem;
+        margin:1rem 0rem;
+        padding:1rem;
+        transition: 0.2s;
+        cursor: pointer;
+        &:hover{
+            background-color: $wrapper-color;
+        }
     }
     .menu-side-bar-header{
         text-align: center;
         font-size:3rem;
-        color:$accent-color;
-        margin:2.8rem 0rem;
+        color:$text-color;
+        margin:3.6rem 0rem 2rem 0rem;
     }
     .menu-footer-mobile{
         display:none;

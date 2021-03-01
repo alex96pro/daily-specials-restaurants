@@ -1,6 +1,6 @@
 import './specials.page.scss';
 import { useForm } from 'react-hook-form';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addNewSpecialAPI } from '../../common/api/specials.api';
 import { checkTag, getClientDateAndTime } from '../../util/functions';
@@ -74,7 +74,7 @@ export default function PostNewSpecialModal(props) {
             <div className="modal-underlay"></div>
             <div className="modal-container-double" style={{opacity:modalOpacity}}>
                 <div className="modal-header">
-                    <button onClick={props.closeModal} className="modal-x">x</button>
+                    <i className="fas fa-times fa-2x" onClick={() => props.closeModal()}></i>
                 </div>
                 <div className="modal-body">
                     {photoData.photo && !photoData.changePhoto ? 
@@ -88,38 +88,39 @@ export default function PostNewSpecialModal(props) {
                 </div>
                 <div className="modal-body">
                     <form onSubmit={handleSubmit(addNewSpecial)}>
-                        <div className="label-accent-color">Name</div>
+                        <div className="label">Name</div>
                         <input type="text" name="name" ref={register({required:true, maxLength:50})}/>
                         {errors.name && errors.name.type === "required" && <InputError text='Name is required'/>}
                         {errors.name && errors.name.type === "maxLength" && <InputError text="Name is limited to 50 characters"/>}
                         {nameMessage && <InputError text={nameMessage}/>}
 
-                        <div className="label-accent-color">Description</div>
+                        <div className="label">Description</div>
                         <textarea name="description" ref={register({required:true, minLength:10, maxLength:200})}/>
                         {errors.description && errors.description.type === "required" && <InputError text='Description is required'/>}
                         {errors.description && errors.description.type === "minLength" && <InputError text='Description should have minimum 10 characters'/>}
                         {errors.description && errors.description.type === "maxLength" && <InputError text='Description can have maximum 200 characters'/>}
                         <div className="flex-space-between">
                             <div>
-                                <div className="label-accent-color">Price ({CURRENCY})</div>
+                                <div className="label">Price ({CURRENCY})</div>
                                 <input type="number" step="0.01" name="price" ref={register({required:true, min:0.01})}/>
                                 {errors.price && <InputError text='Price is required'/>}
                             </div>
                             <div>
-                                <div className="label-accent-color">Date</div>
-                                {props.today ? <div className="label-accent-color">Today</div>
-                                :
-                                <div className="label-accent-color">{props.date.value}</div>
+                                <div className="label">Date</div>
+                                {props.today ?
+                                    <div className="label special-date-margined">Today</div>
+                                    :
+                                    <div className="label special-date-margined">{props.date.value}</div>
                                 }
                             </div>
                             {!props.today &&
                             <div>
-                                <div className="label-accent-color">Time</div>
+                                <div className="label">Time</div>
                                 <input type="time" defaultValue="00:00" name="time" ref={register()} className="special-input-time"/>
                             </div>
                             }
                         </div>
-                        <div className="label-accent-color">Tags</div>
+                        <div className="label">Tags</div>
                         <div className="tags">
                             {tags.map((tag,index) => 
                                 <div className="tag-rounded" key={index}>#{tag}

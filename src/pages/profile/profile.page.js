@@ -76,7 +76,7 @@ export default function Profile() {
         <div className="profile">
             <NavBar loggedIn={true}/>
             <div className="profile-container">
-                <div className="header-accent-color">Your restaurant profile</div>
+                <div className="header">Your restaurant profile</div>
                 <div className="profile-info">
                     <form onSubmit={handleSubmit(updateProfile)}>
                         {(restaurant.logo || photoData.photo ) ?
@@ -84,35 +84,35 @@ export default function Profile() {
                             onClick={() => setAddLogoModal(true)}/>
                             :
                             <div>
-                                <label className="label-accent-color">Your restaurant has no logo</label>
+                                <label className="label">Your restaurant has no logo</label>
                                 <button type="button" onClick={() => setAddLogoModal(true)} className="button-small">Add logo</button>
                             </div>
                         }
-                        <div className="label-accent-color-2">
+                        <div className="label">
                             Name:
                             <input type="text" name="name" ref={register({required:true})}></input>
                             {messageName && <InputError text={messageName}/>}
                             {errors.name && <InputError text='Name is required'/>}
                         </div>
-                        <div className="label-accent-color-2">
+                        <div className="label">
                             Location:
                             <GoogleAutocomplete placeholder={restaurant.location}/>
                         </div>
                         {messageAddress && <InputError text={messageAddress}/>}
-                        <div className="label-accent-color-2">
+                        <div className="label">
                             Phone: 
                             <input type="text" name="phone" ref={register({required:true, pattern: /^\d+$/})}></input>
                             {errors.phone && errors.phone.type ==="required" && <InputError text='Phone is required'/>}
                             {errors.phone && errors.phone.type ==="pattern" && <InputError text='Phone number can contain numbers only'/>}
                         </div>
                         {!restaurant.delivery &&
-                            <div className="label-accent-color-2">
+                            <div className="label">
                                 Enable delivery<input type="checkbox" name="delivery" ref={register()} value={enabledDelivery} onChange={enableDelivery}/>
                             </div>
                         }
                         {(restaurant.delivery || enabledDelivery ) &&
                         <React.Fragment> 
-                            <div className="label-accent-color-2">
+                            <div className="label">
                                 Delivery minimum: ({CURRENCY})
                             </div>
                             <div>
@@ -120,7 +120,7 @@ export default function Profile() {
                                 ref={register({required: enabledDelivery ? true : false})} step="0.01"></input>
                                 {errors.deliveryMinimum && <InputError text='Delivery minimum is required'/>}
                             </div>
-                            <div className="label-accent-color-2">
+                            <div className="label">
                                 Delivery range: ({DISTANCE})
                             </div>
                             <div>

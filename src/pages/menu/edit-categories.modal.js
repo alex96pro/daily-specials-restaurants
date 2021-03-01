@@ -64,17 +64,17 @@ export default function EditCategoriesModal(props) {
             <div className="modal-underlay" onClick={props.closeModal}></div>
             <div className="modal-container" style={{opacity:modalOpacity}}>
                 <div className="modal-header">
-                    <button onClick={props.closeModal} className="modal-x">x</button>
+                    <i className="fas fa-times fa-2x" onClick={() => props.closeModal()}></i>
                 </div>
                 <div className="modal-body">
                     <div className="wrapper-container">
-                        <div className="label-accent-color">Add new category</div>
+                        <div className="label">Add new category</div>
                         <input name="category" value={newCategory} onChange={changeCategory} type="text" style={{width:'50%'}}/>
                         <ConfirmButton small={true} onClick={addCategory} loadingStatus={loadingStatus} text='Add'/>
                         {message && <InputError text={message}/>}
                     </div>
                     <div className="wrapper-container">
-                        <div className="label-accent-color">Delete category</div>
+                        <div className="label">Delete category</div>
                         <form onSubmit={handleSubmit(checkDeleteCategory)}>
                             <select name="category" ref={register()} style={{width:'50%'}} onChange={() => setDeleteWarning(false)}>
                                 {categories.map((category, index) => <option value={category} key={index}>
