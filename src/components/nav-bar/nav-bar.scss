@@ -67,7 +67,7 @@ nav{
     }
 }
 @include mobile-range{
-    .nav{
+    nav{
         position: fixed;
         box-shadow: 0 0.4rem 0.4rem -0.2rem $wrapper-color;
         height:6rem;
