@@ -18,11 +18,37 @@
     }
     .modifier-type{
         @include flex-align(row, flex-start, flex-start, nowrap);
-        margin:1.5rem 0rem;
+        margin:1rem 0rem;
     }
     .modifier-example{
-        color:gray;
+        color:$accent-color-2;
         font-size: 1.6rem;
+    }
+    .modifier-option{
+        @include flex-align(row, flex-start, center, nowrap);
+        width:100%;
+        margin:0.4rem 0rem;
+    }
+    .modifier-option-name-input{
+        width:70%;
+    }
+    .modifier-option-price-input{
+        width:20%;
+        margin-left:2rem;
+        margin-right:0.2rem;
+    }
+    .add-new-modifier-option{
+        background-color: $wrapper-color;
+        color:$accent-color-2;
+        padding:0.4rem;
+        margin:0.6rem 0rem;
+        font-size:1.6rem;
+        transition: 0.2s;
+        cursor: pointer;
+        &:hover{
+            background-color: $accent-color-2;
+            color:white;
+        }
     }
 }
 

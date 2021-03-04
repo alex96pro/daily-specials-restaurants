@@ -24,7 +24,7 @@ export default function NavBar(props) {
     },[history.location.pathname]);
 
     return(
-        <nav className={!props.loggedIn && 'nav-horizontal'}>
+        <nav className={props.loggedIn ? '' : 'nav-horizontal'}>
             {props.loggedIn &&
             <div className={props.loggedIn ? "nav-container" : "nav-container-horizontal"}>
                 <button className={currentPage==="/menu" ? "nav-card-active" : "nav-card"} onClick={() => history.push('/menu')}>Menu</button>
