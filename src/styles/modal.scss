@@ -1,0 +1,60 @@
+@import '../mixins';
+@import '../variables';
+
+.modal-underlay{
+    position:fixed;
+    z-index: 2;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 0;
+}
+.modal{
+    position: fixed;
+    z-index:100;
+    left:50vw;
+    top:50vh;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: 0.5s;
+    .modal-body-vertical{
+        @include flex-align(column, flex-start, stretch, nowrap);
+        background-color: white;
+        padding:1rem;
+        border-radius: 0;
+        width: 50rem;
+        max-width: 100%;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+    .modal-body-horizontal{
+        @extend .modal-body-vertical;
+        @include flex-align(row, space-evenly, flex-start, nowrap);
+        width:80rem;
+    }
+    .modal-header{
+        width: 100%;
+        border-radius: 0.8rem 0.8rem 0rem 0rem;
+        background-color: $wrapper-color;
+        @include flex-align(row,flex-end,center,nowrap);
+    }
+    .modal-footer{
+        position: relative;
+    }
+}
+@include mobile-range{
+    .modal{
+        top:inherit;
+        bottom:0;
+        left:0;
+        transform: none;
+        .modal-body-vertical{
+            width:100vw;
+        }
+        .modal-body-horizontal{
+            flex-wrap: wrap;
+        }
+    }
+}

@@ -16,6 +16,12 @@ body, html{
 .m-0{
     margin:0;
 }
+.p-0{
+    padding:0;
+}
+.flex-1{
+    flex:1;
+}
 .wrapper-container{
     background-color:$wrapper-color;
     padding:1rem;
@@ -50,7 +56,6 @@ body, html{
 .message-danger{
     color:$danger-color;
     font-size:1.8rem;
-    text-align: center;
 }
 .input-error{
     color:$danger-color;
@@ -84,48 +89,6 @@ body, html{
         background-color:$accent-color-2;
     }
 }
-.modal{
-    .modal-underlay{
-        position:fixed;
-        z-index: 2;
-        left:0;
-        right:0;
-        top:0;
-        bottom:0;
-        background-color: rgba(0, 0, 0, 0.6);
-        border-radius: 0;
-    }
-    .modal-container{
-        @include flex-align(row,flex-start,flex-start,nowrap);
-        position:fixed;
-        z-index: 3;
-        background-color: white;
-        left:50vw;
-        top:50vh;
-        transform: translate(-50%, -50%);
-        opacity:0;
-        transition:1.2s;
-        width:36rem;
-    }
-    .modal-container-double{
-        @extend .modal-container;
-        width:72rem;
-    }
-    .modal-body{
-        height: 100%;
-        width:36rem;
-        margin: 0.4rem;
-        padding: 0.4rem;
-        margin-top:3rem;
-    }
-    .modal-header{
-        border-radius: 0;
-        width: 100%;
-        position:fixed;
-        @include flex-align(row,flex-end,center,nowrap);
-        background-color: $wrapper-color;
-    } 
-}
 .tags{
     @include flex-align(row, flex-start, center, wrap);
     margin-bottom:0.4rem;
@@ -153,7 +116,7 @@ body, html{
         background-color: $accent-color;
     }
 }
-.fa-edit, .fa-trash, .fa-bullhorn{
+.fa-edit, .fa-trash, .fa-bullhorn, .fa-copy{
     color:$accent-color-2;
     margin:0rem 0.5rem;
     cursor: pointer;
@@ -161,14 +124,7 @@ body, html{
         color:$accent-color;
     }
 }
-@include mobile-range{
-    .modal{
-        .modal-container-double{
-            z-index:100;
-            width: 36rem;
-            flex-wrap: wrap;
-            overflow-y: scroll; // for fixed element to be scrollable
-            max-height: 100%; // for fixed element to be scrollable
-        }
-    }
+.copy-icon{
+    position: relative;
+    top:0.2rem;
 }

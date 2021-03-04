@@ -63,10 +63,10 @@ input[type=text], input[type=password], input[type=email]{
         box-shadow: 0 0 0.8rem $accent-color;
     }
 }
-input[type=checkbox]{
+input[type=checkbox], input[type=radio]{
     height:1.8rem;
     width:1.8rem;
-    margin:0rem 1rem;
+    margin-right:1rem;
 }
 input[type=time], input[type=date]{
     padding:0.8rem;

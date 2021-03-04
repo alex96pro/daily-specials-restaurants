@@ -103,23 +103,23 @@ export default function EditMealModal(props) {
     };
 
     return (
-        <div className="modal">
-            <div className="modal-underlay" onClick={props.closeModal}></div>
-            <div className="modal-container-double" style={{opacity:modalOpacity}}>
-                <div className="modal-header">
-                    <i className="fas fa-times fa-2x" onClick={() => props.closeModal()}></i>
+        <React.Fragment>
+
+        <div className="modal-underlay" onClick={props.closeModal}></div>
+        <div className="modal" style={{opacity:modalOpacity}}>
+            <div className="modal-header">
+                <i className="fas fa-times fa-2x" onClick={() => props.closeModal()}></i>
+            </div>
+            <div className="modal-body-horizontal" >
+                {props.meal.photo && !photoData.changePhoto ?
+                <div className="edit-meal-photo-container">
+                    <img src={photoData.photo || props.meal.photo} alt="Loading..." className="edit-meal-photo"/>
+                    <div><button onClick={() => setPhotoData({...photoData, changePhoto: true})} className="button-normal">Change photo</button></div>
                 </div>
-                <div className="modal-body">
-                    {props.meal.photo && !photoData.changePhoto ?
-                    <div className="edit-meal-photo-container">
-                        <img src={photoData.photo || props.meal.photo} alt="Loading..." className="edit-meal-photo"/>
-                        <button onClick={() => setPhotoData({...photoData, changePhoto: true})} className="button-normal">Change photo</button>
-                    </div>
-                    :
-                    <AddPhoto photoData={photoData} setPhotoData={setPhotoData}/>
-                    }
-                </div>
-                <div className="modal-body">
+                :
+                <AddPhoto photoData={photoData} setPhotoData={setPhotoData}/>
+                }
+                <div className="flex-1">
                     <form onSubmit={handleSubmit(editMeal)}>
                         <div className="label">Name</div>
                         <input type="text" name="name" ref={register({required:true, maxLength:50})}/>
@@ -178,5 +178,6 @@ export default function EditMealModal(props) {
                 </div>
             </div>   
     </div>
+    </React.Fragment>
     );
 };

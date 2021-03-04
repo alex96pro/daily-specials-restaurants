@@ -3,7 +3,7 @@
 .nav-horizontal{
     height: 6rem;
     width: 100vw;
-    box-shadow: 0 0.4rem 0.4rem -0.2rem $wrapper-color;
+    box-shadow: 0 0.2rem 0.4rem -0.2rem $accent-color;
 }
 .nav-container-horizontal{
     @include flex-align(row, center, center, wrap);

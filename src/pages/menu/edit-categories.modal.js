@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addCategoryAPI, deleteCategoryAPI} from '../../common/api/menu.api';
 import InputError from '../../components/input-error';
@@ -60,13 +60,13 @@ export default function EditCategoriesModal(props) {
     }, []);
 
     return (
-        <div className="modal">
-            <div className="modal-underlay" onClick={props.closeModal}></div>
-            <div className="modal-container" style={{opacity:modalOpacity}}>
-                <div className="modal-header">
-                    <i className="fas fa-times fa-2x" onClick={() => props.closeModal()}></i>
-                </div>
-                <div className="modal-body">
+        <React.Fragment>
+        <div className="modal-underlay" onClick={props.closeModal}></div>
+        <div className="modal" style={{opacity:modalOpacity}}>
+            <div className="modal-header">
+                <i className="fas fa-times fa-2x" onClick={() => props.closeModal()}></i>
+            </div>
+                <div className="modal-body-vertical">
                     <div className="wrapper-container">
                         <div className="label">Add new category</div>
                         <input name="category" value={newCategory} onChange={changeCategory} type="text" style={{width:'50%'}}/>
@@ -94,6 +94,6 @@ export default function EditCategoriesModal(props) {
                     </div>
                 </div>
             </div>
-        </div>
+        </React.Fragment>
     );
 };

@@ -12,6 +12,7 @@ const loadState = () => {
             authentication: store.authentication,
             menu: store.menu,
             specials: store.specials,
+            modifiers: store.modifiers,
             orders: store.orders
         };
     }

@@ -4,6 +4,7 @@
 .add-photo{
     text-align: center;
     height: 44rem;
+    width:35rem;
     
     .crop-container{
         border-radius: 0;
@@ -25,7 +26,7 @@
         font-size: 1.8rem;
         padding:1rem;
         transition: 0.2s;
-        margin:3rem 0.2rem;
+        margin:3rem 0.2rem 0.2rem 0rem;
         cursor: pointer;
         &:hover{
             background-color: $accent-color-2;

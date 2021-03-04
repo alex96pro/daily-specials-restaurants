@@ -2,6 +2,7 @@
 @import '../../variables';
 
 .menu{
+    background-color: white;
     .menu-container{
         @include flex-align(row, flex-start, flex-start, wrap);
         margin-left:20vw;

@@ -70,23 +70,23 @@ export default function PostNewSpecialModal(props) {
     }, []);
 
     return (
-        <div className="modal">
-            <div className="modal-underlay"></div>
-            <div className="modal-container-double" style={{opacity:modalOpacity}}>
-                <div className="modal-header">
-                    <i className="fas fa-times fa-2x" onClick={() => props.closeModal()}></i>
-                </div>
-                <div className="modal-body">
-                    {photoData.photo && !photoData.changePhoto ? 
-                        <div className="add-special-photo-container">
-                            <img src={photoData.photo} alt="Loading..." className="add-special-photo"></img>
-                            <button onClick={() => setPhotoData({...photoData, changePhoto: true})} className="button-normal">Change photo</button>
-                        </div>
-                        :
-                        <AddPhoto photoData={photoData} setPhotoData={setPhotoData}/>
-                    }
-                </div>
-                <div className="modal-body">
+        <React.Fragment>
+        <div className="modal-underlay"></div>
+        <div className="modal" style={{opacity:modalOpacity}}>
+            <div className="modal-header">
+                <i className="fas fa-times fa-2x" onClick={() => props.closeModal()}></i>
+            </div>
+            <div className="modal-body-horizontal">
+                {photoData.photo && !photoData.changePhoto ? 
+                    <div className="add-special-photo-container">
+                        <img src={photoData.photo} alt="Loading..." className="add-special-photo"></img>
+                        <div><button onClick={() => setPhotoData({...photoData, changePhoto: true})} className="button-normal">Change photo</button></div>
+                        
+                    </div>
+                    :
+                    <AddPhoto photoData={photoData} setPhotoData={setPhotoData}/>
+                }
+                <div className="flex-1">
                     <form onSubmit={handleSubmit(addNewSpecial)}>
                         <div className="label">Name</div>
                         <input type="text" name="name" ref={register({required:true, maxLength:50})}/>
@@ -135,8 +135,9 @@ export default function PostNewSpecialModal(props) {
                             <SubmitButton loadingStatus={loadingStatus} text='Post daily special'/>
                         </div>
                     </form>
+                    </div>
                 </div>
             </div>
-        </div>
+        </React.Fragment>
     );
 };

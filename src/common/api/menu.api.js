@@ -7,7 +7,7 @@ import { addNewSpecial } from '../actions/specials.actions';
 export function getMenuAPI(message) {
     return async (dispatch) => {
         dispatch(loadingMenuPage(true));
-        let response = await get(`/restaurant-menu/menu/${localStorage.getItem('RESTAURANT_ID')}`, false, {401:'Unauthorized'});
+        let response = await get(`/restaurant-menu/menu/${localStorage.getItem('RESTAURANT_ID')}`, true, {401:'Unauthorized'});
         if(response.status === 200){
             if(response.data.categories.length === 0){
                 message('Your restaurant has no categories');

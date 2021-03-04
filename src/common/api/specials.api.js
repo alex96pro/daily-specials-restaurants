@@ -7,8 +7,12 @@ export function getSpecialsAPI() {
     return async (dispatch) => {
         dispatch(loadingSpecialsPage(true));
         let clientDateAndTime = getClientDateAndTime(false, true);
-        let response = await get(`/restaurant-specials/specials/${localStorage.getItem('RESTAURANT_ID')}?dateAndTime=${clientDateAndTime}`);
-        dispatch(getSpecials(response.data));
+        let response = await get(`/restaurant-specials/specials/${localStorage.getItem('RESTAURANT_ID')}?dateAndTime=${clientDateAndTime}`, true, {401:'Unauthorized'});
+        if(response.status === 200){
+            dispatch(getSpecials(response.data));
+        }else{
+            alert(response);
+        }
     };
 };
 

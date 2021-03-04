@@ -4,10 +4,10 @@ import { BACKEND_API } from '../../util/consts';
 export async function get(url, isPrivate, message){
     try{
         if(isPrivate){
-            let response = await axios.get(BACKEND_API + url);
+            let response = await axios.get(BACKEND_API + url, {headers:{'Authorization':`Basic ${localStorage.getItem("ACCESS_TOKEN_RESTAURANT")}`}});
             return response;
         }else{
-            let response = await axios.get(BACKEND_API + url, {headers:{'Authorization':`Basic ${localStorage.getItem("ACCESS_TOKEN_RESTAURANT")}`}});
+            let response = await axios.get(BACKEND_API + url);
             return response;
         }
         

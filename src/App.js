@@ -15,6 +15,7 @@ import Menu from './pages/menu/menu.page';
 import Specials from './pages/specials/specials.page';
 import Modifiers from './pages/modifiers/modifiers.page';
 import Orders from './pages/orders/orders.page';
+import './styles/modal.scss';
 import './styles/elements.scss';
 import './styles/common.scss';
 

@@ -43,7 +43,7 @@
     }
     .add-special-photo-container, .edit-special-photo-container{
         text-align: center;
-        margin:0.6rem 0rem;
+        padding:1rem;
     }
     .add-special-photo, .edit-special-photo{
         border-radius:0;
@@ -72,7 +72,6 @@
 }
 @include mobile-range{
     .specials{
-        justify-content: flex-start;
         margin-top:$nav-bar-horizontal-height;
         .specials-date-slot{
             @include flex-align(column, center, center, nowrap);

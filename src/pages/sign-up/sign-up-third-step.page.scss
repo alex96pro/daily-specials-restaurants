@@ -19,7 +19,6 @@
 }
 @include mobile-range{
     .sign-up-third-step{
-        justify-content: flex-start;
         .working-hours-row{
             @include flex-align(column, center, flex-start, nowrap);
             margin:0;

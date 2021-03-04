@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { CURRENCY } from '../../util/consts';
@@ -81,23 +81,27 @@ export default function EditSpecialModal(props) {
     }, []);
 
     return (
-        <div className="modal">
-            <div className="modal-underlay" onClick={props.closeModal}></div>
-            <div className={props.data.today ? "modal-container" : "modal-container-double"} style={{opacity:modalOpacity}}>
-                <div className="modal-header">
-                    <i className="fas fa-times fa-2x" onClick={() => props.closeModal()}></i>
-                </div>
-                {!props.data.today && <div className="modal-body">
+        <React.Fragment>
+        <div className="modal-underlay" onClick={props.closeModal}></div>
+        <div className="modal" style={{opacity:modalOpacity}}>
+            <div className="modal-header">
+                <i className="fas fa-times fa-2x" onClick={() => props.closeModal()}></i>
+            </div>
+            <div className={props.data.today ? "modal-body-vertical" : "modal-body-horizontal"}>
+                
+                {!props.data.today && <div>
                 {props.data.special.photo && !photoData.changePhoto ?
                     <div className="edit-special-photo-container">
                         <img src={photoData.photo || props.data.special.photo} alt="Loading..." className="edit-special-photo"/>
-                        <button onClick={() => setPhotoData({...photoData, changePhoto: true})} className="button-normal">Change photo</button>
+                        <div>
+                            <button onClick={() => setPhotoData({...photoData, changePhoto: true})} className="button-normal">Change photo</button>
+                        </div>
                     </div>
                     :
                     <AddPhoto photoData={photoData} setPhotoData={setPhotoData}/>
                     }
                 </div>}
-                <div className="modal-body">
+                <div>
                     <form onSubmit={handleSubmit(editSpecial)}>
                         <label className="label">Name</label>
                         <input type="text" name="name" ref={register({required: true, maxLength:50})}/>
@@ -140,5 +144,6 @@ export default function EditSpecialModal(props) {
                 </div>
             </div>
         </div>
+        </React.Fragment>
     );
 };

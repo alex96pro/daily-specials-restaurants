@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteSpecialAPI, deleteSpecialFromTodayAPI } from '../../common/api/specials.api';
 import ConfirmButton from '../../components/confirm-button';
@@ -23,18 +23,20 @@ export default function ConfirmDelete(props) {
     }, []);
 
     return (
-        <div className="modal">
-            <div className="modal-underlay" onClick={props.closeModal}></div>
-            <div className="modal-container" style={{opacity:modalOpacity}}>
-                <div className="modal-header">
-                    <i className="fas fa-times fa-2x" onClick={() => props.closeModal()}></i>
-                </div>
-                <div className="modal-body">
+        <React.Fragment>
+        <div className="modal-underlay" onClick={props.closeModal}></div>
+        <div className="modal" style={{opacity:modalOpacity}}>
+            <div className="modal-header">
+                <i className="fas fa-times fa-2x" onClick={() => props.closeModal()}></i>
+            </div>
+            <div className="modal-body-vertical">
+                <div>
                     <div className="label">Are you sure you want to delete "{props.special.name}"?</div>
                     {props.today && <MessageDanger text="Used specials count won't decrease."/>}
                     <ConfirmButton loadingStatus={loadingStatus} onClick={deleteMeal} text="Delete"/>
                 </div>
             </div>
         </div>
+        </React.Fragment>
     );
 };

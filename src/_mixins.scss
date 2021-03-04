@@ -2,7 +2,7 @@
 
 @mixin page-container{
     width:100vw;
-    height:100vh;
+    min-height:100vh;
     @include flex-align(column, center, center, nowrap);
 }
 @mixin flex-align($direction, $justify-content, $align-items, $wrap){

@@ -67,6 +67,7 @@
         text-align: center;
         transition: 0.2s;
         border-radius: 0;
+        padding:0.2rem;
         cursor: pointer;
     }
     .menu-meal-description{
@@ -75,7 +76,7 @@
     }
     .add-meal-photo-container, .edit-meal-photo-container{
         text-align: center;
-        margin:0.6rem 0rem;
+        padding:1rem;
     }
     .add-meal-photo, .edit-meal-photo{
         border-radius:0;
