@@ -1,0 +1,26 @@
+@import '../../mixins';
+@import '../../variables';
+
+.dashboard{
+    @include page-container;
+    
+    .dashboard-container{
+        margin-left:$nav-bar-width;
+        text-align: center;
+    }
+    .dashboard-header{
+        color:$text-color;
+        font-size: 3.2rem;
+        margin-bottom:2rem;
+        opacity: 1;
+        transition: 2s;
+    }
+    .dashboard-header-hidden{
+        @extend .dashboard-header;
+        opacity: 0;
+    }
+    .dashboard-restaurant-logo{
+        width:300px;
+        height:300px;
+    }
+}

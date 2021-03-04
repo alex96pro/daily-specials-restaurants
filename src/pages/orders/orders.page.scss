@@ -2,18 +2,17 @@
 @import '../../variables';
 
 .orders{
-    @include flex-align(column,center,center,nowrap);
+    width:100vw;
+    height:100vh;
+    @include flex-align(column,flex-start,center,nowrap);
     .orders-container{
-        width:30vw;
+        width:60rem;
+        margin-left:$nav-bar-width;
     }
     .order{
         background-color: $accent-color;
         margin:0.2rem 0rem;
         padding:1rem;
-    }
-    .order-header{
-        display:flex;
-        justify-content: space-between;
     }
     .order-header{
         @include flex-align(row, space-between, center, wrap);
@@ -37,5 +36,14 @@
     .order-button-accept{
         @extend .order-button-reject;
         background-color: $success-color;
+    }
+}
+@include mobile-range{
+    .orders{
+        .orders-container{
+            margin:0;
+            margin-top:$nav-bar-horizontal-height;
+            width: 100vw;
+        }
     }
 }

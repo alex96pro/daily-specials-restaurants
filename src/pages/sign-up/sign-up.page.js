@@ -59,11 +59,11 @@ export default function SignUp() {
     }, [history]);
 
     return(
-        <div className="sign-up-restaurant">
+        <div className="sign-up">
             <NavBar loggedIn={false}/>
-            <div className="sign-up-restaurant-container">
+            <div className="sign-up-container">
                 <div className="form-container">
-                <div className="sign-up-restaurant-header">Create account for your restaurant</div>
+                <div className="sign-up-header">Create account for your restaurant</div>
                     <form onSubmit={handleSubmit(secondStep)}>
                         <div className="label">Restaurant Name</div>
                         <input type="text" name="restaurantName" ref={register({required:true})} defaultValue={restaurant.restaurantName}/>

@@ -1,25 +1,37 @@
 @import '../../_variables.scss';
 @import '../../_mixins.scss';
-nav{
-    background-color:white;
+.nav-horizontal{
+    height: 6rem;
+    width: 100vw;
     box-shadow: 0 0.4rem 0.4rem -0.2rem $wrapper-color;
-    height:6rem;
-    width:100%;
-    border-radius: 0;
-    position:sticky;
+}
+.nav-container-horizontal{
+    @include flex-align(row, center, center, wrap);
+    height:100%;
+}
+nav{
+    position:fixed;
     top:0;
     left:0;
-    z-index: 1;
+    z-index: 2;
+    background-color:white;
+    box-shadow: 0.8rem 0 1rem -0.8rem $accent-color;
+    height:100vh;
+    width:20vw;
+    border-radius: 0;
+   
     .nav-card{
         position: relative;
         background-color: inherit;
         color:$text-color;
+        text-align: left;
         padding:1rem 1rem;
+        padding-left:2rem;
         font-size: 2rem;
         height:6rem;
-        width:12rem;
+        width:100%;
         border-radius: 0;
-        transition:0.2s;
+        transition:0.4s;
         cursor: pointer;
         &:hover{
             color:white;
@@ -32,86 +44,44 @@ nav{
         color:white;
     }
     .nav-container{
-        @include flex-align(row, flex-end, center, wrap);
-        height:100%;
-    }
-    .drop-down{
-        position: absolute;
-        border-radius: 0;
-        top:6.2rem;
-        right:0;
-        background-color: $accent-color-2;
-    }
-    .drop-down-item{
-        width:100%;
-        padding:1rem 2rem;
-        color:white;
-        background-color: inherit;
-        border-radius: 0;
-        font-size:1.8rem;
-        transition: 0.2s;
-        cursor: pointer;
-        &:hover{
-            background-color: $accent-color;
-        }
-    }
-    .drop-down-underlay{
-        position: absolute;
-        top:0rem;
-        left:0rem;
-        width:100vw;
-        height:100vh;
+        @include flex-align(column, flex-start, flex-start, wrap);
+        margin-top:10rem;
     }
     .new-orders-count{
         position: absolute;
         top:0.2rem;
         left:0.2rem;
-        background-color: $accent-color-2;
-        color:$accent-color-2;
+        background-color: $accent-color;
+        color:white;
         padding:0.2rem 0.6rem;
         font-size:2rem;
         font-weight: bold;
         cursor: pointer;
     }
-    .fa-bars{
-        color:$accent-color;
-        top:0rem;
-        left:0rem;
-        margin:0rem 2rem;
-        cursor: pointer;
-    }
-    .nav-restaurant-logo-container{
-        position: relative;
-        margin:0rem 2rem;
-    }
-    .nav-restaurant-logo{
-        width:5rem;
-        height:5rem;
-        cursor: pointer;
-    }
-    .bar-over-image{
-        position: absolute;
-        top:65%;
-        left:80%;
-        margin:0rem;
-    }
     .nav-logo{
         position: absolute;
-        top:0;
+        top:0.6rem;
         left:1rem;
-        width:5.5rem;
-        height: 5.5rem;
+        width:6.6rem;
+        height:4.5rem;
     }
 }
 @include mobile-range{
     nav{
-        .nav-card{
-            padding:0rem;
-            font-size: 1.6rem;
-            width:8rem;
-        }
+        position: fixed;
+        box-shadow: 0 0.4rem 0.4rem -0.2rem $wrapper-color;
+        height:6rem;
+        width:100vw;
         .nav-container{
-            @include flex-align(row, space-evenly, center, wrap);
+            @include flex-align(row, center, center, wrap);
+            margin:0rem;
+        }
+        .nav-card{
+            width:12%;
+            padding:0;
+            margin:0;
+            font-size:0.8rem;
+            text-align: center;
         }
         .nav-logo{
             display:none;

@@ -1,16 +1,10 @@
 import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
-// import { forgottenPasswordAPI } from '../../common/api/auth.api';
-// import { useDispatch, useSelector } from 'react-redux';
-// import SubmitButton from '../../components/submit-button';
 
 export default function AcceptModal(props) {
     
     const {register, handleSubmit} = useForm();
     const [modalOpacity, setModalOpacity] = useState(0);
-    // const {loadingStatus} = useSelector(state => state.authentication);
-    // const [message, setMessage] = useState({text:'', success:false});
-    // const dispatch = useDispatch();
 
     const acceptOrder = (data) => {
         props.accept(data.estimatedTime);

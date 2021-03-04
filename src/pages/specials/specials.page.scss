@@ -2,25 +2,34 @@
 @import '../../variables';
 
 .specials{
-    @include flex-align(column, center, center, nowrap);
-    .special-container{
-        @include flex-align(row, flex-start, flex-start, nowrap);
-        background-color: $wrapper-color;
-        width:25%;
+    @include page-container;
+    
+    .specials-container{
+        margin-left:$nav-bar-width;
     }
-    .specials-date-container{
-        @include flex-align(column,center,center,nowrap);
-    }
-    .specials-date-card{
+    .specials-date-slot{
         @include flex-align(row,space-between,center,nowrap);
         width:60vw;
         background-color: white;
         padding:1rem;
         margin:0.4rem 0rem;
     }
-    .specials-date{
-        font-size: 2.5rem;
+    .specials-date-container{
+        text-align: center;
+        width:10rem;
+    }
+    .specials-date-name{
+        font-size: 2rem;
         color:$accent-color-2;
+    }
+    .specials-date{
+        font-size: 1.6rem;
+        color:$accent-color-2;
+    }
+    .special-container{
+        @include flex-align(row, flex-start, flex-start, nowrap);
+        background-color: $wrapper-color;
+        width:25%;
     }
     .special-photo{
         width:10rem;
@@ -63,14 +72,19 @@
 }
 @include mobile-range{
     .specials{
-        .specials-date-card{
+        justify-content: flex-start;
+        margin-top:$nav-bar-horizontal-height;
+        .specials-date-slot{
             @include flex-align(column, center, center, nowrap);
             width: 100vw;
             margin:1rem 0rem;
         }
+        .specials-container{
+            margin:0;
+        }
         .special-container{
-            width:100%;
-            margin:0.4rem;
+            width:max-content;
+            margin:0.2rem;
         }
     }
 }

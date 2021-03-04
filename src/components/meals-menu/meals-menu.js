@@ -24,8 +24,9 @@ export default function MealsMenu(props) {
 
     return(
         <div className="meals-menu">
+            <div className="meals-menu-header">Your Menu</div>
             <div className="meals-menu-add-meal">
-                <button onClick={() => setAddMealModal(true)} className={props.categories.length === 0 ? "button-long-disabled":"button-long"}>Add new meal</button>
+                <button onClick={() => setAddMealModal(true)} className={props.categories.length === 0 ? "button-long-disabled m-0":"button-long m-0"}>Add new meal</button>
             </div>
             {filteredMeals.map((meal,index) =>
             <div className="menu-meal" key={meal.mealId}>

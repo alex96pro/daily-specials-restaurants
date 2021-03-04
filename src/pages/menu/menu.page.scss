@@ -4,19 +4,17 @@
 .menu{
     .menu-container{
         @include flex-align(row, flex-start, flex-start, wrap);
-    }
-    .menu-side-bar{
-        position:fixed;
-        z-index: 1;
-        width:25vw;
-        height:100vh;
-        margin:0rem 0.5rem;
-        padding: 0rem 1rem;
+        margin-left:20vw;
+        width:calc(80vw - 2rem); // 2 rem = for Y scrollbar
     }
     .menu-categories{
+        position:fixed;
+        z-index: 1;
+        width:19.8vw;
+        height:100vh;
         background-color: white;
-        height:100%;
-        padding:1rem;
+        padding:10.4rem 1rem 1rem 1rem;
+        box-shadow: 0.8rem 0 1rem -0.8rem $accent-color;
     }
     .menu-category{
         @include flex-align(row,flex-start,center,wrap);
@@ -29,19 +27,19 @@
             background-color: $wrapper-color;
         }
     }
-    .menu-side-bar-header{
-        text-align: center;
-        font-size:3rem;
-        color:$text-color;
-        margin:3.6rem 0rem 2rem 0rem;
-    }
     .menu-footer-mobile{
         display:none;
     }
 }
 @include mobile-range{
     .menu{
-        .menu-side-bar{
+        .menu-container{
+            width: 100vw;
+            margin-left:0;
+            margin-top:$nav-bar-horizontal-height;
+        }
+        .menu-categories{
+            z-index:2;
             background-color: $wrapper-color;
             visibility: hidden;
             width:100vw;

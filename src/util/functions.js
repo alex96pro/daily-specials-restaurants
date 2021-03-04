@@ -24,6 +24,7 @@ export function getClientDateAndTime(dateOnly = false, dateWithMidnightTime = fa
 
 export function getNextWeekDates() {
     let days = [];
+    let daysNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     for(let i = 0; i < 7; i++){
         let date = new Date();
         date.setDate(date.getDate() + i);
@@ -31,7 +32,8 @@ export function getNextWeekDates() {
         let month = (date.getMonth() + 1 ) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1);
         days.push({
             dbFormat: date.getFullYear() + '-' + month + '-' + day,
-            value: day + '-' + month + '-' + date.getFullYear()
+            value: day + '-' + month + '-' + date.getFullYear(),
+            dayName: daysNames[date.getDay()]
         });
     }
     return days;

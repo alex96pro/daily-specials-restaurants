@@ -2,11 +2,27 @@
 @import '../../variables';
 
 .working-hours{
-    @include flex-align(column, center, center, nowrap);
+    @include page-container;
     .working-hours-container{
         @include flex-align(column, center, center, nowrap);
-        transform: translateY(calc(50vh - 50% - 6rem));
-        padding:2rem;
-        background-color: $wrapper-color;
+        margin-left:$nav-bar-width;
+        padding:3rem;
+        background-color: white;
     }
+    .working-hours-align{
+        @include flex-align(row, space-between, center, nowrap);
+    }
+}
+
+@include mobile-range{
+    .working-hours{
+        .working-hours-container{
+            margin:0;
+            margin-top:$nav-bar-horizontal-height / 2;
+        }
+        .working-hours-align{
+            @include flex-align(column, center, flex-start, nowrap);
+        }
+    }
+    
 }

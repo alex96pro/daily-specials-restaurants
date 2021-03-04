@@ -1,14 +1,13 @@
 @import '../../mixins';
 @import '../../variables';
 
-.sign-up-restaurant{
-    @include flex-align(column, center, center, nowrap);
-
-    .sign-up-restaurant-container{
+.sign-up{
+    @include page-container;
+    .sign-up-container{
         @include flex-align(column, center, center, nowrap);
-        transform: translateY(calc(50vh - 50% - 6rem));
+        margin-top:$nav-bar-horizontal-height / 2;
     }
-    .sign-up-restaurant-header{
+    .sign-up-header{
         font-size:2.2rem;
         color:$text-color;
         margin-bottom:1.4rem;

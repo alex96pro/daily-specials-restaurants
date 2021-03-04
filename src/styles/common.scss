@@ -10,8 +10,11 @@
     font-family:$main-font;
     border-radius: 0.8rem;
 }
-body{
+body, html{
     background-image: url("../images/background.jpg");
+}
+.m-0{
+    margin:0;
 }
 .wrapper-container{
     background-color:$wrapper-color;
@@ -37,7 +40,7 @@ body{
     height:8rem;
     position:absolute;
     margin:auto;
-    top: 0; left: 0; bottom: 0; right: 0;
+    top: 0; left: $nav-bar-width; bottom: 0; right: 0;
 }
 .loader-small{
     width:1.5rem;
@@ -60,6 +63,11 @@ body{
     font-size:2rem;
     margin:1rem;
 }
+.flex-row{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
 .flex-space-between{
     display: flex;
     justify-content: space-between;
@@ -79,7 +87,7 @@ body{
 .modal{
     .modal-underlay{
         position:fixed;
-        z-index: 1;
+        z-index: 2;
         left:0;
         right:0;
         top:0;
@@ -90,7 +98,7 @@ body{
     .modal-container{
         @include flex-align(row,flex-start,flex-start,nowrap);
         position:fixed;
-        z-index: 1;
+        z-index: 3;
         background-color: white;
         left:50vw;
         top:50vh;

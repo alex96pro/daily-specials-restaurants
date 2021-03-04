@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import {ToastContainer, toast} from 'react-toastify';
 import Landing from './pages/landing/landing.page';
+import DashBoard from './pages/dashboard/dashboard.page';
 import Login from './pages/login/login.page';
 import SignUp from './pages/sign-up/sign-up.page';
 import VerifyAccount from './pages/verification/verify-account.page';
@@ -12,9 +13,10 @@ import SignUpSecondStep from './pages/sign-up/sign-up-second-step.page';
 import SignUpThirdStep from './pages/sign-up/sign-up-third-step.page';
 import Menu from './pages/menu/menu.page';
 import Specials from './pages/specials/specials.page';
+import Modifiers from './pages/modifiers/modifiers.page';
 import Orders from './pages/orders/orders.page';
-import './styles/common.scss';
 import './styles/elements.scss';
+import './styles/common.scss';
 
 export default function App() {
     return (
@@ -25,6 +27,7 @@ export default function App() {
             position={toast.POSITION.TOP_CENTER}
           />
           <Route path="/" exact component={Landing}></Route>
+          <Route path="/dashboard" exact component={DashBoard}></Route>
           <Route path="/login" exact component={Login}></Route>
           <Route path="/sign-up" exact component={SignUp}></Route>
           <Route path="/profile" exact component={Profile}></Route>
@@ -36,6 +39,7 @@ export default function App() {
           <Route path="/sign-up-third-step" exact component={SignUpThirdStep}></Route>
           <Route path="/menu" exact component={Menu}></Route>
           <Route path="/specials" exact component={Specials}></Route>
+          <Route path="/modifiers" exact component={Modifiers}></Route>
           <Route path="/orders" exact component={Orders}></Route>
       </Router>
     );

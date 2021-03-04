@@ -69,8 +69,8 @@ export default function Orders() {
 
     return <div className="orders">
         <NavBar loggedIn={true}/>
-        <div className="header-accent-color">ORDERS</div>
         <div className="orders-container">
+            <div className="header">ORDERS</div>
             {orders.map((order,index) => <div key={index} className="order">
                 <div className="order-header">
                     <div className="label-white">Order: {index + 1}</div>

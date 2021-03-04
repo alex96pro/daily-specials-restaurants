@@ -2,20 +2,25 @@
 @import '../../variables';
 
 .meals-menu{
-    @include flex-align(row, flex-start, center, wrap);
-    width: 70vw;
-    margin-left:25vw;
+    @include flex-align(row, flex-start, stretch, wrap);
+    width:59vw;
+    margin-left:20vw;
+    background-color: white;
     .meals-menu-add-meal{
         width:100%;
-        font-size:3rem;
-        color:$accent-color;
-        margin:1.5rem 0rem;
+        margin:1rem 0rem;
+    }
+    .meals-menu-header{
+        width:100%;
+        font-size: 3rem;
+        text-align: center;
+        margin:0.6rem 0rem;
     }
     .menu-meal{
         @include flex-align(column, flex-end, center, nowrap);
-        width:calc(20% - 0.4rem); //25% of parent - meal margin left and right each 0.2rem
+        width:calc(25% - 0.4rem); //25% of parent - meal margin left and right each 0.2rem
         position: relative; // this is not needed when container is flex, his child with absolute position will position relative to flex container
-        background-color: white;
+        background-color: $wrapper-color;
         margin:0rem 0.2rem 0.4rem 0.2rem;
         border-radius: 0;
     }
@@ -41,6 +46,7 @@
     .menu-meal-photo-container{
         position: relative; //in order to hidden description be apsolute to photo container and has his 100% width and height just like photo did
         width: 100%;
+        font-size: 0;
     }
     .menu-meal-photo{
         width:100%;

@@ -2,12 +2,12 @@
 @import '../../variables';
 
 .sign-up-third-step{
-    @include flex-align(column, center, center, nowrap);
+    @include page-container;
     .working-hours-container{
         text-align: center;
-        background-color: $wrapper-color;
+        background-color: white;
         padding:2rem;
-        transform: translateY(calc(50vh - 50% - 6rem));
+        margin-top:$nav-bar-horizontal-height / 2;
     }
     .working-hours-row{
         @include flex-align(row, space-between, center, nowrap);
@@ -15,5 +15,14 @@
     }
     .working-hours-checkbox{
         margin: 0rem 2rem;
+    }
+}
+@include mobile-range{
+    .sign-up-third-step{
+        justify-content: flex-start;
+        .working-hours-row{
+            @include flex-align(column, center, flex-start, nowrap);
+            margin:0;
+        }
     }
 }

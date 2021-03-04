@@ -2,14 +2,15 @@
 @import '../../variables';
 
 .profile{
-    @include flex-align(column, center, center, nowrap);
+    @include page-container;
+    
     .profile-container{
         @include flex-align(column, center, center, nowrap);
-        transform: translateY(calc(50vh - 50% - 6rem));
+        margin-left:$nav-bar-width;    
     }
     .profile-info{
         width:50rem;
-        background-color: $wrapper-color;
+        background-color: white;
         padding:2rem;  
     }
     .profile-photo-container{
@@ -28,6 +29,10 @@
 }
 @include mobile-range{
     .profile{
+        .profile-container{
+            margin:0;
+            margin-top:$nav-bar-horizontal-height / 2;
+        }
         .profile-info{
             width:100vw;
         }

@@ -67,10 +67,12 @@ export default function WorkingHours() {
             {workingHours &&
                 <div className="working-hours-container">
                     <form onSubmit={handleSubmit(changeWorkingHours)}>
-                        {DAYS_OF_THE_WEEK.map((day, index) => <div key={index}>
-                            <label className="label">{day} {!checkedDays[index] && 
-                            <label className="message-danger">(Closed)</label>
-                            }</label>
+                        {DAYS_OF_THE_WEEK.map((day, index) => <div key={index} className="working-hours-align">
+                            <div>
+                                <div className="label">{day} {!checkedDays[index] && 
+                                <div className="message-danger">(Closed)</div>
+                                }</div>
+                            </div>
                             <div>
                                 <input type="time" defaultValue={workingHours[index].from} disabled={!checkedDays[index]} name={'From'+index} ref={register()}/>
                                 <label className="label">-</label>

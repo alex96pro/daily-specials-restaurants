@@ -10,8 +10,6 @@ export default function NavBar(props) {
     const dispatch = useDispatch();
     const history = useHistory();
     const [currentPage, setCurrentPage] = useState('');
-    const [dropDown, setDropDown] = useState(false);
-    const logo = useSelector(state => state.authentication.restaurant.logo);
     const {newOrdersCount} = useSelector(state => state.orders);
 
     const handleLogout = () => {
@@ -26,34 +24,19 @@ export default function NavBar(props) {
     },[history.location.pathname]);
 
     return(
-        <nav>
+        <nav className={!props.loggedIn && 'nav-horizontal'}>
             {props.loggedIn &&
-            <div className="nav-container">
+            <div className={props.loggedIn ? "nav-container" : "nav-container-horizontal"}>
                 <button className={currentPage==="/menu" ? "nav-card-active" : "nav-card"} onClick={() => history.push('/menu')}>Menu</button>
                 <button className={currentPage==="/specials" ? "nav-card-active" : "nav-card"} onClick={() => history.push('/specials')}>Specials</button>
+                <button className={currentPage==="/modifiers" ? "nav-card-active" : "nav-card"} onClick={() => history.push('/modifiers')}>Modifiers</button>
                 <button className={currentPage==="/orders" ? "nav-card-active" : "nav-card"} onClick={() => history.push('/orders')}>
                     {newOrdersCount > 0 && <label className="new-orders-count" onClick={() => history.push('/orders')}>{newOrdersCount}</label>} Orders
                 </button>
-                {logo ?
-                <div className="nav-restaurant-logo-container">
-                    <img src={logo} className="nav-restaurant-logo" alt="Loading..." onClick={() => setDropDown(!dropDown)}/>
-                    <i className="fas fa-bars fa-2x bar-over-image" onClick={() => setDropDown(!dropDown)}></i>
-                </div>
-                :
-                <i className="fas fa-bars fa-3x" onClick={() => setDropDown(!dropDown)}></i>
-                }
-                
-                {dropDown &&
-                <React.Fragment>
-                <div className="drop-down-underlay" onClick={() => setDropDown(false)}> </div>
-                <div className="drop-down">
-                    <div className="drop-down-item" onClick={() => history.push('/profile')}>Profile</div>
-                    <div className="drop-down-item" onClick={() => history.push('/working-hours')}>Working hours</div>
-                    <div className="drop-down-item" onClick={() => history.push('/change-password')}>Change password</div>
-                    <div className="drop-down-item" onClick={handleLogout}>Log out</div>
-                </div>
-                </React.Fragment>
-                }
+                <button className={currentPage==="/profile" ? "nav-card-active" : "nav-card"} onClick={() => history.push('/profile')}>Profile</button>
+                <button className={currentPage==="/working-hours" ? "nav-card-active" : "nav-card"} onClick={() => history.push('/working-hours')}>Working hours</button>
+                <button className={currentPage==="/change-password" ? "nav-card-active" : "nav-card"} onClick={() => history.push('/change-password')}>Change password</button>
+                <button className="nav-card" onClick={handleLogout}>Log out</button>
             </div>
             }
             <img src={Logo} alt="logo" className="nav-logo"/>

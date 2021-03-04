@@ -32,7 +32,7 @@ export default function Menu() {
     };
 
     const showOrHideMobileFooter = () => {
-        let categories = document.getElementsByClassName('menu-side-bar')[0];
+        let categories = document.getElementsByClassName('menu-categories')[0];
         if(categories){
             if(showMobileFooter){
                 categories.style.visibility = "hidden";
@@ -59,19 +59,18 @@ export default function Menu() {
             {loadingMenuPage ? <Loader className="loader-center"/>
             :
             <div className="menu-container">
-                <div className="menu-side-bar">
-                    <div className="menu-side-bar-header">Menu categories</div>
-                    <div className="menu-categories">
-                    <i className="fas fa-edit fa-3x" onClick={() => setModal(true)}></i>
-                    {messageNoCategories.show && categories.length === 0 && <MessageDanger text={messageNoCategories.text}/>}
-                        {categories.map((category, index) => <div key={index}>
-                            <label className="menu-category" htmlFor={`category${index}`}>
-                                <input type="checkbox" value={category} onChange={addCategory} id={`category${index}`}/>
-                                {category}
-                            </label>
-                        </div>)}
-                            
+                <div className="menu-categories">
+                    <div className="flex-row">
+                        <div className="header-small">Menu categories</div>
+                        <i className="fas fa-edit fa-3x" onClick={() => setModal(true)}></i>
                     </div>
+                    {messageNoCategories.show && categories.length === 0 && <MessageDanger text={messageNoCategories.text}/>}
+                    {categories.map((category, index) => <div key={index}>
+                        <label className="menu-category" htmlFor={`category${index}`}>
+                            <input type="checkbox" value={category} onChange={addCategory} id={`category${index}`}/>
+                            {category}
+                        </label>
+                    </div>)}
                 </div>
                 <MealsMenu meals={meals} categories={categories} selectedCategories={selectedCategories}/>
                 {message && <div className="header-accent-color">{message}</div>}      

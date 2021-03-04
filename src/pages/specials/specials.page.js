@@ -73,10 +73,11 @@ export default function Specials() {
             <NavBar loggedIn={true}/>
                 {loadingSpecialsPage ? <Loader className="loader-center"/>
                 :
-                <React.Fragment>
+                <div className="specials-container">
                     <div className="header">Your specials for this week</div>
-                    {days.map((day,index) => <div className="specials-date-card" key={index}>
+                    {days.map((day,index) => <div className="specials-date-slot" key={index}>
                         <div className="specials-date-container">
+                            <div className="specials-date-name">{day.dayName}</div>
                             <div className="specials-date">{day.value}</div>
                             <FillBar label={usedSpecials[index]+'/'+DAILY_SPECIALS_LIMIT +' used'} percentage={usedSpecials[index]/DAILY_SPECIALS_LIMIT}/>
                         </div>
@@ -104,7 +105,7 @@ export default function Specials() {
                         <button onClick={() => handleNewSpecial(day)} className='button-normal' style={{margin:0}}>Post new special</button>
                         }
                     </div>)}
-                </React.Fragment>
+                </div>
                 }
             {postNewSpecialModal.show && <PostNewSpecialModal date={postNewSpecialModal.date} today={postNewSpecialModal.today} closeModal={() => setPostNewSpecialModal({...postNewSpecialModal, show: false})}/>}
             {confirmDeleteModal.show && <ConfirmDeleteModal special={confirmDeleteModal.special} today={confirmDeleteModal.today} closeModal={() => setConfirmDeleteModal({show: false, special:{}})}/>}

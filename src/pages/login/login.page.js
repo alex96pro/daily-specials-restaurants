@@ -29,21 +29,21 @@ export default function Login() {
     };
 
     const loginSuccess = () => {
-        history.push('/orders');
+        history.push('/dashboard');
     };
 
     useEffect(() => {
         if(localStorage.getItem('ACCESS_TOKEN_RESTAURANT')){
-            history.push('/orders');
+            history.push('/dashboard');
         }
     }, [history]);
 
     return(
-        <div className="login-restaurant">
+        <div className="login">
             <NavBar loggedIn={false}/>
-            <div className="login-restaurant-container">
+            <div className="login-container">
                 <div className="form-container">
-                    <div className="login-restaurant-header">Log in to your restaurant</div>
+                    <div className="login-header">Log in to your restaurant</div>
                     <form onSubmit={handleSubmit(handleLogIn)}>
                         <div className="label">Email</div>
                         <input type="email" name="email" ref={register({required:true})}/>
