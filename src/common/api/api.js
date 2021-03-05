@@ -15,6 +15,9 @@ export async function get(url, isPrivate, message){
         switch(err.response.status){
             case 500:
                 return ('Server down');
+            case 401:
+                localStorage.clear();
+                return message[err.response.status];
             default:
                 return message[err.response.status];
         }
@@ -35,6 +38,9 @@ export async function post(url, data, isPrivate, message){
         switch(err.response.status){
             case 500:
                 return ('Server down');
+            case 401:
+                localStorage.clear();
+                return message[err.response.status];
             default:
                 return message[err.response.status];
         }
@@ -54,6 +60,9 @@ export async function put(url, data, isPrivate, message){
         switch(err.response.status){
             case 500:
                 return ('Server down');
+            case 401:
+                localStorage.clear();
+                return message[err.response.status];
             default:
                 return message[err.response.status];
         }
@@ -74,6 +83,9 @@ export async function deleteRequest(url, isPrivate, message){
         switch(err.response.status){
             case 500:
                 return ('Server down');
+            case 401:
+                localStorage.clear();
+                return message[err.response.status];
             default:
                 return message[err.response.status];
         }

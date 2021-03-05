@@ -6,7 +6,7 @@ import { loadingStatus, signUpSecondStep, getProfileData, updateProfile, signUpC
 export function logInAPI(data, loginSuccess, message) {
     return async (dispatch) => {
         dispatch(loadingStatus(true));
-        let response = await post(`/restaurant-auth/login`, data, false, {401:'Incorrect username or password',403:'Please verify your account'});
+        let response = await post(`/restaurant-auth/login`, data, false, {400:'Incorrect username or password',403:'Please verify your account'});
         if(response.status === 200){
             localStorage.setItem("ACCESS_TOKEN_RESTAURANT", response.data.accessToken);
             localStorage.setItem("RESTAURANT_ID", response.data.restaurantId);
@@ -23,7 +23,7 @@ export function signUpFirstStepAPI(data, passedFirstStep, message) {
     return async (dispatch) => {
         dispatch(loadingStatus(true));
         data.restaurantName = data.restaurantName.trim(); //restaurant name has to be COMPLETLY unique
-        let response = await post(`/restaurant-auth/sign-up-first-step`, data, false, {400:'Email already in use',401:'Restaurant name is taken'});
+        let response = await post(`/restaurant-auth/sign-up-first-step`, data, false, {400:'Email already in use',403:'Restaurant name is taken'});
         if(response.status === 200){
             dispatch(signUpSecondStep(data));
             passedFirstStep();
@@ -65,7 +65,7 @@ export function verifyAccountAPI(hashedRestaurantId) {
 export function forgottenPasswordAPI(data, message) {
     return async (dispatch) => {
         dispatch(loadingStatus(true));
-        let response = await post(`/restaurant-auth/forgotten-password`, data, false, {400:'We already sent you a link on your email',401:"Email doesn't exist"});
+        let response = await post(`/restaurant-auth/forgotten-password`, data, false, {400:'We already sent you a link on your email',403:"Email doesn't exist"});
         if(response.status === 200){
             dispatch(loadingStatus(false));
             message('Please check your email and create new password with new link we sent you', true);

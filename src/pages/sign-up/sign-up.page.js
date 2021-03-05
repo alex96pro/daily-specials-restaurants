@@ -54,7 +54,7 @@ export default function SignUp() {
 
     useEffect(() => {
         if(localStorage.getItem('ACCESS_TOKEN_RESTAURANT')){
-            history.push('/orders');
+            history.push('/dashboard');
         }
     }, [history]);
 

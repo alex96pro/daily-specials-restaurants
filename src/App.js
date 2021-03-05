@@ -15,6 +15,7 @@ import Menu from './pages/menu/menu.page';
 import Specials from './pages/specials/specials.page';
 import Modifiers from './pages/modifiers/modifiers.page';
 import Orders from './pages/orders/orders.page';
+import ProtectedRoute from './components/protected-route';
 import './styles/modal.scss';
 import './styles/elements.scss';
 import './styles/common.scss';
@@ -28,20 +29,20 @@ export default function App() {
             position={toast.POSITION.TOP_CENTER}
           />
           <Route path="/" exact component={Landing}></Route>
-          <Route path="/dashboard" exact component={DashBoard}></Route>
           <Route path="/login" exact component={Login}></Route>
           <Route path="/sign-up" exact component={SignUp}></Route>
-          <Route path="/profile" exact component={Profile}></Route>
-          <Route path="/working-hours" exact component={WorkingHours}></Route>
-          <Route path="/change-password" exact component={ChangePassword}></Route>
           <Route path="/verify-account/:id" exact component={VerifyAccount}></Route>
           <Route path="/forgotten-password/:id" exact component={ForgottenPassword}></Route>
           <Route path="/sign-up-second-step" exact component={SignUpSecondStep}></Route>
           <Route path="/sign-up-third-step" exact component={SignUpThirdStep}></Route>
-          <Route path="/menu" exact component={Menu}></Route>
-          <Route path="/specials" exact component={Specials}></Route>
-          <Route path="/modifiers" exact component={Modifiers}></Route>
-          <Route path="/orders" exact component={Orders}></Route>
+          <ProtectedRoute path="/dashboard" component={DashBoard}></ProtectedRoute>
+          <ProtectedRoute path="/menu" component={Menu}></ProtectedRoute>
+          <ProtectedRoute path="/specials" component={Specials}></ProtectedRoute>
+          <ProtectedRoute path="/modifiers" component={Modifiers}></ProtectedRoute>
+          <ProtectedRoute path="/orders" component={Orders}></ProtectedRoute>
+          <ProtectedRoute path="/profile" component={Profile}></ProtectedRoute>
+          <ProtectedRoute path="/working-hours" component={WorkingHours}></ProtectedRoute>
+          <ProtectedRoute path="/change-password" component={ChangePassword}></ProtectedRoute>
       </Router>
     );
 }

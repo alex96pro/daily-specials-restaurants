@@ -2,40 +2,44 @@
 @import '../../variables';
 
 .landing{
-    height: 100vh;
+    @include page-container;
     background-image: url("../../images/cover.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     border-radius: 0;
-    
-    .landing-container{
-        @include flex-align(column, center, center, wrap);
-        transform: translateY(calc(50vh - 50% - 6rem));
-    }
 
-    .landing-punchlines{
-        .landing-punchline{
-            font-size:5rem;
-            color: $text-color;
-            font-weight: bold;
-            transition:0.3s;
-            opacity: 0;
-        }
+    .landing-punchline{
+        font-size:4rem;
+        color: $text-color;
+        font-weight: bold;
+        transition:0.3s;
+        text-align: center;
     }
     .landing-buttons{
-        margin: 10rem 0rem;
+        margin: 2rem 0rem;
+        text-align: center;
+    }
+    .landing-button{
+        background-color: $accent-color;
+        color:white;
+        font-size:2rem;
+        width:15rem;
+        padding:1.5rem 2rem;
+        margin:2rem;
+        cursor: pointer;
+        transition: 0.4s;
+        &:hover{
+            background-color: $accent-color-2;
+        }
+    }
+}
+@include mobile-range{
+    .landing{
+        .landing-buttons{
+            margin:1rem 0rem;
+        }
         .landing-button{
-            background-color: $accent-color;
-            color:white;
-            font-size:2rem;
-            width:15rem;
-            padding:1.5rem 2rem;
-            margin:2rem;
-            cursor: pointer;
-            transition: 0.2s;
-            &:hover{
-                background-color: $accent-color-2;
-            }
+            margin:0.6rem;
         }
     }
 }

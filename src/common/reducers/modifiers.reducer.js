@@ -32,6 +32,12 @@ export default function modifiersReducer(state = initialState, action) {
                 loadingStatus: false,
                 modifiers: [...state.modifiers, action.payload],
             };
+        case ACTIONS.DELETE_MODIFIER:
+            return {
+                ...state,
+                loadingStatus: false,
+                modifiers: state.modifiers.filter(modifier => modifier.modifierId !== action.payload)
+            }
         case LOGOUT:
             return initialState;
         default:

@@ -41,10 +41,6 @@ export default function Orders() {
     };
 
     useEffect(() => {
-        if(!localStorage.getItem('ACCESS_TOKEN_RESTAURANT')){
-            history.push('/login');
-            return;
-        }
         socket = socketClient (BACKEND_API);
         socket.on('connection', () => {
             socket.emit('send-id',{restaurantId: localStorage.getItem('RESTAURANT_ID')});

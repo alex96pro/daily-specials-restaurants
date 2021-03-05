@@ -25,17 +25,24 @@
         font-size: 1.6rem;
     }
     .modifier-option{
-        @include flex-align(row, flex-start, center, nowrap);
+        @include flex-align(row, flex-start, flex-start, nowrap);
         width:100%;
         margin:0.4rem 0rem;
     }
-    .modifier-option-name-input{
-        width:70%;
+    .modifier-name{
+        width:48%;
+        margin-right:1rem;
     }
-    .modifier-option-price-input{
-        width:20%;
-        margin-left:2rem;
-        margin-right:0.2rem;
+    .modifier-price{
+        margin-right:1rem;
+    }
+    .modifier-trash{
+        align-self: center;
+        margin-left:0.6rem;
+    }
+    .modifier-default{
+        @include flex-align(row, center, center, nowrap);
+        align-self: center;
     }
     .add-new-modifier-option{
         background-color: $wrapper-color;
@@ -58,6 +65,9 @@
             margin-left:0;
             margin-top:$nav-bar-horizontal-height;
             width:100vw;
+        }
+        .modifier-name{
+            width:30%;
         }
     }
 }

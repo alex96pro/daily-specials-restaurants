@@ -48,10 +48,6 @@ export default function Specials() {
     };
     
     useEffect(() => {
-        if(!localStorage.getItem('ACCESS_TOKEN_RESTAURANT')){
-            history.push('/login');
-            return;
-        }
         dispatch(getSpecialsAPI());
         setDays(getNextWeekDates());
     },[dispatch, history]);

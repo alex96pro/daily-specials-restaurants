@@ -1,21 +1,19 @@
 import './dashboard.page.scss';
 import { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import NavBar from '../../components/nav-bar/nav-bar';
 
 export default function DashBoard() {
 
-    const history = useHistory();
     const [showWelcome, setShowWelcome] = useState(false);
     const { logo, name } = useSelector(state => state.authentication.restaurant);
 
     useEffect(() => {
-        if(!localStorage.getItem('ACCESS_TOKEN_RESTAURANT')){
-            history.push('/');
+        let handle = setTimeout(() => setShowWelcome(true), 1000);
+        return () => {
+            clearTimeout(handle);
         }
-        setTimeout(() => setShowWelcome(true), 1000);
-    }, [history]);
+    }, []);
 
     return(
         <div className="dashboard">

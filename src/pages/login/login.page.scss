@@ -13,3 +13,11 @@
         padding:4rem;
     }
 }
+@include mobile-range{
+    .login{
+        .login-header{
+            padding:2rem;
+            font-size:2.2rem;
+        }
+    }
+}

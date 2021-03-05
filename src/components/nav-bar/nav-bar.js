@@ -39,7 +39,7 @@ export default function NavBar(props) {
                 <button className="nav-card" onClick={handleLogout}>Log out</button>
             </div>
             }
-            <img src={Logo} alt="logo" className="nav-logo"/>
+            {!props.loggedIn && <img src={Logo} alt="logo" className="nav-logo"/>}
         </nav>
     );
 };

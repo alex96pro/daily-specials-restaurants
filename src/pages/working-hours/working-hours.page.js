@@ -1,6 +1,5 @@
 import './working-hours.page.scss';
-import { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { DAYS_OF_THE_WEEK } from '../../util/consts';
@@ -13,7 +12,6 @@ export default function WorkingHours() {
     
     const {register, handleSubmit} = useForm();
     const dispatch = useDispatch();
-    const history = useHistory();
     const workingHours = useSelector(state => state.authentication.restaurant.workingHours);
     const loadingStatus = useSelector(state => state.authentication.loadingStatus);
     const [checkedDays, setCheckedDays] = useState(workingHours ?
@@ -53,13 +51,6 @@ export default function WorkingHours() {
         }
         setCheckedDays(newChecked);
     };
-
-    useEffect(() => {
-        if(!localStorage.getItem('ACCESS_TOKEN_RESTAURANT')){
-            history.push('/login');
-            return;
-        }
-    }, [history]);
 
     return (
         <div className="working-hours">

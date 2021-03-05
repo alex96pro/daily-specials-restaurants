@@ -24,3 +24,14 @@
         height:300px;
     }
 }
+@include mobile-range{
+    .dashboard{
+        .dashboard-container{
+            margin:0;
+            margin-top:$nav-bar-horizontal-height / 2;
+        }
+        .dashboard-header{
+            font-size: 2.5rem;
+        }
+    }
+}

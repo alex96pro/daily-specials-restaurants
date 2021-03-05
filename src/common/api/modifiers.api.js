@@ -1,5 +1,5 @@
-import { addNewModifier, getModifiers, loadingModifiersPage, loadingStatus } from '../actions/modifiers.actions';
-import { get, post } from './api';
+import { addNewModifier, getModifiers, loadingModifiersPage, loadingStatus, deleteModifier } from '../actions/modifiers.actions';
+import { get, post, deleteRequest } from './api';
 import { successToast } from '../../util/toasts/toasts';
 
 export function getModifiersAPI() {
@@ -15,9 +15,11 @@ export function getModifiersAPI() {
     };
 };
 
-export function addNewModifierAPI(data, closeModal) {
+export function addNewModifierAPI(modifier, closeModal) {
     return async (dispatch) => {
         dispatch(loadingStatus(true));
+        let data = {};
+        data.modifier = modifier;
         data.restaurantId = localStorage.getItem('RESTAURANT_ID');
         let response = await post(`/restaurant-modifiers/add-new-modifier`, data, true, {401:'Unauthorized'});
         if(response.status === 200){
@@ -30,3 +32,18 @@ export function addNewModifierAPI(data, closeModal) {
         }
     };
 };
+
+export function deleteModifierAPI(modifierId, closeModal) {
+    return async (dispatch) => {
+        dispatch(loadingStatus(true));
+        let response = await deleteRequest(`/restaurant-modifiers/delete-modifier/${modifierId}`, true, {401:'Unauthorized'});
+        if(response.status === 200){
+            dispatch(deleteModifier(response.data));
+            closeModal();
+            successToast('Successfully deleted!');
+        }else{
+            dispatch(loadingStatus(false));
+            alert(response);
+        }
+    };
+}
