@@ -58,7 +58,7 @@ export default function AddModifierModal(props) {
         }
         // create JSON object from data
         for(let i = 0; i < options.length; i++){
-            if(options[i] === +data.defaultOption){
+            if(currentModifierType !== "optional" && options[i] === +data.defaultOption){
                 data.defaultOption = data["optionName"+options[i]];
             }
             optionsData[data["optionName"+options[i]]] = data["optionPrice"+options[i]];
@@ -67,6 +67,7 @@ export default function AddModifierModal(props) {
         }
         data.options = optionsData;
         setMessages({nameTaken:'', default:''});
+        // console.log(data);
         dispatch(addNewModifierAPI(data, props.closeModal));
     };
 
@@ -106,8 +107,10 @@ export default function AddModifierModal(props) {
                             <div className="modifier-example">Example: Ketchup: 0$, Cheese $1, Mustard: 0$...</div>
                             {currentModifierType === "optional" && 
                             <React.Fragment>
-                                <label className="label">Maximum customer can pick</label><input type="number" name="maximum" ref={register({required:true, min:1})}/>
-                                {errors.maximum && <InputError text="Enter maximum"/>}
+                                <label className="label">Maximum customer can pick</label><input type="number" name="maximum" ref={register({required:true, min:1, max: options.length})}/>
+                                {errors.maximum && errors.maximum.type === "required" && <InputError text="Enter maximum"/>}
+                                {errors.maximum && errors.maximum.type === "min" && <InputError text="Maximum smallest value is 1"/>}
+                                {errors.maximum && errors.maximum.type === "max" && <InputError text="Maximum is higher than your options size"/>}
                             </React.Fragment>}
                         </div>
                     </div>

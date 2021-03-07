@@ -7,6 +7,7 @@ import { changeWorkingHoursAPI } from '../../common/api/auth.api';
 import NavBar from '../../components/nav-bar/nav-bar';
 import InputError from '../../components/input-error';
 import SubmitButton from '../../components/submit-button';
+import { infoToast } from '../../util/toasts/toasts';
 
 export default function WorkingHours() {
     
@@ -28,16 +29,24 @@ export default function WorkingHours() {
     const changeWorkingHours = (data) => {
         const workingHoursFrom = [data.From0, data.From1, data.From2, data.From3, data.From4, data.From5, data.From6];
         const workingHoursTo = [data.To0, data.To1, data.To2, data.To3, data.To4, data.To5, data.To6];
+        let changesCount = 0;
         for(let i = 0; i < 7; i++) {
             if((!workingHoursFrom[i] && workingHoursTo[i]) || (workingHoursFrom[i] && !workingHoursTo[i])
             ||(workingHoursFrom[i] === "" && workingHoursTo[i] === "")){
                 setMessage({day: i, text:'Please set valid working time'});
                 return;
             }
+            if(workingHours[i].from !== workingHoursFrom[i] || workingHours[i].to !== workingHoursTo[i]){
+                changesCount++;
+            }
         }
         setMessage('');
-        const workingHours = {workingHoursFrom, workingHoursTo};
-        dispatch(changeWorkingHoursAPI(workingHours));
+        if(changesCount === 0){
+            infoToast('No changes');
+            return;
+        }
+        const workingHoursData = {workingHoursFrom, workingHoursTo};
+        dispatch(changeWorkingHoursAPI(workingHoursData));
     };
 
     const changeWorkingDay = (event, index) => {

@@ -1,4 +1,4 @@
-import { addNewModifier, getModifiers, loadingModifiersPage, loadingStatus, deleteModifier } from '../actions/modifiers.actions';
+import { addNewModifier, getModifiers, loadingModifiersPage, loadingStatus, deleteModifier, editModifier } from '../actions/modifiers.actions';
 import { get, post, deleteRequest } from './api';
 import { successToast } from '../../util/toasts/toasts';
 
@@ -33,6 +33,21 @@ export function addNewModifierAPI(modifier, closeModal) {
     };
 };
 
+export function editModifierAPI(data, closeModal) {
+    return async (dispatch) => {
+        dispatch(loadingStatus(true));
+        let response = await post(`/restaurant-modifiers/edit-modifier`, data, true, {401:'Unauthorized'});
+        if(response.status === 200){
+            dispatch(editModifier(response.data));
+            closeModal();
+            successToast('Successfully edited!');
+        }else{
+            dispatch(loadingStatus(false));
+            alert(response);
+        }
+    };
+};
+
 export function deleteModifierAPI(modifierId, closeModal) {
     return async (dispatch) => {
         dispatch(loadingStatus(true));
@@ -46,4 +61,4 @@ export function deleteModifierAPI(modifierId, closeModal) {
             alert(response);
         }
     };
-}
+};
