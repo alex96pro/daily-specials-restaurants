@@ -55,6 +55,19 @@
         border-radius: 0;
         cursor: pointer;
     }
+    .menu-meal-modifier{
+        @include flex-align(row, space-between, center, nowrap);
+        color:$text-color;
+        font-size: 1.6rem;
+    }
+    .modifier-x{
+        background-color: white;
+        color:$text-color;
+        &:hover{
+            background-color: white;
+            color:$accent-color;
+        }
+    }
     .menu-meal-hidden-description{
         opacity:0;
         position: absolute;

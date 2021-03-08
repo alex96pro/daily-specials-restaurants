@@ -104,7 +104,6 @@ export default function EditMealModal(props) {
 
     return (
         <React.Fragment>
-
         <div className="modal-underlay" onClick={props.closeModal}></div>
         <div className="modal" style={{opacity:modalOpacity}}>
             <div className="modal-header">
@@ -156,8 +155,6 @@ export default function EditMealModal(props) {
                             </select>
                         </React.Fragment>
                         }
-                        
-
                         <div className="label">Price ({CURRENCY})</div>
                         <input type="number" step="0.01" name="price" ref={register({required:true, min:0.01})}/>
                         {errors.price && <InputError text='Price is required'/>}
@@ -173,6 +170,15 @@ export default function EditMealModal(props) {
                         <input type="text" name="tag" value={newTag} onChange={changeNewTag} placeholder='Add new tag' style={{width:'16rem'}}/>
                         <button type="button" onClick={addTag} className="button-small">Add</button>
                         {tagMessage && <InputError text={tagMessage}/>}
+                        <div className="label">Modifiers</div>
+                        <div className="menu-meal-modifier">Burger size<i className="fas fa-times fa-1x modifier-x"></i></div>
+                        <div className="menu-meal-modifier">Burger Extras<i className="fas fa-times fa-1x modifier-x"></i></div>
+                        <div className="flex-row"><select>
+                            <option>Modifier 1</option>
+                            <option>Modifier 2</option>
+                            <option>Modifier 3</option>
+                        </select>
+                        <button className="button-small">Add</button></div>
                         <SubmitButton loadingStatus={loadingStatus} text={props.convertMealToSpecial ? 'Post new special' : 'Save changes'}/>
                     </form>
                 </div>

@@ -90,7 +90,7 @@ export default function CopyModifierModal(props) {
                     <React.Fragment>
                         <label className="label">Maximum customer can pick</label><input type="number" name="maximum" ref={register({required:true, min:1, max:options.length})} defaultValue={props.modifier.maximum}/>
                         {errors.maximum && errors.maximum.type === "required" && <InputError text="Enter maximum"/>}
-                        {errors.maximum && errors.maximum.type === "min" && <InputError text="Maximum smallest value is 1"/>}
+                        {errors.maximum && errors.maximum.type === "min" && <InputError text="Minimum value is 1"/>}
                         {errors.maximum && errors.maximum.type === "max" && <InputError text="Maximum is higher than your options size"/>}
                     </React.Fragment>}
                     <div className="label-accent-color-2 p-t-15">
