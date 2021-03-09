@@ -4,7 +4,8 @@
 .add-photo{
     text-align: center;
     height: 44rem;
-    width:35rem;
+    width:33.6rem;
+    margin-right:1rem;
     
     .crop-container{
         border-radius: 0;
@@ -14,8 +15,9 @@
         top:1rem;
         margin:auto; //centering
     }
-    .slider-container{
-        margin-top:3rem;
+    .add-photo-slider{
+        position: relative;
+        top:1rem;
     }
     .input-file{
         display: none;
@@ -24,7 +26,7 @@
         background-color: $accent-color;
         color:white;
         font-size: 1.8rem;
-        padding:1rem;
+        padding:0.8rem 0.6rem;
         transition: 0.2s;
         margin:3rem 0.2rem 0.2rem 0rem;
         cursor: pointer;
@@ -35,50 +37,28 @@
     .fa-cloud-upload-alt{
         margin:0rem 0.4rem;
     }
-    .add-photo-crop-error{
+    .add-photo-error{
         color:$danger-color;
         font-size:1.6rem;
         font-weight: bold;
         position: absolute;
-        top:41.5rem;
-        left:1rem;
-    }
-    .add-photo-required-error{
-        color:$danger-color;
-        font-size:1.6rem;
-        font-weight: bold;
-        position: absolute;
-        top:19.4rem;
-        left:11.4rem;
-    }
-    .add-photo-slider{
-        width:32rem;
-        margin-left:1.2rem;
-        margin-top:2.2rem;
-    }
-    .slider-zoom-label{
-        position: absolute;
-        top:0;
-        left:0;
-        color:$text-color;
-        font-size:1.4rem;
-    }
-    .add-photo-slider-thumb{
-        width:1.8rem;
-        height: 1.8rem;
-        background-color: $accent-color;
-    }
-    .add-photo-slider-track{
-        background-color:$accent-color-2;
+        top:4.4rem;
+        left:0.6rem;
     }
     .add-photo-slider-label{
-        position: relative;
-        top:1.4rem;
-        right:14rem;
+        text-align: left;
         font-size: 1.4rem;
+        position: relative;
+        top:0.8rem;
+        left:0.6rem;
         color:$accent-color;
     }
-    .add-photo-slider-active{
-        color:red;
+    .add-photo-button{
+        margin-top:3rem;
+    }
+}
+@include mobile-range{
+    .add-photo{
+        align-self: center;
     }
 }

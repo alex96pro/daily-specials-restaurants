@@ -66,42 +66,42 @@ export default function SignUp() {
                 <div className="sign-up-header">Create account for your restaurant</div>
                     <form onSubmit={handleSubmit(secondStep)}>
                         <div className="label">Restaurant Name</div>
-                        <input type="text" name="restaurantName" ref={register({required:true})} defaultValue={restaurant.restaurantName}/>
+                        <input type="text" name="restaurantName" ref={register({required:true})} defaultValue={restaurant.restaurantName} className="app-input"/>
                         {errors.restaurantName && <InputError text="Name is required"/>}
                         {messageName && <InputError text={messageName}/>}
 
                         <div className="label">Phone</div>
-                        <input type="text" name="phone" ref={register({required:true, pattern: /^\d+$/})} defaultValue={restaurant.phone}/>
+                        <input type="text" name="phone" ref={register({required:true, pattern: /^\d+$/})} defaultValue={restaurant.phone} className="app-input"/>
                         {errors.phone?.type === 'required' && <InputError text="Phone is required"/>}
                         {errors.phone?.type === 'pattern' && <InputError text="Phone can contain only numbers"/>}
 
                         <div className="restaurant-delivery-checkbox">Delivery
-                        <input type="checkbox" name="delivery" ref={register()} checked={restaurant.delivery} onChange={changeDelivery}/></div>
+                        <input type="checkbox" name="delivery" ref={register()} checked={restaurant.delivery} onChange={changeDelivery} className="app-checkbox"/></div>
 
                         {restaurant.delivery && 
                         <div>
                             <div className="label">Maximal delivery range</div>
-                            <input type="number" name="deliveryRange" ref={register({required:true})} step="0.1" defaultValue={restaurant.deliveryRange}/>
+                            <input type="number" name="deliveryRange" ref={register({required:true})} step="0.1" defaultValue={restaurant.deliveryRange} className="app-input-number"/>
                             <label className="label">{DISTANCE}</label>
                             {errors.deliveryRange && <InputError text="Maximal delivery range is required"/>}
                             <div className="label">Minimal amount for delivery</div>
-                            <input type="number" name="deliveryMinimum" ref={register({required:true})} step="0.01" defaultValue={restaurant.deliveryMinimum}/>
+                            <input type="number" name="deliveryMinimum" ref={register({required:true})} step="0.01" defaultValue={restaurant.deliveryMinimum} className="app-input-number"/>
                             <label className="label">{CURRENCY}</label>
                             {errors.deliveryMinimum && <InputError text="Minimal amount for delivery is required"/>}
                         </div>}
 
                         <div className="label">Email</div>
-                        <input type="email" name="email" ref={register({required:true})} defaultValue={restaurant.email}/>
+                        <input type="email" name="email" ref={register({required:true})} defaultValue={restaurant.email} className="app-input"/>
                         {errors.email && <InputError text="Email is required"/>}
                         {messageEmail && <InputError text={messageEmail}/>}
 
                         <div className="label">Password</div>
-                        <input type="password" name="password" ref={register({required:true})} defaultValue={restaurant.password}/>
+                        <input type="password" name="password" ref={register({required:true})} defaultValue={restaurant.password} className="app-input"/>
                         {errors.password && <InputError text="Password is required"/>}
                         {messagePasswords && <InputError text={messagePasswords}/>}
 
                         <div className="label">Retype password</div>
-                        <input type="password" name="retypePassword" ref={register({required:true})} defaultValue={restaurant.retypePassword}/>
+                        <input type="password" name="retypePassword" ref={register({required:true})} defaultValue={restaurant.retypePassword} className="app-input"/>
                         {errors.retypePassword && <InputError text="Retype your password"/>}
                         {messagePasswords && <InputError text={messagePasswords}/>}
 

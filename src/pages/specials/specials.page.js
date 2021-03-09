@@ -3,8 +3,11 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { getSpecialsAPI } from '../../common/api/specials.api';
+import { getModifiersAPI } from '../../common/api/modifiers.api';
+import { getSpecialModifiersAPI } from '../../common/api/meal.api';
 import { CURRENCY, DAILY_SPECIALS_LIMIT } from '../../util/consts';
 import { getClientDateAndTime, getNextWeekDates } from '../../util/functions';
+import { Tooltip } from 'antd';
 import NavBar from '../../components/nav-bar/nav-bar';
 import Loader from '../../components/loader';
 import FillBar from '../../components/fill-bar/fill-bar';
@@ -17,6 +20,8 @@ export default function Specials() {
     const dispatch = useDispatch();
     const history = useHistory();
     const {specials, loadingSpecialsPage} = useSelector(state => state.specials);
+    const loadingAllModifiers = useSelector(state => state.modifiers.loadingModifiersPage);
+    const loadingSpecialModifiers = useSelector(state => state.meal.loadingStatus);
     const [usedSpecials, setUsedSpecials] = useState([]);
     const [days, setDays] = useState([]);
     const [postNewSpecialModal, setPostNewSpecialModal] = useState({show: false, date: '', today:''});
@@ -25,17 +30,20 @@ export default function Specials() {
 
     const handleNewSpecial = (day) => {
         if(day.dbFormat === getClientDateAndTime(true, false)){
-            setPostNewSpecialModal({show: true, date: day, today: true});
+            dispatch(getModifiersAPI(() => setPostNewSpecialModal({show: true, date: day, today: true})));
         }else{
-            setPostNewSpecialModal({show: true, date: day, today: false});
+            dispatch(getModifiersAPI(() => setPostNewSpecialModal({show: true, date: day, today: false})));
         }
     };
 
     const handleEditSpecial = (special, day) => {
         if(day.dbFormat === getClientDateAndTime(true, false)){
-            setEditSpecialModal({show: true, special: special, date: day, today: true});
+            // API has to be in this order so that react-select can work (doesn't update its default values like it should from react redux store)
+            dispatch(getModifiersAPI());
+            dispatch(getSpecialModifiersAPI(special.specialId, () => setEditSpecialModal({show: true, special: special, date: day, today: true})));
         }else{
-            setEditSpecialModal({show: true, special: special, date: day, today: false});
+            dispatch(getModifiersAPI());
+            dispatch(getSpecialModifiersAPI(special.specialId, () => setEditSpecialModal({show: true, special: special, date: day, today: false})));
         }
     };
 
@@ -66,6 +74,7 @@ export default function Specials() {
 
     return (
         <div className="specials">
+            {(loadingAllModifiers || loadingSpecialModifiers) && <Loader className="loader-center"/>}
             <NavBar loggedIn={true}/>
                 {loadingSpecialsPage ? <Loader className="loader-center"/>
                 :
@@ -79,7 +88,7 @@ export default function Specials() {
                         </div>
                         {specials.map(special => special.date === day.dbFormat && 
                         <div className="special-container" key={special.specialId}>
-                            {special.deleted ? <i className="fas fa-ban fa-6x"></i>
+                            {special.deleted ? <div className="special-photo"><i className="fas fa-ban fa-10x"></i></div>
                             :
                             <img src={special.photo} alt="Loading..." onClick={() => handleEditSpecial(special, day)} className="special-photo"></img>
                             }
@@ -91,8 +100,15 @@ export default function Specials() {
                                     <div className="deleted-special-label">Deleted</div>
                                 :
                                 <React.Fragment>
-                                    <i className="fas fa-edit fa-2x" onClick={() => handleEditSpecial(special, day)}></i>
-                                    <i className="fas fa-trash fa-2x" onClick={() => handleDeleteSpecial(special, day)}></i>
+                                    <Tooltip title="See from user's perspective">
+                                        <i className="fas fa-eye fa-2x"></i>
+                                    </Tooltip>
+                                    <Tooltip title="Edit">
+                                        <i className="fas fa-edit fa-2x" onClick={() => handleEditSpecial(special, day)}></i>
+                                    </Tooltip>
+                                    <Tooltip title="Delete">
+                                        <i className="fas fa-trash fa-2x" onClick={() => handleDeleteSpecial(special, day)}></i>
+                                    </Tooltip>
                                 </React.Fragment>
                                 } 
                             </div>
@@ -104,8 +120,8 @@ export default function Specials() {
                 </div>
                 }
             {postNewSpecialModal.show && <PostNewSpecialModal date={postNewSpecialModal.date} today={postNewSpecialModal.today} closeModal={() => setPostNewSpecialModal({...postNewSpecialModal, show: false})}/>}
+            {editSpecialModal.show && <EditSpecialModal special={editSpecialModal.special} today={editSpecialModal.today} date={editSpecialModal.date} closeModal={() => setEditSpecialModal({show: false, special: {}, date:'', today:''})}/>}
             {confirmDeleteModal.show && <ConfirmDeleteModal special={confirmDeleteModal.special} today={confirmDeleteModal.today} closeModal={() => setConfirmDeleteModal({show: false, special:{}})}/>}
-            {editSpecialModal.show && <EditSpecialModal data={editSpecialModal} closeModal={() => setEditSpecialModal({show: false, special: {}})}/>}
         </div>
     );
 }

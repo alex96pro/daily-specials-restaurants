@@ -1,7 +1,6 @@
 import './add-photo.scss';
 import React, { useState, useCallback } from 'react';
-import Slider from '@material-ui/lab/Slider';
-import Typography from "@material-ui/core/Typography";
+import { Slider } from 'antd';
 import Cropper from 'react-easy-crop';
 import getCroppedImg from './crop-image';
 import Loader from '../../components/loader';
@@ -83,27 +82,26 @@ export default function AddPhoto(props){
                 style={cropperStyle}
             />
         </div>
-            <Typography id="zoom" className="add-photo-slider-label">
-                Zoom
-            </Typography>
+        <div className="add-photo-slider">
+            <div className="add-photo-slider-label">Zoom</div>
             <Slider
                 value={zoom}
                 min={1}
-                max={3}
-                step={0.1}
-                aria-labelledby="zoom"
-                onChange={(e, zoom) => setZoom(zoom)}
-                classes={{root: 'add-photo-slider', thumb: 'add-photo-slider-thumb', track:'add-photo-slider-track'}}
+                    max={3}
+                    step={0.01}
+                onChange={(zoom) => setZoom(zoom)}
             />
-        {props.photoData.message && <div className="add-photo-crop-error">{props.photoData.message}</div>}
-        {message && <div className="add-photo-error">{message}</div>}
+            {props.photoData.message && <div className="add-photo-error">{props.photoData.message}</div>}
+            {message && <div className="add-photo-error">{message}</div>}
+        </div>
+
         <input type="file" accept="image/jpeg, image/jpg, image/png" id="file" onChange={changePhoto} className="input-file"/>
         <label htmlFor="file" className="input-file-button">
             <i className="fas fa-cloud-upload-alt fa-1x"></i>
             Choose a photo
         </label>
         {props.photoData.changePhoto && <button onClick={() => props.setPhotoData({...props.photoData, changePhoto: false, photoCropped: true})} className="button-normal">Cancel</button>}
-        <button onClick={showCroppedImage} className="input-file-button" disabled={loadingStatus}>{loadingStatus ? <Loader className="loader-small"/> : 'Done'}</button>
+        <button onClick={showCroppedImage} className="button-normal m-0 add-photo-button" disabled={loadingStatus}>{loadingStatus ? <Loader className="loader-small"/> : 'Done'}</button>
     </div>
     )
 };

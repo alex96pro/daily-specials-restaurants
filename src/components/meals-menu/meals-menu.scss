@@ -17,7 +17,7 @@
         margin:0.6rem 0rem;
     }
     .menu-meal{
-        @include flex-align(column, flex-end, center, nowrap);
+        @include flex-align(column, flex-start, center, nowrap);
         width:calc(25% - 0.4rem); //25% of parent - meal margin left and right each 0.2rem
         position: relative; // this is not needed when container is flex, his child with absolute position will position relative to flex container
         background-color: $wrapper-color;
@@ -26,7 +26,7 @@
     }
     .menu-meal-header{
         width:100%;
-        @include flex-align(row, space-between, center, nowrap);
+        @include flex-align(row, space-between, flex-start, nowrap);
         padding:0.4rem 0.4rem;
     }
     .menu-meal-header-icons{
@@ -47,6 +47,7 @@
         position: relative; //in order to hidden description be apsolute to photo container and has his 100% width and height just like photo did
         width: 100%;
         font-size: 0;
+        margin-top:auto; // in order to in flex container, this container goes to bottom if needed
     }
     .menu-meal-photo{
         width:100%;
@@ -89,9 +90,10 @@
     }
     .add-meal-photo-container, .edit-meal-photo-container{
         text-align: center;
-        padding:1rem;
+        padding:0.8rem;
     }
     .add-meal-photo, .edit-meal-photo{
+        margin-right:1rem;
         border-radius:0;
         width:32rem;
         height:32rem;

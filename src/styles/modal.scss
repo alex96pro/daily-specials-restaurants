@@ -54,7 +54,9 @@
             width:100vw;
         }
         .modal-body-horizontal{
-            flex-wrap: wrap;
+            // width: 100vw;
+            @include flex-align(column, flex-start, stretch, nowrap);
+            // background-color: red;
         }
     }
 }

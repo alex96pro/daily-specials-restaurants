@@ -25,11 +25,11 @@ export default function RejectModal(props) {
                 <div className="modal-body">
                     <label className="label">Reason for rejecting</label>
                     <form onSubmit={handleSubmit(rejectOrder)}>
-                        <select name="rejectReason" ref={register()}>
-                            <option>Delivery address too far</option>
-                            <option>Delivery minimum not fullfiled</option>
-                            <option>Out of stock</option>
-                            <option>Closed</option>
+                        <select name="rejectReason" ref={register()} className="app-select">
+                            <option className="app-option">Delivery address too far</option>
+                            <option className="app-option">Delivery minimum not fullfiled</option>
+                            <option className="app-option">Out of stock</option>
+                            <option className="app-option">Closed</option>
                         </select>
                         <button className="button-long" type="submit">Reject</button>
                     </form>

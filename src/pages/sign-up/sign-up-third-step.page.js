@@ -76,11 +76,10 @@ export default function SignUpThirdStep() {
                             {!checkedDays[index] && <label className="message-danger">(Closed)</label>}
                         </div>
                         <div>
-                            <input type="time" defaultValue="09:00" name={'From'+index} ref={register()} disabled={!checkedDays[index]}/>
+                            <input type="time" defaultValue="09:00" name={'From'+index} ref={register()} disabled={!checkedDays[index]} className="app-input-time"/>
                             <label className="label">-</label>
-                            <input type="time" defaultValue="21:00" name={'To'+index} ref={register()} disabled={!checkedDays[index]}/>
-                            <input type="checkbox" checked={checkedDays[index]} className="working-hours-checkbox"
-                            onChange={(event) => changeWorkingDay(event, index)}/>
+                            <input type="time" defaultValue="21:00" name={'To'+index} ref={register()} disabled={!checkedDays[index]} className="app-input-time"/>
+                            <input type="checkbox" checked={checkedDays[index]} onChange={(event) => changeWorkingDay(event, index)} className="app-checkbox"/>
                         </div>
                     </div>)}
                     <div>

@@ -47,17 +47,17 @@ export default function ChangePasswor(props) {
             <div className="change-password-container">
                 <form onSubmit={handleSubmit(handleChangePassword)}>
                     <div className="label">Old password</div>
-                    <input type="password" name="oldPassword" ref={register({required:true})}/>
+                    <input type="password" name="oldPassword" ref={register({required:true})} className="app-input"/>
                     {errors.oldPassword && <InputError text={'Old password is required'}/>}
                     {message.text && <InputError text={message.text}/>}
 
                     <div className="label">New password</div>
-                    <input type="password" name="newPassword" ref={register({required:true})}/>
+                    <input type="password" name="newPassword" ref={register({required:true})} className="app-input"/>
                     {errors.newPassword && <InputError text={'New password is required'}/>}
                     {messageMatch && <InputError text={messageMatch}/>}
 
                     <div className="label">Retype new password</div>
-                    <input type="password" name="retypeNewPassword" ref={register({required:true})}/>
+                    <input type="password" name="retypeNewPassword" ref={register({required:true})} className="app-input"/>
                     {errors.retypeNewPassword && <InputError text={'Retype new password'}/>}
                     {messageMatch && <InputError text={messageMatch}/>}
 

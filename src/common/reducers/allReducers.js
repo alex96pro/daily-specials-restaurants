@@ -4,6 +4,7 @@ import menuReducer from './menu.reducer';
 import specialsReducer from './specials.reducer';
 import modifiersReducer from './modifiers.reducer';
 import ordersReducer from './orders.reducer';
+import mealReducer from './meal.reducer';
 
 const allReducers = combineReducers(
     {
@@ -11,7 +12,8 @@ const allReducers = combineReducers(
         menu: menuReducer,
         specials: specialsReducer,
         modifiers: modifiersReducer,
-        orders: ordersReducer
+        orders: ordersReducer,
+        meal: mealReducer
     }
 );
 

@@ -36,7 +36,7 @@ export default function ForgottenPasswordModal(props) {
                 {!message.success && 
                     <form onSubmit={handleSubmit(submitEmail)}>
                         <div className="label">Please enter your e-mail address and we will send you a link to change your password</div>
-                        <input type="email" name="email" ref={register({required:true})}/>
+                        <input type="email" name="email" ref={register({required:true})} className="app-input"/>
                         {errors.email && <InputError text="Email is required"/>}
                         {message.text && <InputError text={message.text}/>}
                         <SubmitButton loadingStatus={loadingStatus} text="Send"/>

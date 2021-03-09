@@ -2,12 +2,15 @@ import { addNewModifier, getModifiers, loadingModifiersPage, loadingStatus, dele
 import { get, post, deleteRequest } from './api';
 import { successToast } from '../../util/toasts/toasts';
 
-export function getModifiersAPI() {
+export function getModifiersAPI(showModal) {
     return async (dispatch) => {
         dispatch(loadingModifiersPage(true));
-        let response = await get(`/restaurant-modifiers/modifiers/${localStorage.getItem('RESTAURANT_ID')}`, true, {401:'Unauthorized'});
+        let response = await get(`/restaurant/modifiers/${localStorage.getItem('RESTAURANT_ID')}`, true, {401:'Unauthorized'});
         if(response.status === 200){
             dispatch(getModifiers(response.data));
+            if(showModal){
+                showModal();
+            }
         }else{
             dispatch(loadingModifiersPage(false));
             alert(response);
@@ -21,7 +24,7 @@ export function addNewModifierAPI(modifier, closeModal) {
         let data = {};
         data.modifier = modifier;
         data.restaurantId = localStorage.getItem('RESTAURANT_ID');
-        let response = await post(`/restaurant-modifiers/add-new-modifier`, data, true, {401:'Unauthorized'});
+        let response = await post(`/restaurant/modifiers/add`, data, true, {401:'Unauthorized'});
         if(response.status === 200){
             dispatch(addNewModifier(response.data));
             closeModal();
@@ -36,7 +39,7 @@ export function addNewModifierAPI(modifier, closeModal) {
 export function editModifierAPI(data, closeModal) {
     return async (dispatch) => {
         dispatch(loadingStatus(true));
-        let response = await post(`/restaurant-modifiers/edit-modifier`, data, true, {401:'Unauthorized'});
+        let response = await post(`/restaurant/modifiers/edit`, data, true, {401:'Unauthorized'});
         if(response.status === 200){
             dispatch(editModifier(response.data));
             closeModal();
@@ -51,7 +54,7 @@ export function editModifierAPI(data, closeModal) {
 export function deleteModifierAPI(modifierId, closeModal) {
     return async (dispatch) => {
         dispatch(loadingStatus(true));
-        let response = await deleteRequest(`/restaurant-modifiers/delete-modifier/${modifierId}`, true, {401:'Unauthorized'});
+        let response = await deleteRequest(`/restaurant/modifiers/delete/${modifierId}`, true, {401:'Unauthorized'});
         if(response.status === 200){
             dispatch(deleteModifier(response.data));
             closeModal();

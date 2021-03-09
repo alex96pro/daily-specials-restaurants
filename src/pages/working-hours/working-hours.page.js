@@ -4,10 +4,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { DAYS_OF_THE_WEEK } from '../../util/consts';
 import { changeWorkingHoursAPI } from '../../common/api/auth.api';
+import { Checkbox } from 'antd';
+import { infoToast } from '../../util/toasts/toasts';
 import NavBar from '../../components/nav-bar/nav-bar';
 import InputError from '../../components/input-error';
 import SubmitButton from '../../components/submit-button';
-import { infoToast } from '../../util/toasts/toasts';
 
 export default function WorkingHours() {
     
@@ -74,11 +75,10 @@ export default function WorkingHours() {
                                 }</div>
                             </div>
                             <div>
-                                <input type="time" defaultValue={workingHours[index].from} disabled={!checkedDays[index]} name={'From'+index} ref={register()}/>
+                                <input type="time" defaultValue={workingHours[index].from} disabled={!checkedDays[index]} name={'From'+index} ref={register()} className="app-input-time"/>
                                 <label className="label">-</label>
-                                <input type="time" defaultValue={workingHours[index].to} disabled={!checkedDays[index]} name={'To'+index} ref={register()}/>
-                                <input type="checkbox" checked={checkedDays[index]} name={'Checkbox'+index} ref={register()}
-                                onChange={(event) => changeWorkingDay(event, index)}/>
+                                <input type="time" defaultValue={workingHours[index].to} disabled={!checkedDays[index]} name={'To'+index} ref={register()} className="app-input-time"/>
+                                <Checkbox onChange={(event) => changeWorkingDay(event, index)} name={'Checkbox'+index} ref={register()} checked={checkedDays[index]}/>
                                 {(message.text && message.day === index) && <InputError text={message.text}/>}
                             </div>
                         </div>)}

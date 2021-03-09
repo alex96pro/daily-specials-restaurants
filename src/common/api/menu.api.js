@@ -7,7 +7,7 @@ import { addNewSpecial } from '../actions/specials.actions';
 export function getMenuAPI(message) {
     return async (dispatch) => {
         dispatch(loadingMenuPage(true));
-        let response = await get(`/restaurant-menu/menu/${localStorage.getItem('RESTAURANT_ID')}`, true, {401:'Unauthorized'});
+        let response = await get(`/restaurant/menu/${localStorage.getItem('RESTAURANT_ID')}`, true, {401:'Unauthorized'});
         if(response.status === 200){
             if(response.data.categories.length === 0){
                 message('Your restaurant has no categories');
@@ -30,7 +30,7 @@ export function addNewMealAPI(data, closeModal) {
             return;
         }
         data.restaurantId = localStorage.getItem('RESTAURANT_ID');
-        let response = await post(`/restaurant-menu/add-new-meal`, data, true, {401:'Unauthorized'});
+        let response = await post(`/restaurant/menu/meal/add`, data, true, {401:'Unauthorized'});
         if(response.status === 200){
             dispatch(addNewMeal(response.data));
             closeModal();
@@ -53,7 +53,7 @@ export function editMenuMealAPI(data, closeModal) {
                 return;
             }
         }
-        let response = await post(`/restaurant-menu/edit-menu-meal`, data, true, {401:'Unauthorized'});
+        let response = await post(`/restaurant/menu/meal/edit`, data, true, {401:'Unauthorized'});
         if(response.status === 200){
             dispatch(editMeal(response.data));
             closeModal();
@@ -68,7 +68,7 @@ export function editMenuMealAPI(data, closeModal) {
 export function deleteMenuMealAPI(mealId, closeModal) {
     return async (dispatch) => {
         dispatch(loadingStatus(true));
-        let response = await deleteRequest(`/restaurant-menu/delete-menu-meal/${mealId}`, true, {401:'Unauthorized'});
+        let response = await deleteRequest(`/restaurant/menu/meal/delete/${mealId}`, true, {401:'Unauthorized'});
         if(response.status === 200){
             dispatch(deleteMeal(response.data));
             closeModal();
@@ -92,7 +92,7 @@ export function convertMealToSpecialAPI(data, message, closeModal) {
                 return;
             }
         }
-        let response = await post(`/restaurant-menu/convert-meal-to-special`, data, true, {401:'Unauthorized', 403:'Your daily limit for this date is full'}); 
+        let response = await post(`/restaurant/menu/convert-meal-to-special`, data, true, {401:'Unauthorized', 403:'Your daily limit for this date is full'}); 
         if(response.status === 200){
             dispatch(addNewSpecial(response.data));
             dispatch(loadingStatus(false)); // because action addNewSpecial sets to false loadingStatus for specials reducer
@@ -108,7 +108,7 @@ export function convertMealToSpecialAPI(data, message, closeModal) {
 export function addCategoryAPI(category) {
     return async (dispatch) => {
         dispatch(loadingStatus(true));
-        let response = await post(`/restaurant-menu/add-category`, {category:category}, true, {401:'Unauthorized'}); 
+        let response = await post(`/restaurant/menu/categories/add`, {category:category}, true, {401:'Unauthorized'}); 
         if(response.status === 200){
             dispatch(addCategory(response.data));
             successToast('Successfully added!');
@@ -122,7 +122,7 @@ export function addCategoryAPI(category) {
 export function deleteCategoryAPI(category) {
     return async (dispatch) => {
         dispatch(loadingStatus(true));
-        let response = await deleteRequest(`/restaurant-menu/delete-category/${category}`, true, {401:'Unauthorized'});
+        let response = await deleteRequest(`/restaurant/menu/categories/delete/${category}`, true, {401:'Unauthorized'});
         if(response.status === 200){
             dispatch(deleteCategory(response.data));
             successToast('Successfully deleted!');

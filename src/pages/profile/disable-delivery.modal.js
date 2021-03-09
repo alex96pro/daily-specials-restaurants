@@ -33,20 +33,19 @@ export default function DisableDeliveryModal(props) {
         <React.Fragment>
         <div className="modal-underlay" onClick={props.closeModal}></div>
         <div className="modal" style={{opacity:modalOpacity}}>
-        <div className="modal-header">
-                    <i className="fas fa-times fa-2x" onClick={() => props.closeModal()}></i>
-                </div>
+            <div className="modal-header">
+                <i className="fas fa-times fa-2x" onClick={() => props.closeModal()}></i>
+            </div>
             <div className="modal-body-vertical">
-                
-                    <div className="label">
-                        In order to disable delivery for your restaurant please enter your password
-                    </div>
-                    <form onSubmit={handleSubmit(handleDisableDelivery)}>
-                        <input type="password" name="password" ref={register({required:true})} placeholder="Your password here"/>
-                        {errors.password && <InputError text={'Password is required'}/>}
-                        {message && <InputError text={message}/>}
-                        <SubmitButton loadingStatus={loadingStatus} text="Disable delivery"/>
-                    </form>
+                <div className="label">
+                    In order to disable delivery for your restaurant please enter your password
+                </div>
+                <form onSubmit={handleSubmit(handleDisableDelivery)}>
+                    <input type="password" name="password" ref={register({required:true})} placeholder="Your password here" className="app-input"/>
+                    {errors.password && <InputError text={'Password is required'}/>}
+                    {message && <InputError text={message}/>}
+                    <SubmitButton loadingStatus={loadingStatus} text="Disable delivery"/>
+                </form>
             </div>
         </div>
         </React.Fragment>

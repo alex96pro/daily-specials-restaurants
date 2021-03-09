@@ -7,7 +7,7 @@ export function getSpecialsAPI() {
     return async (dispatch) => {
         dispatch(loadingSpecialsPage(true));
         let clientDateAndTime = getClientDateAndTime(false, true);
-        let response = await get(`/restaurant-specials/specials/${localStorage.getItem('RESTAURANT_ID')}?dateAndTime=${clientDateAndTime}`, true, {401:'Unauthorized'});
+        let response = await get(`/restaurant/specials/${localStorage.getItem('RESTAURANT_ID')}?dateAndTime=${clientDateAndTime}`, true, {401:'Unauthorized'});
         if(response.status === 200){
             dispatch(getSpecials(response.data));
         }else{
@@ -25,7 +25,8 @@ export function addNewSpecialAPI(data, closeModal) {
             console.log("COMPRESSION FAILED");
             return;
         }
-        let response = await post(`/restaurant-specials/add-new-special/${localStorage.getItem('RESTAURANT_ID')}`, data, true, {401:'Unauthorized'});
+        data.restaurantId = localStorage.getItem('RESTAURANT_ID');
+        let response = await post(`/restaurant/specials/add`, data, true, {401:'Unauthorized'});
         if(response.status === 200){
             dispatch(addNewSpecial(response.data));
             closeModal();
@@ -48,7 +49,7 @@ export function editSpecialAPI(data, closeModal) {
                 return;
             }
         }
-        let response = await post(`/restaurant-specials/edit-special`, data, true, {401:'Unauthorized'});
+        let response = await post(`/restaurant/specials/edit`, data, true, {401:'Unauthorized'});
         if(response.status === 200){
             dispatch(editSpecial(response.data));
             closeModal();
@@ -63,7 +64,7 @@ export function editSpecialAPI(data, closeModal) {
 export function deleteSpecialFromTodayAPI(data, closeModal) {
     return async (dispatch) => {
         dispatch(loadingStatus(true));
-        let response = await deleteRequest(`/restaurant-specials/delete-special-from-today/${data}`, true, {401:'Unauthorized'});
+        let response = await deleteRequest(`/restaurant/specials/delete-special-from-today/${data}`, true, {401:'Unauthorized'});
         if(response.status === 200){
             dispatch(deleteSpecialFromToday(response.data));
             closeModal();
@@ -78,7 +79,7 @@ export function deleteSpecialFromTodayAPI(data, closeModal) {
 export function deleteSpecialAPI(data, closeModal) {
     return async (dispatch) => {
         dispatch(loadingStatus(true));
-        let response = await deleteRequest(`/restaurant-specials/delete-special/${data}`, true, {401:'Unauthorized'});
+        let response = await deleteRequest(`/restaurant/specials/delete/${data}`, true, {401:'Unauthorized'});
         if(response.status === 200){
             dispatch(deleteSpecial(response.data));
             closeModal();

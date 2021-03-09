@@ -81,7 +81,7 @@ export default function Profile() {
                         }
                         <div className="label">
                             Name:
-                            <input type="text" name="name" ref={register({required:true})}></input>
+                            <input type="text" name="name" ref={register({required:true})} className="app-input"/>
                             {messageName && <InputError text={messageName}/>}
                             {errors.name && <InputError text='Name is required'/>}
                         </div>
@@ -92,13 +92,13 @@ export default function Profile() {
                         {messageAddress && <InputError text={messageAddress}/>}
                         <div className="label">
                             Phone: 
-                            <input type="text" name="phone" ref={register({required:true, pattern: /^\d+$/})}></input>
+                            <input type="text" name="phone" ref={register({required:true, pattern: /^\d+$/})} className="app-input"/>
                             {errors.phone && errors.phone.type ==="required" && <InputError text='Phone is required'/>}
                             {errors.phone && errors.phone.type ==="pattern" && <InputError text='Phone number can contain numbers only'/>}
                         </div>
                         {!restaurant.delivery &&
                             <div className="label">
-                                Enable delivery<input type="checkbox" name="delivery" ref={register()} value={enabledDelivery} onChange={enableDelivery}/>
+                                Enable delivery<input type="checkbox" name="delivery" ref={register()} value={enabledDelivery} onChange={enableDelivery} className="app-checkbox"/>
                             </div>
                         }
                         {(restaurant.delivery || enabledDelivery ) &&
@@ -108,7 +108,7 @@ export default function Profile() {
                             </div>
                             <div>
                                 <input type="number" name="deliveryMinimum" 
-                                ref={register({required: enabledDelivery ? true : false})} step="0.01"></input>
+                                ref={register({required: enabledDelivery ? true : false})} step="0.01" className="app-input-number"/>
                                 {errors.deliveryMinimum && <InputError text='Delivery minimum is required'/>}
                             </div>
                             <div className="label">
@@ -116,7 +116,7 @@ export default function Profile() {
                             </div>
                             <div>
                                 <input type="number" name="deliveryRange" 
-                                ref={register({required: enabledDelivery ? true : false, min: 1})} step="0.1"></input>
+                                ref={register({required: enabledDelivery ? true : false, min: 1})} step="0.1" className="app-input-number"/>
                                 {errors.deliveryRange && <InputError text='Delivery range is required'/>}
                             </div>
                         </React.Fragment>

@@ -37,6 +37,6 @@ export default function GoogleAutocomplete(props) {
     }, []);
 
     return(
-        <input type="text" id="search-google-maps" placeholder={props.placeholder ? props.placeholder : ''}/>
+        <input type="text" id="search-google-maps" placeholder={props.placeholder ? props.placeholder : ''} className="app-input"/>
     );
 };

@@ -6,7 +6,7 @@ import { loadingStatus, signUpSecondStep, getProfileData, updateProfile, signUpC
 export function logInAPI(data, loginSuccess, message) {
     return async (dispatch) => {
         dispatch(loadingStatus(true));
-        let response = await post(`/restaurant-auth/login`, data, false, {400:'Incorrect username or password',403:'Please verify your account'});
+        let response = await post(`/restaurant/auth/login`, data, false, {400:'Incorrect username or password',403:'Please verify your account'});
         if(response.status === 200){
             localStorage.setItem("ACCESS_TOKEN_RESTAURANT", response.data.accessToken);
             localStorage.setItem("RESTAURANT_ID", response.data.restaurantId);
@@ -23,7 +23,7 @@ export function signUpFirstStepAPI(data, passedFirstStep, message) {
     return async (dispatch) => {
         dispatch(loadingStatus(true));
         data.restaurantName = data.restaurantName.trim(); //restaurant name has to be COMPLETLY unique
-        let response = await post(`/restaurant-auth/sign-up-first-step`, data, false, {400:'Email already in use',403:'Restaurant name is taken'});
+        let response = await post(`/restaurant/auth/sign-up-first-step`, data, false, {400:'Email already in use',403:'Restaurant name is taken'});
         if(response.status === 200){
             dispatch(signUpSecondStep(data));
             passedFirstStep();
@@ -37,7 +37,7 @@ export function signUpFirstStepAPI(data, passedFirstStep, message) {
 export function signUpCompleteAPI(data, successfullSignUp) {
     return async (dispatch) => {
         dispatch(loadingStatus(true));
-        let response = await post(`/restaurant-auth/sign-up-complete`, data, false);
+        let response = await post(`/restaurant/auth/sign-up-complete`, data, false);
         if(response.status === 200){
             dispatch(signUpComplete());
             localStorage.clear();
@@ -52,7 +52,7 @@ export function signUpCompleteAPI(data, successfullSignUp) {
 export function verifyAccountAPI(hashedRestaurantId) {
     return async (dispatch) => {
         dispatch(loadingStatus(true));
-        let response = await post(`/restaurant-auth/verify-account`,{hashedRestaurantId:hashedRestaurantId}, false, {401:'Unauthorized'});
+        let response = await post(`/restaurant/auth/verify-account`,{hashedRestaurantId:hashedRestaurantId}, false, {401:'Unauthorized'});
         if(response.status === 200){
             dispatch(loadingStatus(false));
         }else{
@@ -65,7 +65,7 @@ export function verifyAccountAPI(hashedRestaurantId) {
 export function forgottenPasswordAPI(data, message) {
     return async (dispatch) => {
         dispatch(loadingStatus(true));
-        let response = await post(`/restaurant-auth/forgotten-password`, data, false, {400:'We already sent you a link on your email',403:"Email doesn't exist"});
+        let response = await post(`/restaurant/auth/forgotten-password`, data, false, {400:'We already sent you a link on your email',403:"Email doesn't exist"});
         if(response.status === 200){
             dispatch(loadingStatus(false));
             message('Please check your email and create new password with new link we sent you', true);
@@ -79,7 +79,7 @@ export function forgottenPasswordAPI(data, message) {
 export function newPasswordAPI(data, hashedId, message) {
     return async (dispatch) => {
         dispatch(loadingStatus(true));
-        let response = await post(`/restaurant-auth/new-password`, {newPassword: data.newPassword, hashedId: hashedId}, false, {401:'Unauthorized'});
+        let response = await post(`/restaurant/auth/new-password`, {newPassword: data.newPassword, hashedId: hashedId}, false, {401:'Unauthorized'});
         if(response.status === 200){
             dispatch(loadingStatus(false));
             message('Successfully set your new password', true);
@@ -93,7 +93,7 @@ export function newPasswordAPI(data, hashedId, message) {
 export function changePasswordAPI(data, message) {
     return async (dispatch) => {
         dispatch(loadingStatus(true));
-        let response = await post(`/restaurant-auth/change-password`, {oldPassword: data.oldPassword, newPassword: data.newPassword}, true, {400:'Incorrect old password',401:'Unauthorized'});
+        let response = await post(`/restaurant/auth/change-password`, {oldPassword: data.oldPassword, newPassword: data.newPassword}, true, {400:'Incorrect old password',401:'Unauthorized'});
         if(response.status === 200){
             dispatch(loadingStatus(false));
             message("Sucessfully changed your password", true);
@@ -125,7 +125,7 @@ export function updateProfileAPI(data, message) {
                 return;
             }
         }
-        let response = await post(`/restaurant-auth/update-profile`, data, true, {400:'Restaurant name is taken'});
+        let response = await post(`/restaurant/auth/update-profile`, data, true, {400:'Restaurant name is taken'});
         if(response.status === 200){
             dispatch(updateProfile(response.data));
             successToast('Updated profile!');
@@ -142,7 +142,7 @@ export function updateProfileAPI(data, message) {
 export function disableDeliveryAPI(data, message) {
     return async (dispatch) => {
         dispatch(loadingStatus(true));
-        let response = await post(`/restaurant-auth/disable-delivery`, data, true, {400:'Incorrect password',401:'Unauthorized'});
+        let response = await post(`/restaurant/auth/disable-delivery`, data, true, {400:'Incorrect password',401:'Unauthorized'});
         if(response.status === 200){
             dispatch(disableDelivery(response.data));
             message('', true);
@@ -157,7 +157,8 @@ export function disableDeliveryAPI(data, message) {
 export function changeWorkingHoursAPI(data) {
     return async (dispatch) => {
         dispatch(loadingStatus(true));
-        let response = await post(`/restaurant-auth/change-working-hours/${localStorage.getItem('RESTAURANT_ID')}`, data, true, {401:'Unauthorized'});
+        data.restaurantId = localStorage.getItem('RESTAURANT_ID');
+        let response = await post(`/restaurant/auth/change-working-hours`, data, true, {401:'Unauthorized'});
         if(response.status === 200){
             dispatch(changeWorkingHours(response.data));
             successToast('Successfully changed!');

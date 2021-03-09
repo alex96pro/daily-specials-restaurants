@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { getMenuAPI } from '../../common/api/menu.api';
+import { Tooltip } from 'antd';
+import { Checkbox } from 'antd';
 import NavBar from '../../components/nav-bar/nav-bar';
 import MealsMenu from '../../components/meals-menu/meals-menu';
 import MessageDanger from '../../components/message-danger';
@@ -19,11 +21,11 @@ export default function Menu() {
     const [messageNoCategories, setMessageNoCategories] = useState({show: false, text:''});
     const [showMobileFooter, setShowMobileFooter] = useState(false);
 
-    const addCategory = (event) => {
+    const addCategory = (event, category) => {
         if(event.target.checked){
-            setSelectedCategories([...selectedCategories, event.target.value]);
+            setSelectedCategories([...selectedCategories, category]);
         }else{
-            setSelectedCategories(selectedCategories.filter(category => category !== event.target.value));
+            setSelectedCategories(selectedCategories.filter(categoryItem => categoryItem !== category));
         }
     };
 
@@ -62,12 +64,14 @@ export default function Menu() {
                 <div className="menu-categories">
                     <div className="flex-row">
                         <div className="header-small">Menu categories</div>
-                        <i className="fas fa-edit fa-3x" onClick={() => setModal(true)}></i>
+                        <Tooltip title="Edit categories">
+                            <i className="fas fa-edit fa-3x" onClick={() => setModal(true)}></i>
+                        </Tooltip>
                     </div>
                     {messageNoCategories.show && categories.length === 0 && <MessageDanger text={messageNoCategories.text}/>}
                     {categories.map((category, index) => <div key={index}>
                         <label className="menu-category" htmlFor={`category${index}`}>
-                            <input type="checkbox" value={category} onChange={addCategory} id={`category${index}`}/>
+                            <Checkbox onChange={(event) => addCategory(event,category)} id={`category${index}`}/>
                             {category}
                         </label>
                     </div>)}

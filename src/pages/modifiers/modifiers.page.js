@@ -2,6 +2,7 @@ import './modifiers.page.scss';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getModifiersAPI } from '../../common/api/modifiers.api';
+import { Tooltip } from 'antd';
 import NavBar from '../../components/nav-bar/nav-bar';
 import Loader from '../../components/loader';
 import AddModifierModal from './add-modifier.modal';
@@ -71,9 +72,15 @@ export default function Modifiers() {
                     </div>)}  */}
                     <div className="label">{modifierItem.modifier.name}</div>
                     <div>
-                        <i className="fas fa-copy fa-2x copy-icon" onClick={() => prepareDataForEdit(modifierItem, "COPY")}></i>
-                        <i className="fas fa-edit fa-2x" onClick={() => prepareDataForEdit(modifierItem, "EDIT")}></i>
-                        <i className="fas fa-trash fa-2x" onClick={() => setDeleteModifierModal({show: true, modifier: modifierItem})}></i>
+                        <Tooltip title="Copy">
+                            <i className="fas fa-copy fa-2x copy-icon" onClick={() => prepareDataForEdit(modifierItem, "COPY")}></i>
+                        </Tooltip>
+                        <Tooltip title="Edit">
+                            <i className="fas fa-edit fa-2x" onClick={() => prepareDataForEdit(modifierItem, "EDIT")}></i>
+                        </Tooltip>
+                        <Tooltip title="Delete">
+                            <i className="fas fa-trash fa-2x" onClick={() => setDeleteModifierModal({show: true, modifier: modifierItem})}></i>
+                        </Tooltip>
                     </div>
                 </div>)}
             </div>

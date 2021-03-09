@@ -33,7 +33,7 @@ export default function menuReducer(state = initialState, action) {
             return {
                 ...state,
                 loadingStatus: false,
-                meals: [...state.meals, action.payload]
+                meals: [action.payload, ...state.meals]
             };
         case ACTIONS.EDIT_MEAL:
             for(let i = 0; i < state.meals.length; i++){

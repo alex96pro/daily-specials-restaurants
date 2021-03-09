@@ -77,7 +77,7 @@ export default function CopyModifierModal(props) {
             <div className="modal-body-vertical">
                 <form onSubmit={handleSubmit(copyModifier)}>
                     <div className="label-accent-color-2">Modifier name</div>
-                    <input type="text" name="name" ref={register({required:true})}/>
+                    <input type="text" name="name" ref={register({required:true})} className="app-input"/>
                     {errors.name && <InputError text="Name is required"></InputError>}
                     {messages.nameTaken && <InputError text={messages.nameTaken}/>}
                     <div className="label-accent-color-2 p-t-15">Modifier type</div>
@@ -88,7 +88,7 @@ export default function CopyModifierModal(props) {
                     </div>
                     {props.modifier.modifierType === "optional" &&
                     <React.Fragment>
-                        <label className="label">Maximum customer can pick</label><input type="number" name="maximum" ref={register({required:true, min:1, max:options.length})} defaultValue={props.modifier.maximum}/>
+                        <label className="label">Maximum customer can pick</label><input type="number" name="maximum" ref={register({required:true, min:1, max:options.length})} defaultValue={props.modifier.maximum} className="app-input-number"/>
                         {errors.maximum && errors.maximum.type === "required" && <InputError text="Enter maximum"/>}
                         {errors.maximum && errors.maximum.type === "min" && <InputError text="Minimum value is 1"/>}
                         {errors.maximum && errors.maximum.type === "max" && <InputError text="Maximum is higher than your options size"/>}
@@ -97,17 +97,17 @@ export default function CopyModifierModal(props) {
                         Options
                         {options.map(option => <div key={option.index} className="modifier-option">
                                 <div className="modifier-name">
-                                    <input type="text" name={"optionName"+option.index} ref={register({required:true})} defaultValue={option.name} placeholder="Name"/>
+                                    <input type="text" name={"optionName"+option.index} ref={register({required:true})} defaultValue={option.name} placeholder="Name" className="app-input"/>
                                     {errors["optionName" + option.index] && <InputError text="Enter option name"/>}
                                 </div>
                                 <div className="modifier-price">
-                                    <input type="number" name={"optionPrice"+option.index} ref={register({required:true})} defaultValue={option.price} placeholder="Price"/><label className="label">{CURRENCY}</label>
+                                    <input type="number" name={"optionPrice"+option.index} ref={register({required:true})} defaultValue={option.price} placeholder="Price" step="0.01" className="app-input-number"/><label className="label">{CURRENCY}</label>
                                     {errors["optionPrice" + option.index] && <InputError text="Enter price"/>}
                                 </div>
                             {props.modifier.modifierType !== "optional" && 
                             <div className="modifier-default">
                                 <input type="radio" name="defaultOption" ref={register({required:true})} value={option.index} onChange={() => setCurrentDefaultOption(option.index)}
-                                 defaultChecked={option.index === currentDefaultOption}/>
+                                 defaultChecked={option.index === currentDefaultOption} className="app-radio"/>
                                 <label className="label">Default</label>
                             </div>
                             }

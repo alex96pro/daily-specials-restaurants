@@ -9,7 +9,7 @@
     }
     .specials-date-slot{
         @include flex-align(row,space-between,center,nowrap);
-        width:60vw;
+        width:70vw;
         background-color: white;
         padding:1rem;
         margin:0.4rem 0rem;
@@ -27,13 +27,14 @@
         color:$accent-color-2;
     }
     .special-container{
-        @include flex-align(row, flex-start, flex-start, nowrap);
+        @include flex-align(row, flex-start, stretch, nowrap);
         background-color: $wrapper-color;
-        width:25%;
+        width:28%;
     }
     .special-photo{
-        width:10rem;
-        height:10rem;
+        @include flex-align(row, center, center, nowrap);
+        width:15rem;
+        height:15rem;
         margin-right:0.2rem;
         cursor: pointer;
         transition: 0.2s;
@@ -43,7 +44,7 @@
     }
     .add-special-photo-container, .edit-special-photo-container{
         text-align: center;
-        padding:1rem;
+        padding:0.8rem;
     }
     .add-special-photo, .edit-special-photo{
         border-radius:0;
@@ -51,7 +52,7 @@
         height:32rem;
     }
     .finish-posting-button{
-        margin-top:7.6rem;
+        margin-top:3rem;
     }
     .deleted-special-label{
         font-size: 2rem;
@@ -59,7 +60,6 @@
     }
     .fa-ban{
         color:$accent-color-2;
-        margin:auto 0.4rem;
     }
     .special-input-time{
         margin:0;

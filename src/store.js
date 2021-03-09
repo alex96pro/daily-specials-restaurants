@@ -13,7 +13,8 @@ const loadState = () => {
             menu: store.menu,
             specials: store.specials,
             modifiers: store.modifiers,
-            orders: store.orders
+            orders: store.orders,
+            meal: store.meal
         };
     }
     return storeObject;

@@ -46,10 +46,10 @@ export default function Login() {
                     <div className="login-header">Log in to your restaurant</div>
                     <form onSubmit={handleSubmit(handleLogIn)}>
                         <div className="label">Email</div>
-                        <input type="email" name="email" ref={register({required:true})}/>
+                        <input type="email" name="email" ref={register({required:true})} className="app-input"/>
                         {errors.email && <InputError text="Email is required"/>}
                         <div className="label">Password</div>
-                        <input type="password" name="password" ref={register({required:true})}/>
+                        <input type="password" name="password" ref={register({required:true})} className="app-input"/>
                         {errors.password && <InputError text="Password is required"/>}
                         {message && <MessageDanger text={message}/>}
                         <SubmitButton loadingStatus={loadingStatus} text="Log In"/>
