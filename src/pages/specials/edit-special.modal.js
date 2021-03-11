@@ -141,7 +141,7 @@ export default function EditSpecialModal(props) {
                     <AddPhoto photoData={photoData} setPhotoData={setPhotoData}/>
                     }
                 </div>}
-                <div>
+                <div className="flex-1 p-15">
                     <form onSubmit={handleSubmit(editSpecial)}>
                         <label className="label">Name</label>
                         <input type="text" name="name" ref={register({required: true, maxLength:50})} className="app-input"/>

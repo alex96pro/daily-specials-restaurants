@@ -21,7 +21,6 @@ nav{
     border-radius: 0;
    
     .nav-card{
-        position: relative;
         background-color: inherit;
         color:$text-color;
         text-align: left;
@@ -48,13 +47,11 @@ nav{
         margin-top:10rem;
     }
     .new-orders-count{
-        position: absolute;
-        top:0.2rem;
-        left:0.2rem;
         background-color: $accent-color;
         color:white;
         padding:0.2rem 0.6rem;
-        font-size:2rem;
+        margin-left:2rem;
+        font-size:2.2rem;
         font-weight: bold;
         cursor: pointer;
     }

@@ -4,6 +4,7 @@ import { CURRENCY } from '../../util/consts';
 import { useDispatch, useSelector } from 'react-redux';
 import { errorToast } from '../../util/toasts/toasts' 
 import { addNewModifierAPI } from '../../common/api/modifiers.api';
+import { Radio } from 'antd';
 import InputError from '../../components/input-error';
 import SubmitButton from '../../components/submit-button';
 
@@ -13,10 +14,10 @@ export default function AddModifierModal(props) {
     const [modalOpacity, setModalOpacity] = useState(0);
     const { modifiers, loadingStatus } = useSelector(state => state.modifiers);
     const dispatch = useDispatch();
-    const [messages, setMessages] = useState({nameTaken:'', default:''});
+    const [messages, setMessages] = useState({nameTaken:'', modifierType:'', default:''});
     const [options, setOptions] = useState([0]);
     const [currentModifierType, setCurrentModifierType] = useState('');
-    const [currentDefaultOption, setCurrentDefaultOption] = useState(0);
+    const [currentDefaultOption, setCurrentDefaultOption] = useState('');
 
     useEffect(() => {
         setModalOpacity(1);
@@ -41,12 +42,16 @@ export default function AddModifierModal(props) {
 
     const finishAddingModifier = (data) => {
         let optionsData = {};
-        if(data.modifierType === "required" && +data["optionPrice"+currentDefaultOption] !== 0){
-            setMessages({...messages, default: "Your default value must be 0 for this type of modifier"});
+        if(!currentModifierType){
+            setMessages({...messages, modifierType:'Please select modifier type'});
             return;
         }
-        if(data.modifierType !== "optional" && !data.defaultOption){
+        if(currentModifierType !== "optional" && currentDefaultOption === ''){
             setMessages({...messages, default: "Please choose your default value"});
+            return;
+        }
+        if(currentModifierType === "required" && +data["optionPrice"+currentDefaultOption] !== 0){
+            setMessages({...messages, default: "Your default value must be 0 for this type of modifier"});
             return;
         }
         data.name = data.name.trim('');
@@ -58,16 +63,16 @@ export default function AddModifierModal(props) {
         }
         // create JSON object from data
         for(let i = 0; i < options.length; i++){
-            if(currentModifierType !== "optional" && options[i] === +data.defaultOption){
+            if(currentModifierType !== "optional" && options[i] === +currentDefaultOption){
                 data.defaultOption = data["optionName"+options[i]];
             }
             optionsData[data["optionName"+options[i]]] = data["optionPrice"+options[i]];
             delete data["optionName"+options[i]];
             delete data["optionPrice"+options[i]];
         }
+        data.modifierType = currentModifierType;
         data.options = optionsData;
-        setMessages({nameTaken:'', default:''});
-        // console.log(data);
+        setMessages({nameTaken:'', modifierType:'', default:''});
         dispatch(addNewModifierAPI(data, props.closeModal));
     };
 
@@ -85,23 +90,24 @@ export default function AddModifierModal(props) {
                     {errors.name && <InputError text="Name is required"></InputError>}
                     {messages.nameTaken && <InputError text={messages.nameTaken}/>}
                     <div className="label-accent-color-2 p-t-15">Choose modifier type</div>
-                    {errors.modifierType && <InputError text="Please choose modifier type"/>}
+                    {messages.modifierType && <InputError text={messages.modifierType}/>}
+                    <Radio.Group>
                     <div className="modifier-type">
-                        <input type="radio" name="modifierType" ref={register({required:true})} value="requiredBase" onChange={changeModifierType} className="app-radio"/>
+                        <Radio value="requiredBase" onChange={changeModifierType}/>
                         <div>
                             <div className="label m-0">Required base (determins starting price)</div>
                             <div className="modifier-example">Example: Small: 4$, Medium: 6$, Big: 8$...</div>
                         </div>
                     </div>
                     <div className="modifier-type">
-                        <input type="radio" name="modifierType" ref={register({required:true})} value="required" onChange={changeModifierType} className="app-radio"/>
+                        <Radio value="required" onChange={changeModifierType}/>
                         <div>
                             <div className="label m-0">Required (may change price)</div>
                             <div className="modifier-example">Example: Normal pizza doe: 0$, Chicago pizza doe: 1$...</div>
                         </div>
                     </div>
                     <div className="modifier-type">
-                        <input type="radio" name="modifierType" ref={register({required:true})} value="optional" onChange={changeModifierType} className="app-radio"/>
+                        <Radio value="optional" onChange={changeModifierType}/>
                         <div>
                             <div className="label m-0">Optional (extras)</div>
                             <div className="modifier-example">Example: Ketchup: 0$, Cheese $1, Mustard: 0$...</div>
@@ -114,9 +120,11 @@ export default function AddModifierModal(props) {
                             </React.Fragment>}
                         </div>
                     </div>
+                    </Radio.Group>
                     <div className="label-accent-color-2 p-t-15">
                         Options
                     </div>
+                    <Radio.Group defaultValue={0}>
                     {options.map(optionIndex => 
                     <div className="modifier-option" key={optionIndex}>
                         <div className="modifier-name">
@@ -129,7 +137,8 @@ export default function AddModifierModal(props) {
                         </div>
                         {(currentModifierType === "requiredBase" || currentModifierType === "required") && 
                         <div className="modifier-default">
-                            <input type="radio" name="defaultOption" ref={register({required:true})} value={optionIndex} onChange={() => setCurrentDefaultOption(optionIndex)} defaultChecked={optionIndex === currentDefaultOption} className="app-radio"/>
+                            {/* <input type="radio" name="defaultOption" ref={register({required:true})} value={optionIndex} onChange={() => setCurrentDefaultOption(optionIndex)} defaultChecked={optionIndex === currentDefaultOption} className="app-radio"/> */}
+                            <Radio value={optionIndex} onChange={() => setCurrentDefaultOption(optionIndex)}/>
                             <label className="label">Default</label>
                         </div>
                         }
@@ -139,10 +148,10 @@ export default function AddModifierModal(props) {
                         </div>}
                     </div>
                     )}
-                    {errors.defaultOption && <InputError text="Please select default option"/>}
+                    </Radio.Group>
                     {messages.default && <InputError text={messages.default}/>}
-                    <div>
-                        <button type="button" onClick={addNewOption} className="add-new-modifier-option">+ Add new option</button>
+                    <div className="add-new-option-button-container">
+                        <button type="button" onClick={addNewOption} className="add-new-option-button">+ Add new option</button>
                     </div>
                     <SubmitButton loadingStatus={loadingStatus} text="Finish adding modifier"/>
                 </form>

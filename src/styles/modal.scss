@@ -26,13 +26,14 @@
         border-radius: 0;
         width: 50rem;
         max-width: 100%;
-        max-height: 90vh;
+        max-height: 85vh;
         overflow-y: auto;
     }
     .modal-body-horizontal{
         @extend .modal-body-vertical;
-        @include flex-align(row, space-evenly, flex-start, nowrap);
+        @include flex-align(row,flex-start, flex-start, wrap);
         width:80rem;
+        padding:0;
     }
     .modal-header{
         width: 100%;
@@ -52,9 +53,11 @@
         transform: none;
         .modal-body-vertical{
             width:100vw;
+            max-height: 80vh;
         }
         .modal-body-horizontal{
             // width: 100vw;
+            
             @include flex-align(column, flex-start, stretch, nowrap);
             // background-color: red;
         }

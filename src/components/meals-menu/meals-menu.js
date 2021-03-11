@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getModifiersAPI } from '../../common/api/modifiers.api';
 import { getMealModifiersAPI } from '../../common/api/meal.api';
 import { Tooltip } from 'antd';
+import PreviewMealModal from '../meal-preview/meal-preview.modal';
 import ConfirmDeleteModal from './confirm-delete.modal';
 import EditMealModal from './edit-meal.modal';
 import AddMealModal from './add-meal.modal';
@@ -12,6 +13,7 @@ import Loader from '../loader';
 
 export default function MealsMenu(props) {
 
+    const [previewMealModal, setPreviewMealModal] = useState({show: false, meal:{}});
     const [editMealModal, setEditMealModal] = useState({show: false, meal: {}, convertMealToSpecial: false});
     const [confirmDeleteModal, setConfirmDeleteModal] = useState({show: false, meal: {}});
     const [addMealModal, setAddMealModal] = useState(false);
@@ -41,9 +43,13 @@ export default function MealsMenu(props) {
         dispatch(getModifiersAPI(() => setAddMealModal(true)));
     };
 
+    const showPrevieMealModal = (meal) => {
+        dispatch(getMealModifiersAPI(meal.mealId, () => setPreviewMealModal({show: true, meal: meal})));
+    };
+
     return(
         <div className="meals-menu">
-            {(loadingAllModifiers || loadingMealModifiers) && <Loader className="loader-center"/>}
+            {(loadingAllModifiers || loadingMealModifiers) && <Loader className="loader-center" blackBackground/>}
             <div className="meals-menu-header">Your Menu</div>
             <div className="meals-menu-add-meal">
                 <button onClick={showAddMealModal} className={props.categories.length === 0 ? "button-long-disabled m-0":"button-long m-0"}>Add new meal</button>
@@ -56,7 +62,7 @@ export default function MealsMenu(props) {
                 </div>
                 <div className="menu-meal-header-icons">
                     <Tooltip title="See from user's perspective">
-                        <i className="fas fa-eye fa-2x"></i>
+                        <i className="fas fa-eye fa-2x" onClick={() => showPrevieMealModal(meal)}></i>
                     </Tooltip>
                     <Tooltip title="Post as special">
                         <i className="fas fa-bullhorn fa-2x" onClick={() => showEditModal(meal, true)}></i>
@@ -84,6 +90,7 @@ export default function MealsMenu(props) {
             {editMealModal.show && 
             <EditMealModal meal={editMealModal.meal} convertMealToSpecial={editMealModal.convertMealToSpecial} closeModal={() => setEditMealModal({...editMealModal, show: false, meal:{}})}/>}
             {addMealModal && <AddMealModal closeModal={() => setAddMealModal(false)}/>}
+            {previewMealModal.show && <PreviewMealModal meal={previewMealModal.meal} closeModal={() => setPreviewMealModal({show:false, meal:{}})}/>}
         </div>
     )
 };

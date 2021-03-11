@@ -11,7 +11,7 @@
     }
     .order{
         background-color: $accent-color;
-        margin:0.2rem 0rem;
+        margin:0.4rem 0rem;
         padding:1rem;
     }
     .order-header{
@@ -20,7 +20,9 @@
         padding:0.2rem;
     }
     .order-meal{
-        background-color: $accent-color-2;
+        background-color: white;
+        margin:0.4rem 0rem;
+        padding:1.6rem;
     }
     .order-buttons{
         text-align: center;

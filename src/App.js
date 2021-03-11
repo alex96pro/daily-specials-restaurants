@@ -17,6 +17,7 @@ import Modifiers from './pages/modifiers/modifiers.page';
 import Orders from './pages/orders/orders.page';
 import ProtectedRoute from './components/protected-route';
 import 'antd/dist/antd.css';
+import './styles/foreign-components.scss';
 import './styles/modal.scss';
 import './styles/elements.scss';
 import './styles/common.scss';

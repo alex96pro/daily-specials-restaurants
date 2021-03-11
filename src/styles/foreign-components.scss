@@ -1,0 +1,126 @@
+@import '../variables';
+@import '../mixins';
+
+.ant-slider-rail{
+    background-color:$wrapper-color;
+}
+.ant-slider-track{
+    background-color:$accent-color;
+}
+.ant-slider-handle{
+    border:2px solid $accent-color;
+}
+.ant-slider-handle:focus{
+    border-color: $accent-color-2;
+}
+.ant-slider:hover .ant-slider-track {
+    background-color: $accent-color-2;
+}
+.ant-slider:hover .ant-slider-handle:not(.ant-tooltip-open) {
+    border-color: $accent-color;
+}
+.ant-slider-handle.ant-tooltip-open {
+    border-color: $accent-color;
+}
+.ant-checkbox{
+    width: 22px;
+    height: 22px;
+    margin:0rem 1rem;
+}
+.ant-checkbox-inner{
+    width: 22px;
+    height: 22px;
+}
+.ant-checkbox-checked .ant-checkbox-inner {
+    background-color: $accent-color;
+    border-color: $accent-color;
+}
+.ant-checkbox-wrapper:hover .ant-checkbox-inner, .ant-checkbox:hover .ant-checkbox-inner, .ant-checkbox-input:focus + .ant-checkbox-inner {
+  border-color: $text-color;
+}
+.ant-checkbox-checked::after {
+    border: 1px solid $accent-color;
+}
+.ant-checkbox-inner {
+    border: 1px solid $text-color;
+}
+.ant-radio-wrapper:hover .ant-radio,
+.ant-radio:hover .ant-radio-inner,
+.ant-radio-input:focus + .ant-radio-inner {
+    border-color: $accent-color;
+}
+.ant-radio-checked::after {
+    border-color: $accent-color;
+}
+.ant-radio-inner{
+    width:22px;
+    height:22px;
+    border-color:$text-color;
+}
+.ant-radio-inner::after{
+    width:14px;
+    height:14px;
+    background-color: $accent-color;
+}
+.ant-radio-checked .ant-radio-inner {
+    border-color: $accent-color;
+}
+.ant-radio-group{
+    @include flex-align(row, space-between, center, wrap);
+    width:100%;
+}
+
+.react-select-container{
+    .react-select__menu{
+        margin:0;
+        max-height: 16rem;
+        overflow-y: auto;
+    }
+    .react-select__option{
+       font-size: 1.6rem;
+       &:hover{
+           background-color: rgba($color: $accent-color-2, $alpha: 0.4);
+       }
+       &--is-focused{
+           background-color: rgba($color: $accent-color-2, $alpha: 0.4);
+       }
+    }
+    .react-select__multi-value{
+        font-size: 1.8rem;
+        color:$text-color;
+        padding:0.2rem;
+        border-radius: 0.8rem;
+    }
+    .react-select__placeholder, .react-select__input{
+        font-size: 1.6rem;
+    }
+    .react-select__multi-value__remove{
+        border-radius: 0.8rem;
+        cursor: pointer;
+        &:hover{
+            color:white;
+            background-color: $accent-color;
+        }
+    }
+    .react-select__control{
+        cursor: pointer;
+        border:$input-border;
+        border-radius: 0.8rem;
+        &:hover{
+            border:$input-border;
+        }
+    }
+    .react-select__control--is-focused{
+        box-shadow:$input-box-shadow;
+    }
+    .react-select__clear-indicator{
+        display: none;
+    }
+}
+.fa-plus, .fa-minus{
+    color:$accent-color;
+    background-color: $wrapper-color;
+    padding:0.4rem;
+    margin-left:0.4rem;
+    cursor: pointer;
+}

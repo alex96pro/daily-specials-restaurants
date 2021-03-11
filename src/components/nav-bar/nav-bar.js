@@ -31,7 +31,7 @@ export default function NavBar(props) {
                 <button className={currentPage==="/specials" ? "nav-card-active" : "nav-card"} onClick={() => history.push('/specials')}>Specials</button>
                 <button className={currentPage==="/modifiers" ? "nav-card-active" : "nav-card"} onClick={() => history.push('/modifiers')}>Modifiers</button>
                 <button className={currentPage==="/orders" ? "nav-card-active" : "nav-card"} onClick={() => history.push('/orders')}>
-                    {newOrdersCount > 0 && <label className="new-orders-count" onClick={() => history.push('/orders')}>{newOrdersCount}</label>} Orders
+                    Orders{newOrdersCount > 0 && <label className="new-orders-count" onClick={() => history.push('/orders')}>{newOrdersCount}</label>}
                 </button>
                 <button className={currentPage==="/profile" ? "nav-card-active" : "nav-card"} onClick={() => history.push('/profile')}>Profile</button>
                 <button className={currentPage==="/working-hours" ? "nav-card-active" : "nav-card"} onClick={() => history.push('/working-hours')}>Working hours</button>

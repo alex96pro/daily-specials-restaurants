@@ -4,8 +4,9 @@ import InputError from '../../components/input-error';
 import { useSelector, useDispatch } from 'react-redux';
 import { CURRENCY } from '../../util/consts';
 import { errorToast } from '../../util/toasts/toasts';
-import SubmitButton from '../../components/submit-button';
 import { addNewModifierAPI } from '../../common/api/modifiers.api';
+import { Radio } from 'antd';
+import SubmitButton from '../../components/submit-button';
 
 export default function CopyModifierModal(props) {
 
@@ -18,10 +19,6 @@ export default function CopyModifierModal(props) {
     const [options, setOptions] = useState(props.modifier.options);
 
     const copyModifier = (data) => {
-        if(props.modifier.modifierType !== "optional" && currentDefaultOption === undefined){
-            setMessages({...messages, default: "Please choose your default value"});
-            return;
-        }
         if(props.modifier.modifierType === "required" && +data["optionPrice"+currentDefaultOption] !== 0){
             setMessages({...messages, default: "Your default value must be 0 for this type of modifier"});
             return;
@@ -35,7 +32,7 @@ export default function CopyModifierModal(props) {
         data.modifierType = props.modifier.modifierType;
         data.options = {};
         for(let i = 0; i < options.length; i++){
-            if(props.modifier.modifierType !== "optional" && options[i].index === +data.defaultOption){
+            if(props.modifier.modifierType !== "optional" && options[i].index === +currentDefaultOption){
                 data.defaultOption = data["optionName"+options[i].index];
             }
             data.options[data["optionName"+options[i].index]] = data["optionPrice"+options[i].index];
@@ -95,19 +92,20 @@ export default function CopyModifierModal(props) {
                     </React.Fragment>}
                     <div className="label-accent-color-2 p-t-15">
                         Options
+                    </div>
+                    <Radio.Group defaultValue={currentDefaultOption}>
                         {options.map(option => <div key={option.index} className="modifier-option">
-                                <div className="modifier-name">
-                                    <input type="text" name={"optionName"+option.index} ref={register({required:true})} defaultValue={option.name} placeholder="Name" className="app-input"/>
-                                    {errors["optionName" + option.index] && <InputError text="Enter option name"/>}
-                                </div>
-                                <div className="modifier-price">
-                                    <input type="number" name={"optionPrice"+option.index} ref={register({required:true})} defaultValue={option.price} placeholder="Price" step="0.01" className="app-input-number"/><label className="label">{CURRENCY}</label>
-                                    {errors["optionPrice" + option.index] && <InputError text="Enter price"/>}
-                                </div>
+                            <div className="modifier-name">
+                                <input type="text" name={"optionName"+option.index} ref={register({required:true})} defaultValue={option.name} placeholder="Name" className="app-input"/>
+                                {errors["optionName" + option.index] && <InputError text="Enter option name"/>}
+                            </div>
+                            <div className="modifier-price">
+                                <input type="number" name={"optionPrice"+option.index} ref={register({required:true})} defaultValue={option.price} placeholder="Price" step="0.01" className="app-input-number"/><label className="label">{CURRENCY}</label>
+                                {errors["optionPrice" + option.index] && <InputError text="Enter price"/>}
+                            </div>
                             {props.modifier.modifierType !== "optional" && 
                             <div className="modifier-default">
-                                <input type="radio" name="defaultOption" ref={register({required:true})} value={option.index} onChange={() => setCurrentDefaultOption(option.index)}
-                                 defaultChecked={option.index === currentDefaultOption} className="app-radio"/>
+                                <Radio value={option.index} onChange={() => setCurrentDefaultOption(option.index)}/>
                                 <label className="label">Default</label>
                             </div>
                             }
@@ -119,11 +117,11 @@ export default function CopyModifierModal(props) {
                         </div>)}
                         {errors.defaultOption && <InputError text="Please select default option"/>}
                         {messages.default && <InputError text={messages.default}/>}
-                        <div>
-                            <button type="button" onClick={addNewOption} className="add-new-modifier-option">+ Add new option</button>
+                        <div className="add-new-option-button-container">
+                            <button type="button" onClick={addNewOption} className="add-new-option-button">+ Add new option</button>
                         </div>
-                    </div>
-                    <SubmitButton text="Save changes" loadingStatus={loadingStatus}/>
+                    </Radio.Group>
+                    <SubmitButton text="Finish adding modifier" loadingStatus={loadingStatus}/>
                 </form>
             </div>
         </div>

@@ -158,7 +158,7 @@ export default function EditMealModal(props) {
                 :
                 <AddPhoto photoData={photoData} setPhotoData={setPhotoData}/>
                 }
-                <div className="flex-1">
+                <div className="flex-1 p-15">
                     <form onSubmit={handleSubmit(editMeal)}>
                         <div className="label">Name</div>
                         <input type="text" name="name" ref={register({required:true, maxLength:50})} className="app-input"/>

@@ -73,4 +73,10 @@ export async function compressPhoto(croppedPhoto) {
         console.log(error);
         return null;
     }
-}
+};
+export function calculateMealPrice(selectedModifiers, amount) {
+    let base = +selectedModifiers.requiredBaseModifier;
+    let required = selectedModifiers.requiredModifiers.reduce((sum, item) => sum += +item.optionPrice, 0);
+    let optional = selectedModifiers.optionalModifiers.reduce((sum, item) => sum += +item.optionPrice, 0);
+    return (Math.round((base + required + optional) * amount * 100) / 100).toFixed(2);
+};

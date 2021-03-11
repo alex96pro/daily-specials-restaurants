@@ -17,8 +17,8 @@
         margin:0.4rem 0rem;
     }
     .modifier-type{
-        @include flex-align(row, flex-start, flex-start, nowrap);
-        margin:1rem 0rem;
+        @include flex-align(row, flex-start, center, nowrap);
+        margin:0.6rem 0rem;
     }
     .modifier-example{
         color:$accent-color-2;
@@ -27,7 +27,7 @@
     .modifier-option{
         @include flex-align(row, flex-start, flex-start, nowrap);
         width:100%;
-        margin:0.4rem 0rem;
+        margin:0.2rem 0rem;
     }
     .modifier-name{
         width:48%;
@@ -44,7 +44,10 @@
         @include flex-align(row, center, center, nowrap);
         align-self: center;
     }
-    .add-new-modifier-option{
+    .add-new-option-button-container{
+        width: 100%;
+    }
+    .add-new-option-button{
         background-color: $wrapper-color;
         color:$accent-color-2;
         padding:0.4rem;

@@ -1,0 +1,37 @@
+@import '../../mixins';
+@import '../../variables';
+
+.meal-preview-photo-container{
+    width:50%;
+}
+.meal-preview-photo{
+    width:95%;
+    height:auto;
+    margin:0.5rem;
+}
+.meal-preview-basic-info{
+    width:calc(50% - 0.6rem);
+    padding:0.8rem;
+}
+.meal-preview-button{
+    background-color: $accent-color;
+    color:white;
+    width:100%;
+    padding:1rem;
+    font-size: 1.8rem;
+    text-align: center;
+    border-radius: 0rem 0rem 0.8rem 0.8rem;
+}
+@include mobile-range{
+    .meal-preview-photo-container{
+        width:100vw;
+    }
+    .meal-preview-photo{
+        width: 100vw;
+        height:100vw;
+        margin:0;
+    }
+    .meal-preview-basic-info{
+        width:100%;
+    }
+}

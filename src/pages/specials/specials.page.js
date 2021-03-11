@@ -14,6 +14,7 @@ import FillBar from '../../components/fill-bar/fill-bar';
 import PostNewSpecialModal from './post-new-special.modal';
 import ConfirmDeleteModal from './confirm-delete.modal';
 import EditSpecialModal from './edit-special.modal';
+import PreviewMealModal from '../../components/meal-preview/meal-preview.modal';
 
 export default function Specials() {
 
@@ -27,6 +28,7 @@ export default function Specials() {
     const [postNewSpecialModal, setPostNewSpecialModal] = useState({show: false, date: '', today:''});
     const [confirmDeleteModal, setConfirmDeleteModal] = useState({show:false, special:{}, date: '', today: ''});
     const [editSpecialModal, setEditSpecialModal] = useState({show: false, special: {}});
+    const [previewMealModal, setPreviewMealModal] = useState({show: false, special: {}});
 
     const handleNewSpecial = (day) => {
         if(day.dbFormat === getClientDateAndTime(true, false)){
@@ -38,7 +40,7 @@ export default function Specials() {
 
     const handleEditSpecial = (special, day) => {
         if(day.dbFormat === getClientDateAndTime(true, false)){
-            // API has to be in this order so that react-select can work (doesn't update its default values like it should from react redux store)
+            // API has to be in this order so that react-select can work (doesn't update its default values like it should from react redux store otherwise)
             dispatch(getModifiersAPI());
             dispatch(getSpecialModifiersAPI(special.specialId, () => setEditSpecialModal({show: true, special: special, date: day, today: true})));
         }else{
@@ -53,6 +55,10 @@ export default function Specials() {
         }else{
             setConfirmDeleteModal({show: true, special: special, today: false});
         }
+    };
+
+    const handlePreviewSpecial = (special) => {
+        dispatch(getSpecialModifiersAPI(special.specialId, () => setPreviewMealModal({show: true, special: special})));
     };
     
     useEffect(() => {
@@ -74,7 +80,7 @@ export default function Specials() {
 
     return (
         <div className="specials">
-            {(loadingAllModifiers || loadingSpecialModifiers) && <Loader className="loader-center"/>}
+            {(loadingAllModifiers || loadingSpecialModifiers) && <Loader className="loader-center" blackBackground/>}
             <NavBar loggedIn={true}/>
                 {loadingSpecialsPage ? <Loader className="loader-center"/>
                 :
@@ -101,7 +107,7 @@ export default function Specials() {
                                 :
                                 <React.Fragment>
                                     <Tooltip title="See from user's perspective">
-                                        <i className="fas fa-eye fa-2x"></i>
+                                        <i className="fas fa-eye fa-2x" onClick={() => handlePreviewSpecial(special)}></i>
                                     </Tooltip>
                                     <Tooltip title="Edit">
                                         <i className="fas fa-edit fa-2x" onClick={() => handleEditSpecial(special, day)}></i>
@@ -122,6 +128,7 @@ export default function Specials() {
             {postNewSpecialModal.show && <PostNewSpecialModal date={postNewSpecialModal.date} today={postNewSpecialModal.today} closeModal={() => setPostNewSpecialModal({...postNewSpecialModal, show: false})}/>}
             {editSpecialModal.show && <EditSpecialModal special={editSpecialModal.special} today={editSpecialModal.today} date={editSpecialModal.date} closeModal={() => setEditSpecialModal({show: false, special: {}, date:'', today:''})}/>}
             {confirmDeleteModal.show && <ConfirmDeleteModal special={confirmDeleteModal.special} today={confirmDeleteModal.today} closeModal={() => setConfirmDeleteModal({show: false, special:{}})}/>}
+            {previewMealModal.show && <PreviewMealModal meal={previewMealModal.special} closeModal={() => setPreviewMealModal({show: false, special:{}})}/>}
         </div>
     );
 }
