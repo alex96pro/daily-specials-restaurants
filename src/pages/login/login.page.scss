@@ -5,7 +5,7 @@
     @include page-container;
     .login-container{
         @include flex-align(column, center, center, nowrap);
-        margin-top:$nav-bar-horizontal-height / 2;
+        margin-top:$nav-bar-horizontal-height;
     }
     .login-header{
         font-size:2.5rem;

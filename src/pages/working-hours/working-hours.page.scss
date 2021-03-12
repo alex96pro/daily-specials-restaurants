@@ -7,7 +7,7 @@
         @include flex-align(column, center, center, nowrap);
         margin-left:$nav-bar-width;
         padding:3rem;
-        background-color: white;
+        box-shadow: $app-box-shadow;
     }
     .working-hours-align{
         @include flex-align(row, space-between, center, nowrap);
@@ -16,9 +16,10 @@
 
 @include mobile-range{
     .working-hours{
+        margin-top:$nav-bar-horizontal-height;
         .working-hours-container{
             margin:0;
-            margin-top:$nav-bar-horizontal-height / 2;
+            
         }
         .working-hours-align{
             @include flex-align(column, center, flex-start, nowrap);

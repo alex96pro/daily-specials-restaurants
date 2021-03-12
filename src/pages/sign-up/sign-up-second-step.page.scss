@@ -2,15 +2,21 @@
 @import '../../variables';
 
 .map{
-    //@include flex-align(column, center, flex-start, wrap);
     .google-maps-container{
         background-color: white;
         padding:2rem;
         position:absolute;
         top:1rem;
         transform: translateX(calc(50vw - 50%));
+        width:40%;
+        text-align: center;
+        box-shadow: $app-box-shadow;
     }
-    .search-google-maps{
-        width:30rem;
+}
+@include mobile-range{
+    .map{
+        .google-maps-container{
+            width:100%;
+        }
     }
 }

@@ -50,7 +50,7 @@ export default function MealsMenu(props) {
     return(
         <div className="meals-menu">
             {(loadingAllModifiers || loadingMealModifiers) && <Loader className="loader-center" blackBackground/>}
-            <div className="meals-menu-header">Your Menu</div>
+            <div className="meals-menu-header">Menu</div>
             <div className="meals-menu-add-meal">
                 <button onClick={showAddMealModal} className={props.categories.length === 0 ? "button-long-disabled m-0":"button-long m-0"}>Add new meal</button>
             </div>

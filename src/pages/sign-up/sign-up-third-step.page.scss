@@ -7,7 +7,8 @@
         text-align: center;
         background-color: white;
         padding:2rem;
-        margin-top:$nav-bar-horizontal-height / 2;
+        margin-top:$nav-bar-horizontal-height;
+        box-shadow: $app-box-shadow;
     }
     .working-hours-row{
         @include flex-align(row, space-between, center, nowrap);

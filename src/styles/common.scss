@@ -8,10 +8,7 @@
     box-sizing:border-box;
     font-size:10px;
     font-family:$main-font;
-    border-radius: 0.8rem;
-}
-body, html{
-    background-image: url("../images/background.jpg");
+    border-radius: 0.4rem;
 }
 .m-0{
     margin:0;
@@ -44,8 +41,7 @@ body, html{
     }
 }
 .form-container{
-    background-color: white;
-    box-shadow: 0 0 1rem $wrapper-color;
+    box-shadow: $app-box-shadow;
     padding:3rem;
 }
 .loader{
@@ -56,7 +52,7 @@ body, html{
 .loader-center{
     width:8rem;
     height:8rem;
-    position:absolute;
+    position:fixed;
     z-index:2;
     margin:auto;
     top: 0; left: $nav-bar-width; bottom: 0; right: 0;
@@ -65,7 +61,7 @@ body, html{
     position: fixed;
     top:0;
     left:0;
-    z-index: 1;
+    z-index: 2;
     background-color:rgba(0, 0, 0, 0.5);
     width:100vw;
     height:100vh;

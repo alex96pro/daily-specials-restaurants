@@ -85,7 +85,7 @@ export default function Specials() {
                 {loadingSpecialsPage ? <Loader className="loader-center"/>
                 :
                 <div className="specials-container">
-                    <div className="header">Your specials for this week</div>
+                    <div className="header">Scheduled specials</div>
                     {days.map((day,index) => <div className="specials-date-slot" key={index}>
                         <div className="specials-date-container">
                             <div className="specials-date-name">{day.dayName}</div>

@@ -69,8 +69,8 @@ export default function Orders() {
             <div className="header">ORDERS</div>
             {orders.map((order,index) => <div key={index} className="order">
                 <div className="order-header">
-                    <div className="label-white">Order: {orders.length - index}</div>
-                    <div className="label-white">Time: {order.time}</div>
+                    <div className="label">Order: {orders.length - index}</div>
+                    <div className="label">Time: {order.time}</div>
                 </div>
                 {order.meals.map((meal,index) => <div key={index} className="order-meal">
                     <div className="order-header">
@@ -82,24 +82,24 @@ export default function Orders() {
                             <label className="label">{meal.price}{CURRENCY}</label>
                         </div>
                     </div>
-                    {meal.notes && <div className="label-accent-color-2">Notes: {meal.notes}</div>}
+                    {meal.notes && <div className="label">Notes: {meal.notes}</div>}
 
                     {meal.modifiers.requiredBaseModifier.modifierId !== -1 && 
-                    <div className="label-accent-color-2">
+                    <div className="label">
                         {meal.modifiers.requiredBaseModifier.modifierName}: 
                         <label className="label"> {meal.modifiers.requiredBaseModifier.optionName}</label>
                     </div>}
                     
                     {meal.modifiers.requiredModifiers.length > 0 &&
                         meal.modifiers.requiredModifiers.map(modifier => <div className="label" key={modifier.modifierId}>
-                            <label className="label-accent-color-2">{modifier.modifierName}:</label>
+                            <label className="label">{modifier.modifierName}:</label>
                             {modifier.optionName}
                         </div>)
                     }
 
                     {meal.modifiers.optionalModifiers.length > 0 &&
                     <React.Fragment>
-                        <label className="label-accent-color-2">Extras:</label>
+                        <label className="label">Extras:</label>
                         {meal.modifiers.optionalModifiers.map((modifier, index) => <label className="label" key={modifier.modifierId+modifier.optionName}>
                             {modifier.optionName}{index !== meal.modifiers.optionalModifiers.length - 1 && ","}
                         </label>)}
@@ -107,9 +107,9 @@ export default function Orders() {
                     }
 
                 </div>)}
-                <div className="label-white">Delivery address: {order.deliveryAddress}</div>
-                <div className="label-white">Phone: {order.phone}</div>
-                <div className="label-white">Total: {order.total}{CURRENCY}</div>
+                <div className="label">Delivery address: {order.deliveryAddress}</div>
+                <div className="label">Phone: {order.phone}</div>
+                <div className="label">Total: {order.total}{CURRENCY}</div>
                 <div className="order-buttons">
                     {order.status === 'waiting' &&
                     <React.Fragment>

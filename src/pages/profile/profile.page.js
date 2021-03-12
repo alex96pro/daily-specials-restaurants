@@ -1,5 +1,5 @@
 import './profile.page.scss';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateProfileAPI } from '../../common/api/auth.api';
@@ -23,6 +23,13 @@ export default function Profile() {
     const [enabledDelivery, setEnabledDelivery] = useState(false);
     const [addLogoModal, setAddLogoModal] = useState(false);
     const [photoData, setPhotoData] = useState({photo:'', photoCropped: true, changePhoto: false, message:''});
+
+    useEffect(() => {
+        return () => {
+            localStorage.removeItem('POSITION');
+            localStorage.removeItem('ADDRESS');
+        };
+    }, []);
 
     const setNewMessageName = (newMessage, success = false) => {
         setMessageName(newMessage);
@@ -67,7 +74,7 @@ export default function Profile() {
         <div className="profile">
             <NavBar loggedIn={true}/>
             <div className="profile-container">
-                <div className="header">Your restaurant profile</div>
+                <div className="header">Profile</div>
                 <div className="profile-info">
                     <form onSubmit={handleSubmit(updateProfile)}>
                         {(restaurant.logo || photoData.photo ) ?

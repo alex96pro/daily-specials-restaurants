@@ -8,13 +8,13 @@
         margin-left: $nav-bar-width;
         background-color: white;
         padding:1rem;
-        width:50rem;
+        width:75vw;
     }
     .modifier{
         @include flex-align(row, space-between, center, wrap);
-        background-color: $wrapper-color;
+        box-shadow: $app-box-shadow;
         padding:2rem;
-        margin:0.4rem 0rem;
+        margin:1.5rem 0rem;
     }
     .modifier-type{
         @include flex-align(row, flex-start, center, nowrap);

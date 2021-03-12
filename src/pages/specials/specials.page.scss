@@ -3,15 +3,17 @@
 
 .specials{
     @include page-container;
+    
     .specials-container{
         margin-left:$nav-bar-width;
     }
     .specials-date-slot{
         @include flex-align(row,space-between,center,nowrap);
-        width:70vw;
+        box-shadow: $app-box-shadow;
+        width:75vw;
         background-color: white;
         padding:1rem;
-        margin:0.4rem 0rem;
+        margin:1.5rem 0rem;
     }
     .specials-date-container{
         text-align: center;

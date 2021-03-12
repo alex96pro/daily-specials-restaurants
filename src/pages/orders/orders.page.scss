@@ -2,16 +2,16 @@
 @import '../../variables';
 
 .orders{
-    width:100vw;
-    height:100vh;
+    @include page-container;
     @include flex-align(column,flex-start,center,nowrap);
     .orders-container{
-        width:60rem;
+        width:75vw;
         margin-left:$nav-bar-width;
     }
     .order{
-        background-color: $accent-color;
-        margin:0.4rem 0rem;
+        // background-color: $accent-color;
+        box-shadow: $app-box-shadow;
+        margin:1.5rem 0rem;
         padding:1rem;
     }
     .order-header{
@@ -20,7 +20,7 @@
         padding:0.2rem;
     }
     .order-meal{
-        background-color: white;
+        box-shadow: $app-box-shadow;
         margin:0.4rem 0rem;
         padding:1.6rem;
     }

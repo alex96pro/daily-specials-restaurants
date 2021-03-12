@@ -17,7 +17,7 @@ export default function AddLogoModal(props) {
                 <i className="fas fa-times fa-2x" onClick={() => props.closeModal()}></i>
             </div>
             <div className="modal-body-vertical">
-                <div style={{display:'flex', justifyContent:'center'}}>
+                <div className="change-logo-container">
                     <AddPhoto photoData={props.photoData} setPhotoData={props.setPhotoData} closeModal={props.closeModal}/>
                 </div>
             </div>

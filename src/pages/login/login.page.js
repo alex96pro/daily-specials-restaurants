@@ -7,7 +7,6 @@ import { useState, useEffect } from 'react';
 import NavBar from '../../components/nav-bar/nav-bar';
 import SubmitButton from '../../components/submit-button';
 import ForgottenPasswordModal from './forgotten-password.modal';
-import MessageDanger from '../../components/message-danger';
 import MessageSuccess from '../../components/message-success';
 import InputError from '../../components/input-error';
 
@@ -48,10 +47,11 @@ export default function Login() {
                         <div className="label">Email</div>
                         <input type="email" name="email" ref={register({required:true})} className="app-input"/>
                         {errors.email && <InputError text="Email is required"/>}
+                        {message && <InputError text={message}/>}
                         <div className="label">Password</div>
                         <input type="password" name="password" ref={register({required:true})} className="app-input"/>
                         {errors.password && <InputError text="Password is required"/>}
-                        {message && <MessageDanger text={message}/>}
+                        {message && <InputError text={message}/>}
                         <SubmitButton loadingStatus={loadingStatus} text="Log In"/>
                         {history.location.message && <MessageSuccess text={history.location.message}/>}
                     </form>

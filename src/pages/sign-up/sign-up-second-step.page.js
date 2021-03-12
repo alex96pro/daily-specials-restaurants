@@ -48,13 +48,13 @@ export default function SignUpSecondStep() {
         <div className="map" id="map">
             <GoogleMap/>
             <div className="google-maps-container">
-                <input type="text" className="search-google-maps" id="search-google-maps" 
-                placeholder={restaurantSignUpInfo.location || 'Your restaurant address'}/>
+                <input type="text" id="search-google-maps" 
+                placeholder={restaurantSignUpInfo.location || 'Your restaurant address'} className="app-input"/>
                 {message && <InputError text={message}/>}
-                <button onClick={firstStep} className="button-normal">Previous step</button>
-                <button onClick={thirdStep} className="button-normal">
-                    Next step
-                </button> 
+                <div>
+                    <button onClick={firstStep} className="button-normal">Previous step</button>
+                    <button onClick={thirdStep} className="button-normal">Next step</button> 
+                </div>
             </div>
         </div>
     );

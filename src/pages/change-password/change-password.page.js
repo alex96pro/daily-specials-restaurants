@@ -44,6 +44,7 @@ export default function ChangePasswor(props) {
     return (
         <div className="change-password">
             <NavBar loggedIn={true}/>
+            <div className="header">Change password</div>
             <div className="change-password-container">
                 <form onSubmit={handleSubmit(handleChangePassword)}>
                     <div className="label">Old password</div>

@@ -69,7 +69,9 @@
     @include flex-align(row, space-between, center, wrap);
     width:100%;
 }
-
+.ant-tooltip-inner {
+    font-size: 1.8rem;
+}
 .react-select-container{
     .react-select__menu{
         margin:0;
@@ -122,5 +124,9 @@
     background-color: $wrapper-color;
     padding:0.4rem;
     margin-left:0.4rem;
+    cursor: pointer;
+}
+.fa-bars{
+    color:$accent-color;
     cursor: pointer;
 }

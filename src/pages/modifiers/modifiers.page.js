@@ -60,16 +60,9 @@ export default function Modifiers() {
             {loadingModifiersPage ? <Loader className="loader-center"/>
             :
             <div className="modifiers-container">
-                <div className="header">Your modifiers</div>
+                <div className="header">Modifiers</div>
                 <button className="button-long" onClick={() => setAddModifierModal(true)}>Add new modifier</button>
                 {modifiers.map(modifierItem => <div key={modifierItem.modifierId} className="modifier">
-                    {/* {Object.keys(modifier.modifier.values).map(key =>
-                    <div key={key} className="flex-row">
-                        <input value={key} key={key} type="radio"/>
-                        <div className="label">{key}
-                            {modifier.modifier.values[key] ? ' '+modifier.modifier.values[key] + CURRENCY : ''}
-                        </div>
-                    </div>)}  */}
                     <div className="label">{modifierItem.modifier.name}</div>
                     <div>
                         <Tooltip title="Copy">

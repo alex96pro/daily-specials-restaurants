@@ -10,7 +10,7 @@
     }
     .profile-info{
         width:50rem;
-        background-color: white;
+        box-shadow: $app-box-shadow;
         padding:2rem;  
     }
     .profile-photo-container{
@@ -26,12 +26,17 @@
             opacity: 0.7;
         }
     }
+    .change-logo-container{
+        @include flex-align(row, center, center, nowrap);
+        padding:1rem;
+    }
 }
 @include mobile-range{
     .profile{
+        margin-top:$nav-bar-horizontal-height;
         .profile-container{
             margin:0;
-            margin-top:$nav-bar-horizontal-height / 2;
+            
         }
         .profile-info{
             width:100vw;

@@ -5,6 +5,7 @@ import { signUpCompleteAPI } from '../../common/api/auth.api';
 import { DAYS_OF_THE_WEEK } from '../../util/consts';
 import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
+import { Checkbox } from 'antd';
 import NavBar from '../../components/nav-bar/nav-bar';
 import SubmitButton from '../../components/submit-button';
 import MessageDanger from '../../components/message-danger';
@@ -79,7 +80,7 @@ export default function SignUpThirdStep() {
                             <input type="time" defaultValue="09:00" name={'From'+index} ref={register()} disabled={!checkedDays[index]} className="app-input-time"/>
                             <label className="label">-</label>
                             <input type="time" defaultValue="21:00" name={'To'+index} ref={register()} disabled={!checkedDays[index]} className="app-input-time"/>
-                            <input type="checkbox" checked={checkedDays[index]} onChange={(event) => changeWorkingDay(event, index)} className="app-checkbox"/>
+                            <Checkbox checked={checkedDays[index]} onChange={(event) => changeWorkingDay(event, index)}/>
                         </div>
                     </div>)}
                     <div>

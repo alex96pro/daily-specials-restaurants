@@ -14,8 +14,8 @@
         width:19.8vw;
         height:100vh;
         background-color: white;
-        padding:10.4rem 1rem 1rem 1rem;
-        box-shadow: 0.8rem 0 1rem -0.8rem $accent-color;
+        padding:4.7rem 1rem 1rem 1rem;
+        box-shadow: 0rem 0rem 0.5rem 0rem gray;
     }
     .menu-category{
         @include flex-align(row,flex-start,center,wrap);
@@ -40,7 +40,7 @@
             margin-top:$nav-bar-horizontal-height;
         }
         .menu-categories{
-            z-index:2;
+            z-index:3;
             background-color: $wrapper-color;
             visibility: hidden;
             width:100vw;
@@ -51,7 +51,7 @@
             transition:0.4s;
         }
         .menu-footer-mobile{
-            z-index:2;
+            z-index:3;
             display:block;
             position:fixed;
             bottom:0;
@@ -59,8 +59,8 @@
             background-color: $accent-color;
             border-radius: 0;
             color:white;
-            padding:1rem;
-            font-size: 1.6rem;
+            padding:0.8rem;
+            font-size: 1.8rem;
         }
     }
 }
