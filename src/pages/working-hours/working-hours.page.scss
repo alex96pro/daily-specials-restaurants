@@ -6,6 +6,8 @@
     .working-hours-container{
         @include flex-align(column, center, center, nowrap);
         margin-left:$nav-bar-width;
+    }
+    .working-hours-info{
         padding:3rem;
         box-shadow: $app-box-shadow;
     }
@@ -19,7 +21,10 @@
         margin-top:$nav-bar-horizontal-height;
         .working-hours-container{
             margin:0;
-            
+        }
+        .working-hours-info{
+            padding:3rem;
+            box-shadow: $app-box-shadow;
         }
         .working-hours-align{
             @include flex-align(column, center, flex-start, nowrap);

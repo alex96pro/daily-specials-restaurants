@@ -87,18 +87,18 @@ export default function Profile() {
                             </div>
                         }
                         <div className="label">
-                            Name:
+                            Name
                             <input type="text" name="name" ref={register({required:true})} className="app-input"/>
                             {messageName && <InputError text={messageName}/>}
                             {errors.name && <InputError text='Name is required'/>}
                         </div>
                         <div className="label">
-                            Location:
+                            Location
                             <GoogleAutocomplete placeholder={restaurant.location}/>
                         </div>
                         {messageAddress && <InputError text={messageAddress}/>}
                         <div className="label">
-                            Phone: 
+                            Phone
                             <input type="text" name="phone" ref={register({required:true, pattern: /^\d+$/})} className="app-input"/>
                             {errors.phone && errors.phone.type ==="required" && <InputError text='Phone is required'/>}
                             {errors.phone && errors.phone.type ==="pattern" && <InputError text='Phone number can contain numbers only'/>}
@@ -111,7 +111,7 @@ export default function Profile() {
                         {(restaurant.delivery || enabledDelivery ) &&
                         <React.Fragment> 
                             <div className="label">
-                                Delivery minimum: ({CURRENCY})
+                                Delivery minimum ({CURRENCY})
                             </div>
                             <div>
                                 <input type="number" name="deliveryMinimum" 
@@ -119,7 +119,7 @@ export default function Profile() {
                                 {errors.deliveryMinimum && <InputError text='Delivery minimum is required'/>}
                             </div>
                             <div className="label">
-                                Delivery range: ({DISTANCE})
+                                Delivery range ({DISTANCE})
                             </div>
                             <div>
                                 <input type="number" name="deliveryRange" 

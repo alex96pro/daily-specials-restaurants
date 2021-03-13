@@ -5,16 +5,11 @@
     @include page-container;
     .sign-up-container{
         @include flex-align(column, center, center, nowrap);
-        margin-top:$nav-bar-horizontal-height;
+        margin-top:7rem;
     }
     .sign-up-header{
         font-size:2.2rem;
         color:$text-color;
         margin-bottom:1.4rem;
-    }
-    .restaurant-delivery-checkbox{
-        font-size:1.8rem;
-        color:$text-color;
-        margin: 1.8rem 0.2rem;
     }
 }

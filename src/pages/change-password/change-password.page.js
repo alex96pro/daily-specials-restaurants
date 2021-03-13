@@ -44,6 +44,7 @@ export default function ChangePasswor(props) {
     return (
         <div className="change-password">
             <NavBar loggedIn={true}/>
+            <div className="change-password-wrapper">
             <div className="header">Change password</div>
             <div className="change-password-container">
                 <form onSubmit={handleSubmit(handleChangePassword)}>
@@ -64,6 +65,7 @@ export default function ChangePasswor(props) {
 
                     <SubmitButton loadingStatus={loadingStatus} text="Confirm"/>
                 </form>
+            </div>
             </div>
         </div>
     );

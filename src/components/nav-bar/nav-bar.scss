@@ -77,14 +77,16 @@
     height:100vh;
     background-color: #313131;
     border-radius: 0;
+    padding-top:$nav-bar-horizontal-height;
     text-align: center;
+    overflow-y: auto;
     @include flex-align(column, center, center, nowrap);
     .nav-card-mobile, .nav-card-active{
         background-color: inherit;
         color:white;
         width:80%;
         margin:auto;
-        padding:1.6rem 0rem;
+        padding:1rem 0rem;
         text-align: left;
         font-size: 2.5rem;
         border-top:1px solid gray;

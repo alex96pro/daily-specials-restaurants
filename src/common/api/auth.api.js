@@ -42,7 +42,7 @@ export function signUpCompleteAPI(data, successfullSignUp) {
             dispatch(signUpComplete());
             localStorage.clear();
             successfullSignUp();
-            successToast(`Successfully registered on Direct, please check your email ${data.email} to verify your account`, false);
+            successToast(`Successfully registered on Foozard, please check your email ${data.email} to verify your account`, false);
         }else{
             dispatch(loadingStatus(false));
         }

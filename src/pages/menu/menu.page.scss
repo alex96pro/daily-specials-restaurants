@@ -5,13 +5,13 @@
     background-color: white;
     .menu-container{
         @include flex-align(row, flex-start, flex-start, wrap);
-        margin-left:20vw;
+        margin-left:18.8vw;
         width:calc(80vw - 2rem); // 2 rem = for Y scrollbar
     }
     .menu-categories{
         position:fixed;
         z-index: 1;
-        width:19.8vw;
+        width:18.2vw;
         height:100vh;
         background-color: white;
         padding:4.7rem 1rem 1rem 1rem;

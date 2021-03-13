@@ -1,4 +1,5 @@
 import * as ACTIONS from '../actions/orders.actions';
+import { LOGOUT } from '../actions/auth.actions';
 
 const initialState = {
     orders:[],
@@ -33,6 +34,8 @@ export default function ordersReducer(state = initialState, action) {
                 orders: state.orders.filter(order => order.userId !== action.payload.userId || order.time !== action.payload.time),
                 newOrdersCount: state.newOrdersCount - 1
             };
+        case LOGOUT:
+            return initialState;
         default:
             return state;
     }

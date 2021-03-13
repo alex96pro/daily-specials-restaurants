@@ -15,14 +15,41 @@
         padding:1rem;
     }
     .order-header{
+        p{
+            font-weight:bold;
+            font-size: 2.6rem;
+            padding:0;
+            margin:0;
+        }
         @include flex-align(row, space-between, center, wrap);
         border-radius: 0;
         padding:0.2rem;
+        
     }
     .order-meal{
-        box-shadow: $app-box-shadow;
+        // box-shadow: $app-box-shadow;
         margin:0.4rem 0rem;
         padding:1.6rem;
+        padding-top:0;
+    }
+    .order-meal-modifier{
+        margin-left:3rem;
+        border-left:3px solid gray;
+        border-radius: 0;
+        padding-left:1.5rem;
+        margin-bottom:1.5rem;
+        p{
+            font-size: 1.6rem;
+            padding:0;
+            margin:0;
+        }
+        .order-meal-modifier-name{
+            color:gray;
+        }
+    }
+    .order-meal-divider{
+        border-top:1px solid gray;
+        margin:4rem 0rem 0rem 0rem;
     }
     .order-buttons{
         text-align: center;
@@ -31,13 +58,23 @@
         background-color: $danger-color;
         color:white;
         font-size: 1.8rem;
-        padding:1rem;
-        margin:0.2rem 0.8rem;
+        padding:0.6rem 2rem;
+        margin:1.5rem 0.8rem 0rem 0.8rem;
         cursor: pointer;
     }
     .order-button-accept{
         @extend .order-button-reject;
         background-color: $success-color;
+    }
+    .order-info{
+        text-align: right;
+        padding:0rem 1.6rem;
+        p{
+            font-weight:bold;
+            font-size: 2.6rem;
+            padding:0;
+            margin:0;
+        }
     }
 }
 @include mobile-range{
@@ -46,6 +83,11 @@
             margin:0;
             margin-top:$nav-bar-horizontal-height;
             width: 100vw;
+        }
+        .order-header{
+            p{
+                font-size: 1.8rem;
+            }
         }
     }
 }

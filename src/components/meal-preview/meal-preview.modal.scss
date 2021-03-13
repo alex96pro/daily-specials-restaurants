@@ -14,8 +14,9 @@
     padding:0.8rem;
 }
 .meal-preview-button{
-    background-color: $accent-color;
-    color:white;
+    // background-color: $accent-color;
+    box-shadow:0 0 0 2px rgba($color:gray, $alpha: 0.4);
+    background-color:white;
     width:100%;
     padding:1rem;
     font-size: 1.8rem;

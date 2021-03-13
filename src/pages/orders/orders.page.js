@@ -68,48 +68,48 @@ export default function Orders() {
         <div className="orders-container">
             <div className="header">ORDERS</div>
             {orders.map((order,index) => <div key={index} className="order">
-                <div className="order-header">
-                    <div className="label">Order: {orders.length - index}</div>
-                    <div className="label">Time: {order.time}</div>
-                </div>
                 {order.meals.map((meal,index) => <div key={index} className="order-meal">
                     <div className="order-header">
-                        <div className="label">
-                            {meal.name}
-                        </div>
-                        <div>
-                            <label className="label">x{meal.amount}</label>
-                            <label className="label">{meal.price}{CURRENCY}</label>
-                        </div>
+                        <p>{meal.amount}x &nbsp;{meal.name}</p>
+                        <p>{meal.price}{CURRENCY}</p>
                     </div>
-                    {meal.notes && <div className="label">Notes: {meal.notes}</div>}
+                    {meal.notes && <div className="order-meal-modifier">
+                        <p className="order-meal-modifier-name">Notes:</p>
+                        <p>{meal.notes}</p>
+                    </div>}
 
                     {meal.modifiers.requiredBaseModifier.modifierId !== -1 && 
-                    <div className="label">
-                        {meal.modifiers.requiredBaseModifier.modifierName}: 
-                        <label className="label"> {meal.modifiers.requiredBaseModifier.optionName}</label>
+                    <div className="order-meal-modifier">
+                        <p className="order-meal-modifier-name">{meal.modifiers.requiredBaseModifier.modifierName}:</p>
+                        <p>{meal.modifiers.requiredBaseModifier.optionName}</p>
                     </div>}
                     
                     {meal.modifiers.requiredModifiers.length > 0 &&
-                        meal.modifiers.requiredModifiers.map(modifier => <div className="label" key={modifier.modifierId}>
-                            <label className="label">{modifier.modifierName}:</label>
-                            {modifier.optionName}
+                        meal.modifiers.requiredModifiers.map(modifier => <div className="order-meal-modifier" key={modifier.modifierId}>
+                            <p className="order-meal-modifier-name">{modifier.modifierName}:</p>
+                            <p>{modifier.optionName}</p>
                         </div>)
                     }
 
                     {meal.modifiers.optionalModifiers.length > 0 &&
-                    <React.Fragment>
-                        <label className="label">Extras:</label>
-                        {meal.modifiers.optionalModifiers.map((modifier, index) => <label className="label" key={modifier.modifierId+modifier.optionName}>
-                            {modifier.optionName}{index !== meal.modifiers.optionalModifiers.length - 1 && ","}
-                        </label>)}
-                    </React.Fragment>
+                    <div className="order-meal-modifier">
+                        <p className="order-meal-modifier-name">Extras:</p>
+                        <p>
+                            {meal.modifiers.optionalModifiers.map((modifier, index) => 
+                            <React.Fragment key={modifier.modifierId+modifier.optionName}>
+                                {modifier.optionName}{index !== meal.modifiers.optionalModifiers.length - 1 && ","}
+                            </React.Fragment>
+                            )}
+                        </p>
+                    </div>
                     }
-
+                    {(order.meals.length > 1 && index !== order.meals.length - 1) && <div className="order-meal-divider"></div>}
                 </div>)}
-                <div className="label">Delivery address: {order.deliveryAddress}</div>
-                <div className="label">Phone: {order.phone}</div>
-                <div className="label">Total: {order.total}{CURRENCY}</div>
+                <div className="order-info">
+                    <p>Total: {order.total}{CURRENCY}</p>
+                    <div className="label">Delivery address: {order.deliveryAddress}</div>
+                    <div className="label">Phone: {order.phone}</div>
+                </div>
                 <div className="order-buttons">
                     {order.status === 'waiting' &&
                     <React.Fragment>

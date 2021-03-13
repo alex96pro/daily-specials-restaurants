@@ -73,6 +73,7 @@ export default function EditCategoriesModal(props) {
                             <input name="category" value={newCategory} onChange={changeCategory} type="text" className="app-input"/>
                             <ConfirmButton small={true} onClick={addCategory} loadingStatus={loadingStatus} text='Add'/>
                         </div>
+                        
                         {message && <InputError text={message}/>}
                     </div>
                     <div className="wrapper-container">

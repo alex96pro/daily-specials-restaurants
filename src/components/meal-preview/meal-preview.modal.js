@@ -77,7 +77,7 @@ export default function MealPreviewModal(props) {
             </div>
             <div className="modal-footer">
                 <div className="meal-preview-button">
-                    {calculateMealPrice(selectedModifiers, amount) + CURRENCY}
+                    <button className="button-long m-0">{calculateMealPrice(selectedModifiers, amount) + CURRENCY}</button>
                 </div>
             </div>
         </div>

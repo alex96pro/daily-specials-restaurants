@@ -69,6 +69,19 @@
     @include flex-align(row, space-between, center, wrap);
     width:100%;
 }
+.ant-btn-primary{
+    background-color: $accent-color;
+    border-color: $accent-color;
+    // font-size: 2rem;
+    span{
+        font-size: 2rem;
+    }
+    &:hover, &:focus{
+        background-color: $accent-color;
+        border-color: $accent-color;
+    }
+}
+
 .ant-tooltip-inner {
     font-size: 1.8rem;
 }

@@ -20,8 +20,8 @@
         @include flex-align(column, flex-start, center, nowrap);
         width:calc(25% - 0.4rem); //25% of parent - meal margin left and right each 0.2rem
         position: relative; // this is not needed when container is flex, his child with absolute position will position relative to flex container
-        background-color: $wrapper-color;
-        margin:0rem 0.2rem 0.4rem 0.2rem;
+        box-shadow: $app-box-shadow;
+        margin:0rem 0.2rem 1.6rem 0.2rem;
         border-radius: 0;
     }
     .menu-meal-header{

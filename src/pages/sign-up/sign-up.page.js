@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import { changeDeliveryCheckbox } from '../../common/actions/auth.actions';
 import { signUpFirstStepAPI } from '../../common/api/auth.api';
 import { useDispatch, useSelector } from 'react-redux';
+import { Checkbox } from 'antd';
 import NavBar from '../../components/nav-bar/nav-bar';
 import SubmitButton from '../../components/submit-button';
 import InputError from '../../components/input-error';
@@ -20,6 +21,7 @@ export default function SignUp() {
     const [messagePasswords, setMessagePasswords] = useState('');
     const restaurant = useSelector(state => state.authentication.restaurantSignUpInfo);
     const {loadingStatus} = useSelector(state => state.authentication);
+    const [deliveryChecked, setDeliveryChecked] = useState(false);
 
     const setNewMessage = (newMessage) => {
         if(newMessage === "Email already in use"){
@@ -36,6 +38,7 @@ export default function SignUp() {
             setMessagePasswords("Passwords don't match");
         }else{
             setMessagePasswords('');
+            data.delivery = deliveryChecked;
             dispatch(signUpFirstStepAPI(data, passedFirstStep, setNewMessage));
         }
     };
@@ -47,8 +50,10 @@ export default function SignUp() {
     const changeDelivery = (event) => {
         if(event.target.checked){
             dispatch(changeDeliveryCheckbox(true));
+            setDeliveryChecked(true);
         }else{
             dispatch(changeDeliveryCheckbox(false));
+            setDeliveryChecked(false);
         }
     };
 
@@ -75,9 +80,8 @@ export default function SignUp() {
                         {errors.phone?.type === 'required' && <InputError text="Phone is required"/>}
                         {errors.phone?.type === 'pattern' && <InputError text="Phone can contain only numbers"/>}
 
-                        <div className="restaurant-delivery-checkbox">Delivery
-                        <input type="checkbox" name="delivery" ref={register()} checked={restaurant.delivery} onChange={changeDelivery} className="app-checkbox"/></div>
-
+                        <div className="label p-t-15 p-b-15 m-0">Delivery
+                        <Checkbox checked={restaurant.delivery} onChange={changeDelivery}/></div>
                         {restaurant.delivery && 
                         <div>
                             <div className="label">Maximal delivery range</div>

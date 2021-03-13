@@ -66,7 +66,9 @@ export default function WorkingHours() {
         <div className="working-hours">
             <NavBar loggedIn={true}/>
             {workingHours &&
-                <div className="working-hours-container">
+            <div className="working-hours-container">
+                <div className="header">Working hours</div>
+                <div className="working-hours-info">
                     <form onSubmit={handleSubmit(changeWorkingHours)}>
                         {DAYS_OF_THE_WEEK.map((day, index) => <div key={index} className="working-hours-align">
                             <div>
@@ -85,6 +87,7 @@ export default function WorkingHours() {
                         <SubmitButton loadingStatus={loadingStatus} text="Save changes"/>
                     </form>
                 </div>
+            </div>   
             }
             </div>
     );
