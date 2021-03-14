@@ -21,6 +21,8 @@ export default function ChangePasswor(props) {
     const setNewMessage = (newMessage, newSuccess = false) => {
         setMessage({text: newMessage, success: newSuccess});
         if(newSuccess){
+            localStorage.removeItem('ACCESS_TOKEN_RESTAURANT');
+            localStorage.removeItem('RESTAURANT_ID');
             history.push({pathname:'/login', message:'Successfully changed your password !'});
             dispatch(logOut());
         }

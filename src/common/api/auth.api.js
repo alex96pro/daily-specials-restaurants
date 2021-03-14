@@ -52,7 +52,7 @@ export function signUpCompleteAPI(data, successfullSignUp) {
 export function verifyAccountAPI(hashedRestaurantId) {
     return async (dispatch) => {
         dispatch(loadingStatus(true));
-        let response = await post(`/restaurant/auth/verify-account`,{hashedRestaurantId:hashedRestaurantId}, false, {401:'Unauthorized'});
+        let response = await post(`/restaurant/auth/verify-account`,{hashedRestaurantId:hashedRestaurantId}, false, {400:'Link expired or incorrect'});
         if(response.status === 200){
             dispatch(loadingStatus(false));
         }else{
@@ -79,7 +79,7 @@ export function forgottenPasswordAPI(data, message) {
 export function newPasswordAPI(data, hashedId, message) {
     return async (dispatch) => {
         dispatch(loadingStatus(true));
-        let response = await post(`/restaurant/auth/new-password`, {newPassword: data.newPassword, hashedId: hashedId}, false, {401:'Unauthorized'});
+        let response = await post(`/restaurant/auth/new-password`, {newPassword: data.newPassword, hashedId: hashedId}, false, {400:'Link expired or incorrect'});
         if(response.status === 200){
             dispatch(loadingStatus(false));
             message('Successfully set your new password', true);
