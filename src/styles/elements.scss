@@ -51,6 +51,36 @@
     pointer-events: none;
     cursor:none;
 }
+.button-for-input{
+    @extend .button-normal;
+    margin:0;
+    height:3.4rem;
+    width:8rem;
+    border-radius: 0rem 0.4rem 0.4rem 0rem;
+    font-size: 1.6rem;
+}
+.button-for-input-disabled{
+    @extend .button-for-input;
+    background-color: $accent-color-2;
+    pointer-events: none;
+    cursor:none;
+}
+.input-icon{
+    color:$text-color;
+    font-size: 1.8rem;
+    border-radius: 0;
+    width:3.2rem;
+    height:3.4rem;
+    line-height: 3.2rem;
+    right:0.1rem;
+    position: relative;
+    right:0.1rem;
+    text-align: center;
+    border:$input-border;
+    background-color: rgb(246, 246, 246);
+    border-radius: 0rem 0.4rem 0.4rem 0rem;
+    
+}
 .app-input{
     border:$input-border;
     width:100%;
@@ -67,6 +97,13 @@
     @extend .app-input;
     width:7rem;
     -moz-appearance: textfield;
+}
+.input-with-icon{
+    border-radius: 0.4rem 0rem 0rem 0.4rem;
+    &:focus{
+        position: relative;
+        z-index: 1; // in order to box-shadow go over icon
+    }
 }
 .app-checkbox, .app-radio{
     height:1.8rem;

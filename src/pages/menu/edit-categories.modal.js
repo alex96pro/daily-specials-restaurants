@@ -67,32 +67,31 @@ export default function EditCategoriesModal(props) {
                 <i className="fas fa-times fa-2x" onClick={() => props.closeModal()}></i>
             </div>
                 <div className="modal-body-vertical">
-                    <div className="wrapper-container">
+                    <div className="form-container m-b-15">
                         <div className="label">Add new category</div>
                         <div className="flex-row">
-                            <input name="category" value={newCategory} onChange={changeCategory} type="text" className="app-input"/>
-                            <ConfirmButton small={true} onClick={addCategory} loadingStatus={loadingStatus} text='Add'/>
+                            <input name="category" value={newCategory} onChange={changeCategory} type="text" className="app-input input-with-icon"/>
+                            <ConfirmButton className="button-for-input" onClick={addCategory} loadingStatus={loadingStatus} text='Add'/>
                         </div>
-                        
                         {message && <InputError text={message}/>}
                     </div>
-                    <div className="wrapper-container">
+                    <div className="form-container m-b-15">
                         <div className="label">Delete category</div>
                         <form onSubmit={handleSubmit(checkDeleteCategory)}>
                             <div className="flex-row">
-                                <select name="category" ref={register()} onChange={() => setDeleteWarning(false)} className="app-select">
+                                <select name="category" ref={register()} onChange={() => setDeleteWarning(false)} className="app-select input-with-icon">
                                     {categories.map((category, index) => <option value={category} key={index} className="app-option">
                                         {category}
                                     </option>)}
                                 </select>
-                                <SubmitButton small={true} loadingStatus={loadingStatus} text='Delete'/>
+                                <SubmitButton loadingStatus={loadingStatus} text='Delete' className="button-for-input"/>
                             </div>
                             {deleteWarning &&
                             <div className="message-danger">
                                 You have meals in this category. Deleting category will result in affected meals having no category
                                 <div>
                                     <button onClick={() => setDeleteWarning(false)} className="button-normal">Cancel</button>
-                                    <SubmitButton small={true} loadingStatus={loadingStatus} text='Delete'/>
+                                    <SubmitButton loadingStatus={loadingStatus} text='Delete' className="button-normal"/>
                                 </div>
                             </div>}
                         </form>

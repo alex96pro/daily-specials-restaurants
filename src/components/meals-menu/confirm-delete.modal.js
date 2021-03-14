@@ -26,7 +26,7 @@ export default function ConfirmDelete(props) {
             </div>
             <div className="modal-body-vertical">
                 <div className="label">Are you sure you want to delete "{props.meal.name}" from your menu?</div>
-                <ConfirmButton loadingStatus={loadingStatus} onClick={deleteMeal} text="Delete"/>
+                <ConfirmButton className="button-long" loadingStatus={loadingStatus} onClick={deleteMeal} text="Delete"/>
             </div>
         </div>
         </React.Fragment>

@@ -31,7 +31,7 @@ export default function AddModifierModal(props) {
                 <div className="label">
                     This will also delete modifier from all your meals.
                 </div>
-                <ConfirmButton onClick={deleteModifier} text="Delete modifier" loadingStatus={loadingStatus}/>
+                <ConfirmButton className="button-long" onClick={deleteModifier} text="Delete modifier" loadingStatus={loadingStatus}/>
             </div>
         </div>
         </React.Fragment>

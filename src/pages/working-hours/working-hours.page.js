@@ -84,7 +84,7 @@ export default function WorkingHours() {
                                 {(message.text && message.day === index) && <InputError text={message.text}/>}
                             </div>
                         </div>)}
-                        <SubmitButton loadingStatus={loadingStatus} text="Save changes"/>
+                        <SubmitButton loadingStatus={loadingStatus} text="Save changes" className="button-long"/>
                     </form>
                 </div>
             </div>   

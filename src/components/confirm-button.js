@@ -5,8 +5,7 @@ export default function ConfirmButton(props) {
     return (
         <button 
         type="button" 
-        className={props.small ? props.loadingStatus ? "button-normal-disabled" : "button-normal" 
-        : props.loadingStatus ? "button-long-disabled" : "button-long"} 
+        className={props.loadingStatus ? props.className+"-disabled" : props.className} 
         onClick={props.onClick}>
 
             {props.loadingStatus ? 

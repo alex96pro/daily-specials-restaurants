@@ -33,7 +33,7 @@ export default function ConfirmDelete(props) {
                 <div>
                     <div className="label">Are you sure you want to delete "{props.special.name}"?</div>
                     {props.today && <MessageDanger text="Used specials count won't decrease."/>}
-                    <ConfirmButton loadingStatus={loadingStatus} onClick={deleteMeal} text="Delete"/>
+                    <ConfirmButton className="button-long" loadingStatus={loadingStatus} onClick={deleteMeal} text="Delete"/>
                 </div>
             </div>
         </div>

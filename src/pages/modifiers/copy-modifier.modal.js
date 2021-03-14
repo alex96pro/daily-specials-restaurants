@@ -100,7 +100,10 @@ export default function CopyModifierModal(props) {
                                 {errors["optionName" + option.index] && <InputError text="Enter option name"/>}
                             </div>
                             <div className="modifier-price">
-                                <input type="number" name={"optionPrice"+option.index} ref={register({required:true})} defaultValue={option.price} placeholder="Price" step="0.01" className="app-input-number"/><label className="label">{CURRENCY}</label>
+                                <div className="flex-row">
+                                    <input type="number" name={"optionPrice"+option.index} ref={register({required:true})} defaultValue={option.price} placeholder="Price" step="0.01" className="app-input-number input-with-icon"/>
+                                    <span className="input-icon">{CURRENCY}</span>
+                                </div>
                                 {errors["optionPrice" + option.index] && <InputError text="Enter price"/>}
                             </div>
                             {props.modifier.modifierType !== "optional" && 
@@ -121,7 +124,7 @@ export default function CopyModifierModal(props) {
                             <button type="button" onClick={addNewOption} className="add-new-option-button">+ Add new option</button>
                         </div>
                     </Radio.Group>
-                    <SubmitButton text="Finish adding modifier" loadingStatus={loadingStatus}/>
+                    <SubmitButton text="Finish adding modifier" loadingStatus={loadingStatus} className="button-long"/>
                 </form>
             </div>
         </div>

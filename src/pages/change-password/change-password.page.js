@@ -63,7 +63,7 @@ export default function ChangePasswor(props) {
                     {errors.retypeNewPassword && <InputError text={'Retype new password'}/>}
                     {messageMatch && <InputError text={messageMatch}/>}
 
-                    <SubmitButton loadingStatus={loadingStatus} text="Confirm"/>
+                    <SubmitButton loadingStatus={loadingStatus} text="Confirm" className="button-long"/>
                 </form>
             </div>
             </div>

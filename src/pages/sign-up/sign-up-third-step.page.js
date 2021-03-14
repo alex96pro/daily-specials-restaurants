@@ -85,7 +85,7 @@ export default function SignUpThirdStep() {
                     </div>)}
                     <div>
                         <button onClick={secondStep} type="button" className="button-normal">Previous step</button>
-                        <SubmitButton loadingStatus={loadingStatus} text='Finish sign up' small={true}/>
+                        <SubmitButton loadingStatus={loadingStatus} text='Finish sign up' className="button-normal"/>
                     </div>
                     {message && <MessageDanger text={message}/>}
                 </form>

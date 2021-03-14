@@ -132,12 +132,14 @@ export default function AddModifierModal(props) {
                             {errors["optionName" + optionIndex] && <InputError text="Enter option name"/>}
                         </div>
                         <div className="modifier-price">
-                            <input type="number" name={"optionPrice" + optionIndex} ref={register({required:true})} placeholder="Price" step="0.01" className="app-input-number"/><label className="label">{CURRENCY}</label>
+                            <div className="flex-row">
+                                <input type="number" name={"optionPrice" + optionIndex} ref={register({required:true})} placeholder="Price" step="0.01" className="app-input-number input-with-icon"/>
+                                <span className="input-icon">{CURRENCY}</span>
+                            </div>
                             {errors["optionPrice" + optionIndex] && <InputError text="Enter price"/>}
                         </div>
                         {(currentModifierType === "requiredBase" || currentModifierType === "required") && 
                         <div className="modifier-default">
-                            {/* <input type="radio" name="defaultOption" ref={register({required:true})} value={optionIndex} onChange={() => setCurrentDefaultOption(optionIndex)} defaultChecked={optionIndex === currentDefaultOption} className="app-radio"/> */}
                             <Radio value={optionIndex} onChange={() => setCurrentDefaultOption(optionIndex)}/>
                             <label className="label">Default</label>
                         </div>
@@ -153,7 +155,7 @@ export default function AddModifierModal(props) {
                     <div className="add-new-option-button-container">
                         <button type="button" onClick={addNewOption} className="add-new-option-button">+ Add new option</button>
                     </div>
-                    <SubmitButton loadingStatus={loadingStatus} text="Finish adding modifier"/>
+                    <SubmitButton loadingStatus={loadingStatus} text="Finish adding modifier" className="button-long"/>
                 </form>
             </div>
         </div>

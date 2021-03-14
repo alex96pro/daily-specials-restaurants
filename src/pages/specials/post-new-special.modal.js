@@ -120,8 +120,11 @@ export default function PostNewSpecialModal(props) {
                         {errors.description && errors.description.type === "maxLength" && <InputError text='Description can have maximum 200 characters'/>}
                         <div className="flex-space-between">
                             <div>
-                                <div className="label">Price ({CURRENCY})</div>
-                                <input type="number" step="0.01" name="price" ref={register({required:true, min:0.01})} className="app-input-number" disabled={startingPrice}/>
+                                <div className="label">Price {startingPrice && " is determined by modifier"}</div>
+                                <div className="flex-row">
+                                    <input type="number" step="0.01" name="price" ref={register({required:true, min:0.01})} className="app-input-number input-with-icon" disabled={startingPrice}/>
+                                    <span className="input-icon">{CURRENCY}</span>
+                                </div>
                                 {errors.price && <InputError text='Price is required'/>}
                             </div>
                             <div>
@@ -160,12 +163,12 @@ export default function PostNewSpecialModal(props) {
                             )}
                         </div>
                         <div className="flex-row">
-                            <input type="text" name="tag" value={newTag} onChange={changeNewTag} placeholder='Add new tag' className="app-input"/>
-                            <button type="button" onClick={() => checkTag(newTag, setNewTag, tags, setTags, setTagMessage)} className="button-small">Add</button>
+                            <input type="text" name="tag" value={newTag} onChange={changeNewTag} placeholder='Add new tag' className="app-input input-with-icon"/>
+                            <button type="button" onClick={() => checkTag(newTag, setNewTag, tags, setTags, setTagMessage)} className="button-for-input">Add</button>
                         </div>
                         {tagMessage && <InputError text={tagMessage}/>}
                         <div className="finish-posting-button">
-                            <SubmitButton loadingStatus={loadingStatus} text='Post daily special'/>
+                            <SubmitButton loadingStatus={loadingStatus} text='Post daily special' className="button-long"/>
                         </div>
                     </form>
                     </div>

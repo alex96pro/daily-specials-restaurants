@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateProfileAPI } from '../../common/api/auth.api';
 import { infoToast } from '../../util/toasts/toasts';
 import { DISTANCE, CURRENCY } from '../../util/consts';
+import { Checkbox } from 'antd';
 import NavBar from '../../components/nav-bar/nav-bar';
 import DisableDeliveryModal from './disable-delivery.modal';
 import AddLogoModal from './add-logo.modal';
@@ -40,7 +41,7 @@ export default function Profile() {
 
     const updateProfile = (data) => {
         let location = localStorage.getItem('ADDRESS');
-        //check if anyhing changed
+        //check if anything changed
         if(!location && data.name === restaurant.name && data.phone === restaurant.phone && !photoData.photo){
             if(data.deliveryMinimum && +data.deliveryMinimum === restaurant.deliveryMinimum && data.deliveryRange && +data.deliveryRange === restaurant.deliveryRange){
                 infoToast('No changes');
@@ -58,6 +59,7 @@ export default function Profile() {
             if(photoData.photo){
                 data.newLogo = photoData.photo; //restaurant set new logo
             }
+            data.delivery = enabledDelivery;
             dispatch(updateProfileAPI(data, setNewMessageName));
         }
     };
@@ -104,31 +106,33 @@ export default function Profile() {
                             {errors.phone && errors.phone.type ==="pattern" && <InputError text='Phone number can contain numbers only'/>}
                         </div>
                         {!restaurant.delivery &&
-                            <div className="label">
-                                Enable delivery<input type="checkbox" name="delivery" ref={register()} value={enabledDelivery} onChange={enableDelivery} className="app-checkbox"/>
+                            <div className="label p-t-15 p-b-15">
+                                Enable delivery<Checkbox value={enabledDelivery} onChange={enableDelivery}/>
                             </div>
                         }
                         {(restaurant.delivery || enabledDelivery ) &&
                         <React.Fragment> 
                             <div className="label">
-                                Delivery minimum ({CURRENCY})
+                                Delivery minimum
                             </div>
-                            <div>
+                            <div className="flex-row">
                                 <input type="number" name="deliveryMinimum" 
-                                ref={register({required: enabledDelivery ? true : false})} step="0.01" className="app-input-number"/>
-                                {errors.deliveryMinimum && <InputError text='Delivery minimum is required'/>}
+                                ref={register({required: enabledDelivery ? true : false})} step="0.01" className="app-input-number input-with-icon"/>
+                                <span className="input-icon">{CURRENCY}</span>
                             </div>
+                            {errors.deliveryMinimum && <InputError text='Delivery minimum is required'/>}
                             <div className="label">
-                                Delivery range ({DISTANCE})
+                                Delivery range
                             </div>
-                            <div>
+                            <div className="flex-row">
                                 <input type="number" name="deliveryRange" 
-                                ref={register({required: enabledDelivery ? true : false, min: 1})} step="0.1" className="app-input-number"/>
-                                {errors.deliveryRange && <InputError text='Delivery range is required'/>}
+                                ref={register({required: enabledDelivery ? true : false, min: 1})} step="0.1" className="app-input-number input-with-icon"/>
+                                <span className="input-icon">{DISTANCE}</span>
                             </div>
+                            {errors.deliveryRange && <InputError text='Delivery range is required'/>}
                         </React.Fragment>
                         }
-                        <SubmitButton loadingStatus={loadingStatus} text='Save changes'/>
+                        <SubmitButton loadingStatus={loadingStatus} text='Save changes' className="button-long"/>
                     </form>
                 </div>
                 <button className="button-link" type="button" onClick={() => setDisableDeliveryModal(true)}>Disable delivery</button>

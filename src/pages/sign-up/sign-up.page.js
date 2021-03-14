@@ -85,12 +85,15 @@ export default function SignUp() {
                         {restaurant.delivery && 
                         <div>
                             <div className="label">Maximal delivery range</div>
-                            <input type="number" name="deliveryRange" ref={register({required:true})} step="0.1" defaultValue={restaurant.deliveryRange} className="app-input-number"/>
-                            <label className="label">{DISTANCE}</label>
+                            <div className="flex-row">
+                            <input type="number" name="deliveryRange" ref={register({required:true})} step="0.1" defaultValue={restaurant.deliveryRange} className="app-input-number input-with-icon"/>
+                            <span className="input-icon">{DISTANCE}</span></div>
                             {errors.deliveryRange && <InputError text="Maximal delivery range is required"/>}
                             <div className="label">Minimal amount for delivery</div>
-                            <input type="number" name="deliveryMinimum" ref={register({required:true})} step="0.01" defaultValue={restaurant.deliveryMinimum} className="app-input-number"/>
-                            <label className="label">{CURRENCY}</label>
+                            <div className="flex-row">
+                            <input type="number" name="deliveryMinimum" ref={register({required:true})} step="0.01" defaultValue={restaurant.deliveryMinimum} className="app-input-number input-with-icon"/>
+                            <span className="input-icon">{CURRENCY}</span>
+                            </div>
                             {errors.deliveryMinimum && <InputError text="Minimal amount for delivery is required"/>}
                         </div>}
 
@@ -109,7 +112,7 @@ export default function SignUp() {
                         {errors.retypePassword && <InputError text="Retype your password"/>}
                         {messagePasswords && <InputError text={messagePasswords}/>}
 
-                        <SubmitButton text={'Next step'} loadingStatus={loadingStatus}/>
+                        <SubmitButton text={'Next step'} loadingStatus={loadingStatus} className="button-long"/>
                     </form>
                 </div>
                 <div className="label">Already have an account?

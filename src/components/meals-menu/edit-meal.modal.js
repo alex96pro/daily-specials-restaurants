@@ -206,9 +206,12 @@ export default function EditMealModal(props) {
                             classNamePrefix="react-select"
                         />
                         {modifiersMessage && <InputError text={modifiersMessage}/>}
-                        <div className="label">Price ({CURRENCY})</div>
-                        <input type="number" step="0.01" name="price" ref={register({required:true, min:0.01})} className="app-input-number" defaultValue={startingPrice ? startingPrice.modifier.options[startingPrice.modifier.defaultOption] : props.meal.price} 
-                        disabled={startingPrice}/>{startingPrice && <label className="label">Determined by modifier</label>}
+                        <div className="label">Price {startingPrice && " is determined by modifier"}</div>
+                        <div className="flex-row">
+                        <input type="number" step="0.01" name="price" ref={register({required:true, min:0.01})} className="app-input-number input-with-icon" defaultValue={startingPrice ? startingPrice.modifier.options[startingPrice.modifier.defaultOption] : props.meal.price} 
+                        disabled={startingPrice}/>
+                        <span className="input-icon">{CURRENCY}</span>
+                        </div>
                         {errors.price && <InputError text='Price is required'/>}
                         <div className="label">Tags</div>
                         <div className="tags">
@@ -218,10 +221,10 @@ export default function EditMealModal(props) {
                             </div>
                             )}
                         </div>
-                        <div className="flex-row"><input type="text" name="tag" value={newTag} onChange={changeNewTag} placeholder='Add new tag' className="app-input"/>
-                        <button type="button" onClick={() => checkTag(newTag, setNewTag, tags, setTags, setTagMessage)} className="button-small">Add</button></div>
+                        <div className="flex-row"><input type="text" name="tag" value={newTag} onChange={changeNewTag} placeholder='Add new tag' className="app-input input-with-icon"/>
+                        <button type="button" onClick={() => checkTag(newTag, setNewTag, tags, setTags, setTagMessage)} className="button-for-input">Add</button></div>
                         {tagMessage && <InputError text={tagMessage}/>}
-                        <SubmitButton loadingStatus={loadingStatus} text={props.convertMealToSpecial ? 'Post new special' : 'Save changes'}/>
+                        <SubmitButton loadingStatus={loadingStatus} text={props.convertMealToSpecial ? 'Post new special' : 'Save changes'} className="button-long"/>
                     </form>
                 </div>
             </div>   

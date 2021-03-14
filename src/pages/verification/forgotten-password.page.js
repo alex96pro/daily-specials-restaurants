@@ -42,7 +42,7 @@ export default function ForgottenPassword() {
                     <div className="label">Retype new password</div>
                     <input type="password" name="retypeNewPassword" ref={register({required:true})} className="app-input"/>
                     {errors.retypeNewPassword && <InputError text="Retype new password"/>}
-                    <SubmitButton loadingStatus={loadingStatus} text="Confirm"/>
+                    <SubmitButton loadingStatus={loadingStatus} text="Confirm" className="button-long"/>
                     {message.text && <MessageDanger text={message.text}/>}
                 </form> :
                     <div>

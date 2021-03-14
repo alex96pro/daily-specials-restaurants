@@ -154,8 +154,11 @@ export default function EditSpecialModal(props) {
                         {errors.description && errors.description.type === "maxLength" &&<InputError text="Description maximum is 200 characters"/>}
                         <div className="flex-space-between">
                             <div>
-                                <div className="label">Price ({CURRENCY})</div>
-                                <input type="number" name="price" step="0.01" ref={register({required: true, min: 0.01})} className="app-input-number"  defaultValue={startingPrice ? startingPrice.modifier.options[startingPrice.modifier.defaultOption] : props.special.price} disabled={startingPrice}/>
+                                <div className="label">Price {startingPrice && " is determined by modifier"}</div>
+                                <div className="flex-row">
+                                <input type="number" name="price" step="0.01" ref={register({required: true, min: 0.01})} className="app-input-number input-with-icon"  defaultValue={startingPrice ? startingPrice.modifier.options[startingPrice.modifier.defaultOption] : props.special.price} disabled={startingPrice}/>
+                                <span className="input-icon">{CURRENCY}</span>
+                                </div>
                                 {errors.price && <InputError text="Price is required"/>}
                             </div>
                             <div>
@@ -190,15 +193,14 @@ export default function EditSpecialModal(props) {
                             </div>)}
                         </div>
                         <div className="flex-row">
-                            <input type="text" placeholder="Add new tag" value={newTag} onChange={changeNewTag} className="app-input"/>
-                            <button onClick={() => checkTag(newTag, setNewTag, tags, setTags, setTagMessage)} type="button" className="button-small">Add</button>
+                            <input type="text" placeholder="Add new tag" value={newTag} onChange={changeNewTag} className="app-input input-with-icon"/>
+                            <button onClick={() => checkTag(newTag, setNewTag, tags, setTags, setTagMessage)} type="button" className="button-for-input">Add</button>
                         </div>
                         {tagMessage && <InputError text={tagMessage}/>}
-                        <SubmitButton loadingStatus={loadingStatus} text='Save changes'/>
+                        <SubmitButton loadingStatus={loadingStatus} text='Save changes' className="button-long"/>
                     </form>
                 </div>
             </div>
         </div>
-        </React.Fragment>
-    );
+        </React.Fragment>);
 };

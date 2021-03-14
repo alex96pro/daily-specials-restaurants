@@ -52,7 +52,7 @@ export default function Login() {
                         <input type="password" name="password" ref={register({required:true})} className="app-input"/>
                         {errors.password && <InputError text="Password is required"/>}
                         {message && <InputError text={message}/>}
-                        <SubmitButton loadingStatus={loadingStatus} text="Log In"/>
+                        <SubmitButton loadingStatus={loadingStatus} text="Log In" className="button-long"/>
                         {history.location.message && <MessageSuccess text={history.location.message}/>}
                     </form>
                 </div>

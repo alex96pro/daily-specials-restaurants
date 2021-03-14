@@ -39,7 +39,7 @@ export default function ForgottenPasswordModal(props) {
                         <input type="email" name="email" ref={register({required:true})} className="app-input"/>
                         {errors.email && <InputError text="Email is required"/>}
                         {message.text && <InputError text={message.text}/>}
-                        <SubmitButton loadingStatus={loadingStatus} text="Send"/>
+                        <SubmitButton loadingStatus={loadingStatus} text="Send" className="button-long"/>
                     </form>
                 }
                 {message.success &&

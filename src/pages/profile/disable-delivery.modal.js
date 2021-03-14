@@ -44,7 +44,7 @@ export default function DisableDeliveryModal(props) {
                     <input type="password" name="password" ref={register({required:true})} placeholder="Your password here" className="app-input"/>
                     {errors.password && <InputError text={'Password is required'}/>}
                     {message && <InputError text={message}/>}
-                    <SubmitButton loadingStatus={loadingStatus} text="Disable delivery"/>
+                    <SubmitButton loadingStatus={loadingStatus} text="Disable delivery" className="button-long"/>
                 </form>
             </div>
         </div>

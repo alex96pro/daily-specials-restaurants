@@ -129,8 +129,10 @@ export default function EditModifierModal(props) {
                                 {errors["optionName" + option.index] && <InputError text="Enter option name"/>}
                             </div>
                             <div className="modifier-price">
-                                <input type="number" name={"optionPrice" + option.index} ref={register({required:true})} defaultValue={option.price} placeholder="Price" step="0.01" className="app-input-number"/>
-                                <label className="label">{CURRENCY}</label>
+                                <div className="flex-row">
+                                    <input type="number" name={"optionPrice" + option.index} ref={register({required:true})} defaultValue={option.price} placeholder="Price" step="0.01" className="app-input-number input-with-icon"/>
+                                    <span className="input-icon">{CURRENCY}</span>
+                                </div>
                                 {errors["optionPrice" + option.index] && <InputError text="Enter price"/>}
                             </div>
                             {currentModifierType !== "optional" && 
@@ -150,7 +152,7 @@ export default function EditModifierModal(props) {
                             <button type="button" onClick={addNewOption} className="add-new-option-button">+ Add new option</button>
                         </div>
                     </Radio.Group>
-                    <SubmitButton text="Save changes" loadingStatus={loadingStatus}/>
+                    <SubmitButton text="Save changes" loadingStatus={loadingStatus} className="button-long"/>
                 </form>
             </div>
         </div>
