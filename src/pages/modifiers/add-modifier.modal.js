@@ -17,7 +17,7 @@ export default function AddModifierModal(props) {
     const [messages, setMessages] = useState({nameTaken:'', modifierType:'', default:''});
     const [options, setOptions] = useState([0]);
     const [currentModifierType, setCurrentModifierType] = useState('');
-    const [currentDefaultOption, setCurrentDefaultOption] = useState('');
+    const [currentDefaultOption, setCurrentDefaultOption] = useState(0);
 
     useEffect(() => {
         setModalOpacity(1);
