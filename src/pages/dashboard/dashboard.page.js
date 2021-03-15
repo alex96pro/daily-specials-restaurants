@@ -20,7 +20,7 @@ export default function DashBoard() {
             <NavBar loggedIn={true}/>
             <div className="dashboard-container">
                 <div className={showWelcome ? "dashboard-header" : "dashboard-header-hidden"}>Welcome {name}</div>
-                <img src={logo} alt="Loading..." className="dashboard-restaurant-logo"/>
+                {logo && <img src={logo} alt="Loading..." className="dashboard-restaurant-logo"/>}
             </div>
         </div>
     );

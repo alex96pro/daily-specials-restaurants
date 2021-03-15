@@ -21,7 +21,6 @@ export default function SignUp() {
     const [messagePasswords, setMessagePasswords] = useState('');
     const restaurant = useSelector(state => state.authentication.restaurantSignUpInfo);
     const {loadingStatus} = useSelector(state => state.authentication);
-    const [deliveryChecked, setDeliveryChecked] = useState(false);
 
     const setNewMessage = (newMessage) => {
         if(newMessage === "Email already in use"){
@@ -38,7 +37,7 @@ export default function SignUp() {
             setMessagePasswords("Passwords don't match");
         }else{
             setMessagePasswords('');
-            data.delivery = deliveryChecked;
+            data.delivery = restaurant.delivery;
             dispatch(signUpFirstStepAPI(data, passedFirstStep, setNewMessage));
         }
     };
@@ -50,10 +49,8 @@ export default function SignUp() {
     const changeDelivery = (event) => {
         if(event.target.checked){
             dispatch(changeDeliveryCheckbox(true));
-            setDeliveryChecked(true);
         }else{
             dispatch(changeDeliveryCheckbox(false));
-            setDeliveryChecked(false);
         }
     };
 
@@ -81,12 +78,12 @@ export default function SignUp() {
                         {errors.phone?.type === 'pattern' && <InputError text="Phone can contain only numbers"/>}
 
                         <div className="label p-t-15 p-b-15 m-0">Delivery
-                        <Checkbox checked={restaurant.delivery} onChange={changeDelivery}/></div>
+                        <Checkbox checked={restaurant.delivery} onChange={(event) => changeDelivery(event)}/></div>
                         {restaurant.delivery && 
                         <div>
                             <div className="label">Maximal delivery range</div>
                             <div className="flex-row">
-                            <input type="number" name="deliveryRange" ref={register({required:true})} step="0.1" defaultValue={restaurant.deliveryRange} className="app-input-number input-with-icon"/>
+                            <input type="number" name="deliveryRange" ref={register({required:true, min:1})} step="0.1" defaultValue={restaurant.deliveryRange} className="app-input-number input-with-icon"/>
                             <span className="input-icon">{DISTANCE}</span></div>
                             {errors.deliveryRange && <InputError text="Maximal delivery range is required"/>}
                             <div className="label">Minimal amount for delivery</div>

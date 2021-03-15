@@ -51,6 +51,9 @@ export default function EditCategoriesModal(props) {
                 }
             }
         }
+        if(data.category === ""){
+            return; // select with no options has empty string as option
+        }
         dispatch(deleteCategoryAPI(data.category));
         setDeleteWarning(false);
     };

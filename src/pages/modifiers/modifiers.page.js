@@ -60,7 +60,7 @@ export default function Modifiers() {
             {loadingModifiersPage ? <Loader className="loader-center"/>
             :
             <div className="modifiers-container">
-                <div className="header">Modifiers</div>
+                <div className="header">{modifiers.length > 0 ? "Modifiers" : "You don't have any modifiers"}</div>
                 <button className="button-long" onClick={() => setAddModifierModal(true)}>Add new modifier</button>
                 {modifiers.map(modifierItem => <div key={modifierItem.modifierId} className="modifier">
                     <div className="label">{modifierItem.modifier.name}</div>

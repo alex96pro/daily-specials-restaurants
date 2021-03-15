@@ -107,7 +107,7 @@ export default function Profile() {
                         </div>
                         {!restaurant.delivery &&
                             <div className="label p-t-15 p-b-15">
-                                Enable delivery<Checkbox value={enabledDelivery} onChange={enableDelivery}/>
+                                Enable delivery<Checkbox onChange={enableDelivery} checked={restaurant.delivery || enabledDelivery}/>
                             </div>
                         }
                         {(restaurant.delivery || enabledDelivery ) &&
