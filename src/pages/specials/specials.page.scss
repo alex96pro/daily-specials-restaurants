@@ -21,21 +21,30 @@
     }
     .specials-date-name{
         font-size: 2rem;
-        color:$accent-color-2;
+        color:$text-color;
     }
     .specials-date{
         font-size: 1.6rem;
-        color:$accent-color-2;
+        color:$text-color;
     }
     .special-container{
         @include flex-align(row, flex-start, stretch, nowrap);
         background-color: $wrapper-color;
         width:28%;
     }
+    .special-info{
+        width: 100%;
+    }
+    .special-header{
+        @include flex-align(row, space-between, flex-start, wrap);
+    }
+    .special-photo-container{
+        width:50%;
+    }
     .special-photo{
         @include flex-align(row, center, center, nowrap);
-        width:15rem;
-        height:15rem;
+        width: 100%;
+        height:auto;
         margin-right:0.2rem;
         cursor: pointer;
         transition: 0.2s;
@@ -83,8 +92,15 @@
             margin:0;
         }
         .special-container{
-            width:max-content;
+            width:100vw;
             margin:0.2rem;
+        }
+        .special-photo-container{
+            width:50%;
+        }
+        .special-photo{
+            width:100%;
+            height:auto;
         }
     }
 }

@@ -107,7 +107,7 @@ export default function PostNewSpecialModal(props) {
                 }
                 <div className="flex-1 p-15">
                     <form onSubmit={handleSubmit(addNewSpecial)}>
-                        <div className="label">Name</div>
+                        <div className="label m-0">Name</div>
                         <input type="text" name="name" ref={register({required:true, maxLength:50})} className="app-input"/>
                         {errors.name && errors.name.type === "required" && <InputError text='Name is required'/>}
                         {errors.name && errors.name.type === "maxLength" && <InputError text="Name is limited to 50 characters"/>}
@@ -127,14 +127,11 @@ export default function PostNewSpecialModal(props) {
                                 </div>
                                 {errors.price && <InputError text='Price is required'/>}
                             </div>
+                            {!props.today &&
                             <div>
                                 <div className="label">Date</div>
-                                {props.today ?
-                                    <div className="label special-date-margined">Today</div>
-                                    :
-                                    <div className="label special-date-margined">{props.date.value}</div>
-                                }
-                            </div>
+                                <div className="label m-0">{props.date.value}</div>
+                            </div>}
                             {!props.today &&
                             <div>
                                 <div className="label">Time</div>
@@ -157,7 +154,7 @@ export default function PostNewSpecialModal(props) {
                         <div className="label">Tags</div>
                         <div className="tags">
                             {tags.map((tag,index) => 
-                                <div className="tag-rounded flex-row" key={index}>#{tag}
+                                <div className="tag-rounded flex-row" key={index}>#{tag}&nbsp;
                                 <i onClick={() => setTags(tags.filter(tagItem => tagItem !== tag))} className="fas fa-times remove-tag-icon"></i>
                             </div>
                             )}

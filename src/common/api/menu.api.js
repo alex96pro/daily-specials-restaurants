@@ -119,13 +119,14 @@ export function addCategoryAPI(category) {
     };
 };
 
-export function deleteCategoryAPI(category) {
+export function deleteCategoryAPI(category, closeModal) {
     return async (dispatch) => {
         dispatch(loadingStatus(true));
         let response = await deleteRequest(`/restaurant/menu/categories/delete/${category}`, true, {401:'Unauthorized'});
         if(response.status === 200){
             dispatch(deleteCategory(response.data));
             successToast('Successfully deleted!');
+            closeModal();
         }else{
             dispatch(loadingStatus(false));
             alert(response);

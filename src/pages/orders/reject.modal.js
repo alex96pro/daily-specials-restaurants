@@ -1,13 +1,13 @@
-import { useForm } from 'react-hook-form';
 import React, { useState, useEffect } from 'react';
+import { Select } from 'antd';
 
 export default function RejectModal(props) {
     
-    const {register, handleSubmit} = useForm();
     const [modalOpacity, setModalOpacity] = useState(0);
+    const [selectedReason, setSelectedReason] = useState('Delivery address too far');
 
-    const rejectOrder = (data) => {
-        props.reject(data.rejectReason);
+    const rejectOrder = () => {
+        props.reject(selectedReason);
         props.closeModal();
     };
 
@@ -24,15 +24,21 @@ export default function RejectModal(props) {
             </div>
             <div className="modal-body-vertical">
                 <label className="label">Reason for rejecting</label>
-                <form onSubmit={handleSubmit(rejectOrder)}>
-                    <select name="rejectReason" ref={register()} className="app-select">
-                        <option className="app-option">Delivery address too far</option>
-                        <option className="app-option">Delivery minimum not fullfiled</option>
-                        <option className="app-option">Out of stock</option>
-                        <option className="app-option">Closed</option>
-                    </select>
-                    <button className="button-long" type="submit">Reject</button>
-                </form>
+                <Select onChange={(selected) => setSelectedReason(selected)} defaultValue="Delivery address too far">
+                    <Select.Option value="Delivery address too far">
+                        Delivery address too far
+                    </Select.Option>
+                    <Select.Option value="Delivery minimum not fullfiled">
+                        Delivery minimum not fullfiled
+                    </Select.Option>
+                    <Select.Option value="Closing soon">
+                        Closing soon
+                    </Select.Option>
+                    <Select.Option value="Out of stock">
+                        Out of stock
+                    </Select.Option>
+                </Select>
+                <button type="button" onClick={rejectOrder} className="button-long">Reject</button>
             </div>
         </div>
         </React.Fragment>

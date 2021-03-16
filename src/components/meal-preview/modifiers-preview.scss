@@ -11,6 +11,13 @@
         @include flex-align(row,space-between,center,wrap);
         width:100%;
     }
+    .modifier-name{
+        font-size: 2rem;
+        color:$text-color;
+        font-weight: bold;
+        padding-top:1.5rem;
+        padding-left:1.5rem;
+    }
     .modifiers-option{
         @include flex-align(row,flex-start,center,nowrap);
         background-color:white;

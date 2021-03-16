@@ -143,16 +143,16 @@ export default function EditSpecialModal(props) {
                 </div>}
                 <div className="flex-1 p-15">
                     <form onSubmit={handleSubmit(editSpecial)}>
-                        <label className="label">Name</label>
+                        <div className="label m-0">Name</div>
                         <input type="text" name="name" ref={register({required: true, maxLength:50})} className="app-input"/>
                         {errors.name && errors.name.type === "required" && <InputError text="Name is required"/>}
                         {errors.name && errors.name.type === "maxLength" && <InputError text="Name is limited to 50 characters"/>}
-                        <label className="label">Description</label>
+                        <div className="label">Description</div>
                         <textarea name="description" ref={register({required: true, minLength: 10, maxLength: 200})} className="app-textarea"/>
                         {errors.description && errors.description.type === "required" && <InputError text="Description is required"/>}
                         {errors.description && errors.description.type === "minLength" &&<InputError text="Description minimum is 10 characters"/>}
                         {errors.description && errors.description.type === "maxLength" &&<InputError text="Description maximum is 200 characters"/>}
-                        <div className="flex-space-between">
+                        <div className="flex-space-between" style={{alignItems:'flex-start'}}>
                             <div>
                                 <div className="label">Price {startingPrice && " is determined by modifier"}</div>
                                 <div className="flex-row">
@@ -162,10 +162,9 @@ export default function EditSpecialModal(props) {
                                 {errors.price && <InputError text="Price is required"/>}
                             </div>
                             <div>
+                                {!props.today && <React.Fragment>
                                 <div className="label">Date</div>
-                                {props.today ? <div className="label">Today</div>
-                                :
-                                <div className="label">{props.date.value}</div>
+                                <div className="label m-0">{props.date.value}</div></React.Fragment>
                                 }
                             </div>
                             <div>
@@ -189,7 +188,7 @@ export default function EditSpecialModal(props) {
                         <div className="label">Tags</div>
                         <div className="tags">
                             {tags.map((tag, index) => <div className="tag-rounded flex-row" key={index}>
-                                #{tag}<i onClick={() => setTags(tags.filter(tagItem => tagItem !== tag))} className="fas fa-times remove-tag-icon"></i>
+                                #{tag}&nbsp;<i onClick={() => setTags(tags.filter(tagItem => tagItem !== tag))} className="fas fa-times remove-tag-icon"></i>
                             </div>)}
                         </div>
                         <div className="flex-row">

@@ -5,10 +5,11 @@ import { CURRENCY } from '../../util/consts';
 import { editMenuMealAPI, convertMealToSpecialAPI } from '../../common/api/menu.api';
 import { checkTag, getClientDateAndTime } from '../../util/functions';
 import { infoToast } from '../../util/toasts/toasts';
+import { Select } from 'antd';
 import AddPhoto from '../add-photo/add-photo';
 import InputError from '../../components/input-error';
 import SubmitButton from '../../components/submit-button';
-import Select from 'react-select';
+import MultiSelect from 'react-select';
 
 export default function EditMealModal(props) {
 
@@ -27,8 +28,9 @@ export default function EditMealModal(props) {
     const [startingPrice, setStartingPrice] = useState(mealModifiers.find(modifier => modifier.modifier.modifierType === "requiredBase"));
     const allModifiers = modifiers.map(modifier => ({label:modifier.modifier.name, value:modifier}));
     const [selectedModifiers, setSelectedModifiers] = useState(mealModifiers.map(modifier => ({label: modifier.modifier.name, value:modifier})));
+    const [selectedCategory, setSelectedCategory] = useState(props.meal.category);
     const {register, handleSubmit, errors} = useForm({defaultValues:{
-        name:props.meal.name, description:props.meal.description, category:props.meal.category, time:"00:00"
+        name:props.meal.name, description:props.meal.description, time:"00:00"
     }});
 
     useEffect(() => {
@@ -57,7 +59,6 @@ export default function EditMealModal(props) {
             return;
         }
         if(props.convertMealToSpecial){
-            delete data.category;
             if(!photoData.photoCropped){
                 setPhotoData({...photoData, message:'Please press button done to crop photo'});
                 return;
@@ -84,7 +85,7 @@ export default function EditMealModal(props) {
                 data.newPhoto = photoData.photo;
             }
             data.photo = props.meal.photo;
-            
+            data.category = selectedCategory;
             // check if there is need to call api for changing this meal
             let editedMeal = false;
             let modifiersChanged = false;
@@ -160,7 +161,7 @@ export default function EditMealModal(props) {
                 }
                 <div className="flex-1 p-15">
                     <form onSubmit={handleSubmit(editMeal)}>
-                        <div className="label">Name</div>
+                        <div className="label m-0">Name</div>
                         <input type="text" name="name" ref={register({required:true, maxLength:50})} className="app-input"/>
                         {errors.name && errors.name.type === "required" && <InputError text='Name is required'/>}
                         {errors.name && errors.name.type === "maxLength" && <InputError text='Name is limited to 50 characters'/>}
@@ -173,28 +174,28 @@ export default function EditMealModal(props) {
                         {props.convertMealToSpecial ? 
                         <div className="flex-space-between">
                             <div>
-                                <label className="label">Date</label>
+                                <div className="label">Date</div>
                                 <input type="date" name="date" ref={register()} defaultValue={getClientDateAndTime(true, false)} className="app-input-date"/>
                                 {messageSpecialsDate && <InputError text={messageSpecialsDate}/>}
                             </div>
                             <div>
-                                <label className="label">Time</label>
+                                <div className="label">Time</div>
                                 <input type="time" name="time" ref={register()} className="app-input-time"/>
                             </div>
                         </div>:
                         <React.Fragment>
                             <div className="label">Category</div>
-                            <select name="category" ref={register()} className="app-select">
+                            <Select onChange={(selected) => setSelectedCategory(selected)} defaultValue={props.meal.category}>
                                 {categories.map((category,index) => 
-                                    <option key={index} className="app-option">
+                                    <Select.Option value={category} key={index}>
                                         {category}
-                                    </option>
+                                    </Select.Option>
                                 )}
-                            </select>
+                            </Select>
                         </React.Fragment>
                         }
                         <div className="label">Modifiers</div>
-                        <Select
+                        <MultiSelect
                             options={allModifiers}
                             defaultValue={selectedModifiers}
                             onChange={(selected) => handleSetSelectedModifiers(selected)} 
@@ -216,7 +217,7 @@ export default function EditMealModal(props) {
                         <div className="label">Tags</div>
                         <div className="tags">
                             {tags.map((tag,index) => 
-                                <div className="tag-rounded flex-row" key={index}>#{tag}
+                                <div className="tag-rounded flex-row" key={index}>#{tag}&nbsp;
                                 <i onClick={() => setTags(tags.filter(tagItem => tagItem !== tag))} className="fas fa-times remove-tag-icon"></i>
                             </div>
                             )}

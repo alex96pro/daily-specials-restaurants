@@ -94,14 +94,19 @@ export default function Specials() {
                         </div>
                         {specials.map(special => special.date === day.dbFormat && 
                         <div className="special-container" key={special.specialId}>
+                            <div className="special-photo-container">
                             {special.deleted ? <div className="special-photo"><i className="fas fa-ban fa-10x"></i></div>
                             :
                             <img src={special.photo} alt="Loading..." onClick={() => handleEditSpecial(special, day)} className="special-photo"></img>
                             }
-                            <div>
-                                <div className="label">{special.name}</div>
-                                <div className="label-accent-color">{special.price + CURRENCY}</div>
-                                <div className="label">{special.time}</div>
+                            </div>
+                            <div className="special-info">
+                                <div className="special-header">
+                                    <div className="label m-0">{special.name}</div>
+                                    <div className="label-accent-color-2 m-0 m-r-15">{special.price + CURRENCY}</div>
+                                </div>
+                                
+                                <div className="label">Publish at {special.time}</div>
                                 {special.deleted ?
                                     <div className="deleted-special-label">Deleted</div>
                                 :

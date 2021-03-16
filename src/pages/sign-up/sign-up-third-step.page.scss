@@ -12,7 +12,7 @@
     }
     .working-hours-row{
         @include flex-align(row, space-between, center, nowrap);
-        margin:0rem 0.2rem;
+        margin:1.5rem 0.2rem;
     }
     .working-hours-checkbox{
         margin: 0rem 2rem;

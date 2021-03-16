@@ -69,21 +69,42 @@
     @include flex-align(row, space-between, center, wrap);
     width:100%;
 }
-.ant-btn-primary{
-    background-color: $accent-color;
-    border-color: $accent-color;
-    // font-size: 2rem;
-    span{
-        font-size: 2rem;
-    }
-    &:hover, &:focus{
-        background-color: $accent-color;
-        border-color: $accent-color;
-    }
-}
-
 .ant-tooltip-inner {
     font-size: 1.8rem;
+}
+.ant-select{
+    width:100%;
+}
+.ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+    height:3.3rem;
+    border:$input-border;
+}
+.ant-select-single.ant-select-open .ant-select-selection-item {
+    color:$text-color;
+}
+.ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    border-color:gray;
+    box-shadow: $input-box-shadow;
+}
+.ant-select:not(.ant-select-disabled):hover .ant-select-selector {
+    border-color:gray;
+}
+.ant-select-item {
+    border-radius: 0;
+    &:hover{
+        background-color: rgba($color: $accent-color, $alpha: 0.2);
+    }
+}
+.ant-select-selection-item{
+    font-size: 1.6rem;
+}
+.ant-select-item-option-content{
+    color:$text-color;
+    font-size: 1.6rem;
+    cursor: pointer;
+}
+.ant-select-item-option-selected:not(.ant-select-item-option-disabled){
+    background-color: rgba($color: $accent-color, $alpha: 0.2);
 }
 .react-select-container{
     .react-select__menu{
@@ -142,4 +163,27 @@
 .fa-bars{
     color:$accent-color;
     cursor: pointer;
+}
+.fa-edit, .fa-trash, .fa-bullhorn, .fa-copy, .fa-eye{
+    color:$accent-color;
+    margin:0rem 0.5rem;
+    transition:0.2s;
+    cursor: pointer;
+    &:hover{
+        color:$accent-color-2;
+    }
+}
+.copy-icon{
+    position: relative;
+    top:0.2rem;
+}
+.fa-times{
+    color:$text-color;
+    padding:0.4rem 0.8rem;
+    margin:0.4rem;
+    transition: 0.2s;
+    cursor: pointer;
+}
+.MuiTooltip-popper, .MuiTooltip-tooltip{
+    font-size: 2rem !important;
 }

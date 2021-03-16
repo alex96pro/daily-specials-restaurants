@@ -12,6 +12,9 @@
 }
 .m-0{margin:0;}.m-15{margin:1.5rem}.m-t-15{margin-top: 1.5rem;}.m-b-15{margin-bottom:1.5rem;}.m-l-15{margin-left:1.5rem}.m-r-15{margin-right:1.5rem}
 .p-0{padding:0;}.p-15{padding:1.5rem;}.p-t-15{padding-top:1.5rem;}.p-b-15{padding-bottom:1.5rem;}.p-l-15{padding-left:1.5rem;}.p-r-15{padding-right:1.5rem;}
+.bold{
+    font-weight: bold;
+}
 .flex-1{
     flex:1;
 }
@@ -71,17 +74,6 @@
     justify-content: space-between;
     align-items: center;
 }
-.fa-times{
-    color:white;
-    background-color: $accent-color;
-    padding:0.4rem 0.8rem;
-    margin:0.4rem;
-    transition: 0.2s;
-    cursor: pointer;
-    &:hover{
-        background-color:$accent-color-2;
-    }
-}
 .remove-tag-icon{
     background-color: inherit;
     color:$tag-color;
@@ -105,23 +97,8 @@
     color:$tag-color;
     font-size:1.8rem;
     margin:0.4rem 0.1rem;
-    padding:0.2rem;
+    padding:0.2rem 0rem 0.2rem 1rem;
     border:0.1rem solid $tag-color;
-}
-.fa-edit, .fa-trash, .fa-bullhorn, .fa-copy, .fa-eye{
-    color:$accent-color-2;
-    margin:0rem 0.5rem;
-    cursor: pointer;
-    &:hover{
-        color:$accent-color;
-    }
-}
-.copy-icon{
-    position: relative;
-    top:0.2rem;
-}
-.MuiTooltip-popper, .MuiTooltip-tooltip{
-    font-size: 2rem !important;
 }
 @include mobile-range{
     .loader-center{

@@ -4,10 +4,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addNewMealAPI } from '../../common/api/menu.api';
 import { CURRENCY } from '../../util/consts';
 import { checkTag } from '../../util/functions';
+import { Select } from 'antd';
 import AddPhoto from '../add-photo/add-photo';
 import InputError from '../../components/input-error';
 import SubmitButton from '../../components/submit-button';
-import Select from 'react-select';
+import MultiSelect from 'react-select';
 
 export default function AddMealModal(props) {
 
@@ -24,6 +25,7 @@ export default function AddMealModal(props) {
     const [startingPrice, setStartingPrice] = useState('');
     const { modifiers } = useSelector(state => state.modifiers);
     const allModifiers = modifiers.map(modifier => ({label:modifier.modifier.name, value:modifier}));
+    const [selectedCategory, setSelectedCategory] = useState(categories[0]);
     const [selectedModifiers, setSelectedModifiers] = useState([]);
 
     useEffect(() => {
@@ -60,6 +62,7 @@ export default function AddMealModal(props) {
         }
         data.price = startingPrice ? startingPrice.modifier.options[startingPrice.modifier.defaultOption] : data.price;
         data.photo = photoData.photo;
+        data.category = selectedCategory;
         data.modifiers = selectedModifiers.map(modifier => modifier.value.modifierId);
         data.tags = tags;
         dispatch(addNewMealAPI(data, props.closeModal));
@@ -103,7 +106,7 @@ export default function AddMealModal(props) {
                 }
                 <div className="flex-1 p-15">
                     <form onSubmit={handleSubmit(addNewMeal)}>
-                        <div className="label">Name</div>
+                        <div className="label m-0">Name</div>
                         <input type="text" name="name" ref={register({required:true, maxLength:50})} className="app-input"/>
                         {errors.name && errors.name.type === "required" && <InputError text='Name is required'/>}
                         {errors.name && errors.name.type === "maxLength" && <InputError text='Name is limited to 50 characters'/>}
@@ -116,15 +119,15 @@ export default function AddMealModal(props) {
                         {errors.description && errors.description.type === "maxLength" && <InputError text='Description can have maximum 200 characters'/>}
 
                         <div className="label">Category</div>
-                        <select name="category" ref={register()} className="app-select">
+                        <Select onChange={(selected) => setSelectedCategory(selected)} defaultValue={categories[0]}>
                             {categories.map((category,index) => 
-                                <option key={index} className="app-option">
+                                <Select.Option value={category} key={index}>
                                     {category}
-                                </option>
+                                </Select.Option>
                             )}
-                        </select>
+                        </Select>
                         <div className="label">Modifiers</div>
-                        <Select
+                        <MultiSelect
                             options={allModifiers}
                             onChange={(selected) => handleSetSelectedModifiers(selected)}
                             backspaceRemovesValue={false} 
@@ -144,7 +147,7 @@ export default function AddMealModal(props) {
                         <div className="label">Tags</div>
                         <div className="tags">
                             {tags.map((tag,index) => 
-                                <div className="tag-rounded flex-row" key={index}>#{tag}
+                                <div className="tag-rounded flex-row" key={index}>#{tag}&nbsp;
                                 <i onClick={() => setTags(tags.filter(tagItem => tagItem !== tag))} className="fas fa-times remove-tag-icon"></i>
                             </div>
                             )}

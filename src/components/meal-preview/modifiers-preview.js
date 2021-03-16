@@ -13,7 +13,7 @@ export default function ModifiersPreview(props) {
         <div className="modifiers-preview">
             {modifiers.map(modifier => modifier.modifier.modifierType === "requiredBase" && 
             <React.Fragment key={modifier.modifierId}>
-            <div className="label-accent-color-2 p-t-15 p-l-15">Choose {modifier.modifier.name}</div>
+            <div className="modifier-name">Choose {modifier.modifier.name}</div>
             <div className="modifiers-container">
                 <Radio.Group defaultValue={modifier.modifier.defaultOption}>
                     {Object.keys(modifier.modifier.options).map(key =>
@@ -31,7 +31,7 @@ export default function ModifiersPreview(props) {
             
             {modifiers.map(modifier => modifier.modifier.modifierType === "required" && 
             <React.Fragment key={modifier.modifierId}>
-            <div className="label-accent-color-2 p-t-15 p-l-15">Choose {modifier.modifier.name}</div>
+            <div className="modifier-name">Choose {modifier.modifier.name}</div>
             <div className="modifiers-container">
                 <Radio.Group defaultValue={modifier.modifier.defaultOption}>
                     {Object.keys(modifier.modifier.options).map(key =>
@@ -49,7 +49,7 @@ export default function ModifiersPreview(props) {
 
             {modifiers.map(modifier => modifier.modifier.modifierType === "optional" && 
             <React.Fragment key={modifier.modifierId}>
-            <div className="label-accent-color-2 p-t-15 p-l-15">Choose {modifier.modifier.name} (max {modifier.modifier.maximum})</div>
+            <div className="modifier-name">Choose {modifier.modifier.name} (max {modifier.modifier.maximum})</div>
             <div className="modifiers-container">
                 {Object.keys(modifier.modifier.options).map(key =>
                     <label key={"optional"+key} htmlFor={"optional-"+key+"-"+modifier.modifierId} className="modifiers-option">

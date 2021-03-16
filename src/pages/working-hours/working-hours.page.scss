@@ -11,8 +11,9 @@
         padding:3rem;
         box-shadow: $app-box-shadow;
     }
-    .working-hours-align{
+    .working-hours-row{
         @include flex-align(row, space-between, center, nowrap);
+        margin:1.5rem 0rem;
     }
 }
 
@@ -26,7 +27,7 @@
             padding:3rem;
             box-shadow: $app-box-shadow;
         }
-        .working-hours-align{
+        .working-hours-row{
             @include flex-align(column, center, flex-start, nowrap);
         }
     }

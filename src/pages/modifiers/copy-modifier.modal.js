@@ -73,11 +73,11 @@ export default function CopyModifierModal(props) {
             </div>
             <div className="modal-body-vertical">
                 <form onSubmit={handleSubmit(copyModifier)}>
-                    <div className="label-accent-color-2">Modifier name</div>
+                    <div className="label">Modifier name</div>
                     <input type="text" name="name" ref={register({required:true})} className="app-input"/>
                     {errors.name && <InputError text="Name is required"></InputError>}
                     {messages.nameTaken && <InputError text={messages.nameTaken}/>}
-                    <div className="label-accent-color-2 p-t-15">Modifier type</div>
+                    <div className="label p-t-15">Modifier type</div>
                     <div className="label">
                         {props.modifier.modifierType === "requiredBase" && 'Required base (determins starting price)'}
                         {props.modifier.modifierType === "required" && 'Required (may change price)'}
@@ -90,7 +90,7 @@ export default function CopyModifierModal(props) {
                         {errors.maximum && errors.maximum.type === "min" && <InputError text="Minimum value is 1"/>}
                         {errors.maximum && errors.maximum.type === "max" && <InputError text="Maximum is higher than your options size"/>}
                     </React.Fragment>}
-                    <div className="label-accent-color-2 p-t-15">
+                    <div className="label p-t-15">
                         Options
                     </div>
                     <Radio.Group defaultValue={currentDefaultOption}>
@@ -109,7 +109,7 @@ export default function CopyModifierModal(props) {
                             {props.modifier.modifierType !== "optional" && 
                             <div className="modifier-default">
                                 <Radio value={option.index} onChange={() => setCurrentDefaultOption(option.index)}/>
-                                <label className="label">Default</label>
+                                <label className="label m-0 m-r-15">Default</label>
                             </div>
                             }
                             {options.length > 1 &&

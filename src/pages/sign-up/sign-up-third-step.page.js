@@ -73,7 +73,7 @@ export default function SignUpThirdStep() {
                 <form onSubmit={handleSubmit(finishSignUp)}>
                     {DAYS_OF_THE_WEEK.map((day, index) => <div key={index} className="working-hours-row">
                         <div>
-                            <div className="label">{day}</div>
+                            <div className="label m-0 m-r-15">{day}</div>
                             {!checkedDays[index] && <label className="message-danger">(Closed)</label>}
                         </div>
                         <div>

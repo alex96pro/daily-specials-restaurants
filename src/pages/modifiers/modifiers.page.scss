@@ -21,7 +21,7 @@
         margin:0.6rem 0rem;
     }
     .modifier-example{
-        color:$accent-color-2;
+        color:$text-color;
         font-size: 1.6rem;
     }
     .modifier-option{
@@ -49,14 +49,14 @@
     }
     .add-new-option-button{
         background-color: $wrapper-color;
-        color:$accent-color-2;
+        color:$text-color;
         padding:0.4rem;
         margin:0.6rem 0rem;
         font-size:1.6rem;
         transition: 0.2s;
         cursor: pointer;
         &:hover{
-            background-color: $accent-color-2;
+            background-color: $accent-color;
             color:white;
         }
     }

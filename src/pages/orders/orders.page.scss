@@ -64,7 +64,7 @@
     }
     .order-button-accept{
         @extend .order-button-reject;
-        background-color: $success-color;
+        background-color: $accent-color;
     }
     .order-info{
         text-align: right;

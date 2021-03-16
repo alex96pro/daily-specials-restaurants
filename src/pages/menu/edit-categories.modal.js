@@ -1,20 +1,19 @@
-import { useForm } from 'react-hook-form';
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addCategoryAPI, deleteCategoryAPI} from '../../common/api/menu.api';
+import { Select } from 'antd';
 import InputError from '../../components/input-error';
 import ConfirmButton from '../../components/confirm-button';
-import SubmitButton from '../../components/submit-button';
 
 export default function EditCategoriesModal(props) {
     
-    const {register, handleSubmit} = useForm();
     const dispatch = useDispatch();
     const [modalOpacity, setModalOpacity] = useState(0);
     const [newCategory, setNewCategory] = useState('');
     const {categories, meals, loadingStatus} = useSelector(state => state.menu);
     const [message, setMessage] = useState('');
     const [deleteWarning, setDeleteWarning] = useState(false);
+    const [selectedCategory, setSelectedCategory] = useState(categories[0]);
 
     const changeCategory = (event) => {
         setNewCategory(event.target.value);
@@ -39,22 +38,23 @@ export default function EditCategoriesModal(props) {
         else{
             dispatch(addCategoryAPI(newCategoryTrimmed, props.closeModal));
             setMessage('');
+            setNewCategory('');
         }
     };
     
-    const checkDeleteCategory = (data) => {
+    const checkDeleteCategory = () => {
         if(!deleteWarning){
             for(let i = 0; i < meals.length; i++) {
-                if(meals[i].category === data.category){
+                if(meals[i].category === selectedCategory){
                     setDeleteWarning(true);
                     return;
                 }
             }
         }
-        if(data.category === ""){
+        if(selectedCategory === ""){
             return; // select with no options has empty string as option
         }
-        dispatch(deleteCategoryAPI(data.category));
+        dispatch(deleteCategoryAPI(selectedCategory, props.closeModal)); //close modal temporary because antd select shows delete value after deletion
         setDeleteWarning(false);
     };
 
@@ -80,24 +80,23 @@ export default function EditCategoriesModal(props) {
                     </div>
                     <div className="form-container m-b-15">
                         <div className="label">Delete category</div>
-                        <form onSubmit={handleSubmit(checkDeleteCategory)}>
                             <div className="flex-row">
-                                <select name="category" ref={register()} onChange={() => setDeleteWarning(false)} className="app-select input-with-icon">
-                                    {categories.map((category, index) => <option value={category} key={index} className="app-option">
+                                <Select onChange={(selected) => setSelectedCategory(selected)} defaultValue={categories[0]}>
+                                    {categories.map((category, index) => 
+                                    <Select.Option value={category} key={index}>
                                         {category}
-                                    </option>)}
-                                </select>
-                                <SubmitButton loadingStatus={loadingStatus} text='Delete' className="button-for-input"/>
+                                    </Select.Option>)}
+                                </Select>
+                                <ConfirmButton onClick={checkDeleteCategory} loadingStatus={loadingStatus} text='Delete' className="button-for-input"/>
                             </div>
                             {deleteWarning &&
                             <div className="message-danger">
                                 You have meals in this category. Deleting category will result in affected meals having no category
                                 <div>
                                     <button onClick={() => setDeleteWarning(false)} className="button-normal">Cancel</button>
-                                    <SubmitButton loadingStatus={loadingStatus} text='Delete' className="button-normal"/>
+                                    <ConfirmButton onClick={checkDeleteCategory} loadingStatus={loadingStatus} text='Delete' className="button-normal"/>
                                 </div>
                             </div>}
-                        </form>
                     </div>
                 </div>
             </div>

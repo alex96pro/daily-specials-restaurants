@@ -83,11 +83,11 @@ export default function EditModifierModal(props) {
             </div>
             <div className="modal-body-vertical">
                 <form onSubmit={handleSubmit(editModifier)}>
-                    <div className="label-accent-color-2">Modifier name</div>
+                    <div className="label">Modifier name</div>
                     <input type="text" name="name" ref={register({required:true})} defaultValue={props.modifier.name} className="app-input"/>
                     {errors.name && <InputError text="Name is required"></InputError>}
                     {messages.nameTaken && <InputError text={messages.nameTaken}/>}
-                    <div className="label-accent-color-2 p-t-15">Choose modifier type</div>
+                    <div className="label p-t-15">Choose modifier type</div>
                     {messages.modifierType && <InputError text={messages.modifierType}/>}
                     <Radio.Group defaultValue={currentModifierType}>
                     <div className="modifier-type">
@@ -119,7 +119,7 @@ export default function EditModifierModal(props) {
                         </div>
                     </div>
                     </Radio.Group>
-                    <div className="label-accent-color-2 p-t-15">
+                    <div className="label p-t-15">
                         Options
                     </div>
                     <Radio.Group defaultValue={currentDefaultOption}>
@@ -138,7 +138,7 @@ export default function EditModifierModal(props) {
                             {currentModifierType !== "optional" && 
                             <div className="modifier-default">
                                 <Radio value={option.index} onChange={() => setCurrentDefaultOption(option.index)}/>
-                                <label className="label">Default</label>
+                                <label className="label m-0 m-r-15">Default</label>
                             </div>
                             }
                             {options.length > 1 &&

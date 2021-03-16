@@ -1,13 +1,13 @@
-import { useForm } from 'react-hook-form';
 import React, { useState, useEffect } from 'react';
+import { Select } from 'antd';
 
 export default function AcceptModal(props) {
     
-    const {register, handleSubmit} = useForm();
     const [modalOpacity, setModalOpacity] = useState(0);
+    const [selectedTime, setSelectedTime] = useState('15 minutes');
 
-    const acceptOrder = (data) => {
-        props.accept(data.estimatedTime);
+    const acceptOrder = () => {
+        props.accept(selectedTime);
         props.closeModal();
     };
 
@@ -24,18 +24,21 @@ export default function AcceptModal(props) {
             </div>
             <div className="modal-body-vertical">
                 <label className="label">Estimated time for delivery</label>
-                <form onSubmit={handleSubmit(acceptOrder)}>
-                    <select name="estimatedTime" ref={register()} className="app-select">
-                        <option value='15 minutes' className="app-option">15 minutes</option>
-                        <option value='30 minutes' className="app-option">30 minutes</option>
-                        <option value='45 minutes' className="app-option">45 minutes</option>
-                        <option value='1 hour' className="app-option">1 hour</option>
-                        <option value='1 hour 15 minutes' className="app-option">1 hour 15 minutes</option>
-                        <option value='1 hour 30 minutes' className="app-option">1 hour 30 minutes</option>
-                        <option value='2 hours' className="app-option">2 hours</option>
-                    </select>
-                    <button type="submit" className="button-long">Accept</button>
-                </form>
+                    <Select onChange={(selected) => setSelectedTime(selected)} defaultValue="15 minutes">
+                        <Select.Option value='15 minutes'>
+                            15 minutes
+                        </Select.Option>
+                        <Select.Option value='30 minutes'>
+                            30 minutes
+                        </Select.Option>
+                        <Select.Option value='45 minutes'>
+                            45 minutes
+                        </Select.Option>
+                        <Select.Option value='1 hour'>
+                            1 hour
+                        </Select.Option>
+                    </Select>
+                    <button type="button" onClick={acceptOrder} className="button-long">Accept</button>
             </div>
         </div>
         </React.Fragment>

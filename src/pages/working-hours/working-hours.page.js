@@ -70,9 +70,9 @@ export default function WorkingHours() {
                 <div className="header">Working hours</div>
                 <div className="working-hours-info">
                     <form onSubmit={handleSubmit(changeWorkingHours)}>
-                        {DAYS_OF_THE_WEEK.map((day, index) => <div key={index} className="working-hours-align">
+                        {DAYS_OF_THE_WEEK.map((day, index) => <div key={index} className="working-hours-row">
                             <div>
-                                <div className="label">{day} {!checkedDays[index] && 
+                                <div className="label m-0 m-r-15">{day} {!checkedDays[index] && 
                                 <div className="message-danger">(Closed)</div>
                                 }</div>
                             </div>

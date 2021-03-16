@@ -85,11 +85,11 @@ export default function AddModifierModal(props) {
             </div>
             <div className="modal-body-vertical">
                 <form onSubmit={handleSubmit(finishAddingModifier)}>
-                    <div className="label-accent-color-2">Modifier name</div>
+                    <div className="label">Modifier name</div>
                     <input type="text" name="name" ref={register({required:true})} className="app-input"/>
                     {errors.name && <InputError text="Name is required"></InputError>}
                     {messages.nameTaken && <InputError text={messages.nameTaken}/>}
-                    <div className="label-accent-color-2 p-t-15">Choose modifier type</div>
+                    <div className="label p-t-15">Choose modifier type</div>
                     {messages.modifierType && <InputError text={messages.modifierType}/>}
                     <Radio.Group>
                     <div className="modifier-type">
@@ -121,7 +121,7 @@ export default function AddModifierModal(props) {
                         </div>
                     </div>
                     </Radio.Group>
-                    <div className="label-accent-color-2 p-t-15">
+                    <div className="label p-t-15">
                         Options
                     </div>
                     <Radio.Group defaultValue={0}>
@@ -141,7 +141,7 @@ export default function AddModifierModal(props) {
                         {(currentModifierType === "requiredBase" || currentModifierType === "required") && 
                         <div className="modifier-default">
                             <Radio value={optionIndex} onChange={() => setCurrentDefaultOption(optionIndex)}/>
-                            <label className="label">Default</label>
+                            <label className="label m-0">Default</label>
                         </div>
                         }
                         {options.length > 1 && 

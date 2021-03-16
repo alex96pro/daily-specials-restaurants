@@ -19,9 +19,9 @@
 }
 .nav-logo{
     position: absolute;
-    top:0.6rem;
+    top:0.7rem;
     left:1rem;
-    width:6.6rem;
+    width:4.5rem;
     height:4.5rem;
 }
 .nav{
@@ -29,7 +29,7 @@
     top:0;
     left:0;
     z-index: 3;
-    background-color:#313131;
+    background-color:$text-color;
     height:100vh;
     width:20vw;
     border-radius: 0;
@@ -47,12 +47,12 @@
         transition:0.4s;
         cursor: pointer;
         &:hover{
-            color:$success-color;
+            color:$accent-color;
         }
     }
     .nav-card-active{
         @extend .nav-card;
-        color:$success-color;
+        color:$accent-color;
     }
     .nav-container{
         @include flex-align(column, flex-start, flex-start, wrap);
