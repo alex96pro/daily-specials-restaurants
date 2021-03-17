@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addCategoryAPI, deleteCategoryAPI} from '../../common/api/menu.api';
-import { Select } from 'antd';
+import Select from 'react-select';
 import InputError from '../../components/input-error';
 import ConfirmButton from '../../components/confirm-button';
 
@@ -71,32 +71,35 @@ export default function EditCategoriesModal(props) {
             </div>
                 <div className="modal-body-vertical">
                     <div className="form-container m-b-15">
+                        <div className="label">Delete category</div>
+                        <div className="flex-row">
+                            <Select
+                                options={categories.map(category => ({label:category, value:category}))}
+                                onChange={(selected) => setSelectedCategory(selected.value)}
+                                defaultValue={{label:categories[0], value:categories[0]}}
+                                backspaceRemovesValue={false}
+                                isSearchable={true}
+                                className='react-select-container'
+                                classNamePrefix="react-select"
+                            />
+                            <ConfirmButton onClick={checkDeleteCategory} loadingStatus={loadingStatus} text='Delete' className="button-for-input"/>
+                        </div>
+                        {deleteWarning &&
+                        <div className="message-danger">
+                            You have meals in this category. Deleting category will result in affected meals having no category
+                            <div>
+                                <button onClick={() => setDeleteWarning(false)} className="button-normal">Cancel</button>
+                                <ConfirmButton onClick={checkDeleteCategory} loadingStatus={loadingStatus} text='Delete' className="button-normal"/>
+                            </div>
+                        </div>}
+                    </div>
+                    <div className="form-container m-b-15">
                         <div className="label">Add new category</div>
                         <div className="flex-row">
                             <input name="category" value={newCategory} onChange={changeCategory} type="text" className="app-input input-with-icon"/>
                             <ConfirmButton className="button-for-input" onClick={addCategory} loadingStatus={loadingStatus} text='Add'/>
                         </div>
                         {message && <InputError text={message}/>}
-                    </div>
-                    <div className="form-container m-b-15">
-                        <div className="label">Delete category</div>
-                            <div className="flex-row">
-                                <Select onChange={(selected) => setSelectedCategory(selected)} defaultValue={categories[0]}>
-                                    {categories.map((category, index) => 
-                                    <Select.Option value={category} key={index}>
-                                        {category}
-                                    </Select.Option>)}
-                                </Select>
-                                <ConfirmButton onClick={checkDeleteCategory} loadingStatus={loadingStatus} text='Delete' className="button-for-input"/>
-                            </div>
-                            {deleteWarning &&
-                            <div className="message-danger">
-                                You have meals in this category. Deleting category will result in affected meals having no category
-                                <div>
-                                    <button onClick={() => setDeleteWarning(false)} className="button-normal">Cancel</button>
-                                    <ConfirmButton onClick={checkDeleteCategory} loadingStatus={loadingStatus} text='Delete' className="button-normal"/>
-                                </div>
-                            </div>}
                     </div>
                 </div>
             </div>

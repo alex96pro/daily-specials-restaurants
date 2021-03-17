@@ -107,25 +107,40 @@
     background-color: rgba($color: $accent-color, $alpha: 0.2);
 }
 .react-select-container{
+    width:100%;
     .react-select__menu{
         margin:0;
-        max-height: 16rem;
+        max-height:16rem;
         overflow-y: auto;
     }
+    // .react-select__value-container{
+    //     min-height: 3.3rem;
+    //     max-height: 3.3rem;
+    //     height: 3.3rem;
+    // }
     .react-select__option{
-       font-size: 1.6rem;
-       &:hover{
-           background-color: rgba($color: $accent-color-2, $alpha: 0.4);
-       }
-       &--is-focused{
-           background-color: rgba($color: $accent-color-2, $alpha: 0.4);
-       }
+        font-size: 1.6rem;
+        border-radius: 0;
+        &:hover{
+            background-color: rgba($color: $accent-color-2, $alpha: 0.4);
+        }
+        &--is-focused{
+            background-color: rgba($color: $accent-color-2, $alpha: 0.4);
+        }
+    }
+    .react-select__option--is-selected{
+        background-color: rgba($color: $accent-color-2, $alpha: 0.4);
+        color:$text-color;
+        font-weight: bold;
     }
     .react-select__multi-value{
         font-size: 1.8rem;
         color:$text-color;
         padding:0.2rem;
         border-radius: 0.8rem;
+    }
+    .react-select__single-value{
+        font-size: 1.6rem;
     }
     .react-select__placeholder, .react-select__input{
         font-size: 1.6rem;

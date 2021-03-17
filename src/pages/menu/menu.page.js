@@ -1,7 +1,6 @@
 import './menu.page.scss';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import { getMenuAPI } from '../../common/api/menu.api';
 import { Tooltip } from 'antd';
 import { Checkbox } from 'antd';
@@ -14,7 +13,6 @@ import Loader from '../../components/loader';
 export default function Menu() {
 
     const dispatch = useDispatch();
-    const history = useHistory();
     const {meals, categories, message, loadingMenuPage} = useSelector(state => state.menu);
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [modal, setModal] = useState(false);
@@ -48,12 +46,8 @@ export default function Menu() {
     };
 
     useEffect(() => {
-        if(!localStorage.getItem('ACCESS_TOKEN_RESTAURANT')){
-            history.push('/login');
-            return;
-        }
         dispatch(getMenuAPI(setMessages));
-    },[dispatch, history]);
+    },[dispatch]);
 
     return (
         <div className="menu">

@@ -4,11 +4,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addNewMealAPI } from '../../common/api/menu.api';
 import { CURRENCY } from '../../util/consts';
 import { checkTag } from '../../util/functions';
-import { Select } from 'antd';
 import AddPhoto from '../add-photo/add-photo';
 import InputError from '../../components/input-error';
 import SubmitButton from '../../components/submit-button';
-import MultiSelect from 'react-select';
+import Select from 'react-select';
 
 export default function AddMealModal(props) {
 
@@ -24,8 +23,7 @@ export default function AddMealModal(props) {
     const [photoData, setPhotoData] = useState({photo:'', photoCropped: true, changePhoto: false, message:''});
     const [startingPrice, setStartingPrice] = useState('');
     const { modifiers } = useSelector(state => state.modifiers);
-    const allModifiers = modifiers.map(modifier => ({label:modifier.modifier.name, value:modifier}));
-    const [selectedCategory, setSelectedCategory] = useState(categories[0]);
+    const [selectedCategory, setSelectedCategory] = useState(categories[0].value);
     const [selectedModifiers, setSelectedModifiers] = useState([]);
 
     useEffect(() => {
@@ -119,16 +117,18 @@ export default function AddMealModal(props) {
                         {errors.description && errors.description.type === "maxLength" && <InputError text='Description can have maximum 200 characters'/>}
 
                         <div className="label">Category</div>
-                        <Select onChange={(selected) => setSelectedCategory(selected)} defaultValue={categories[0]}>
-                            {categories.map((category,index) => 
-                                <Select.Option value={category} key={index}>
-                                    {category}
-                                </Select.Option>
-                            )}
-                        </Select>
+                        <Select
+                            options={categories.map(category => ({label:category, value:category}))}
+                            onChange={(selected) => setSelectedCategory(selected.value)}
+                            defaultValue={{label:categories[0], value:categories[0]}}
+                            backspaceRemovesValue={false}
+                            isSearchable={true}
+                            className='react-select-container'
+                            classNamePrefix="react-select"
+                        />
                         <div className="label">Modifiers</div>
-                        <MultiSelect
-                            options={allModifiers}
+                        <Select
+                            options={modifiers.map(modifier => ({label:modifier.modifier.name, value:modifier}))}
                             onChange={(selected) => handleSetSelectedModifiers(selected)}
                             backspaceRemovesValue={false} 
                             isMulti={true}

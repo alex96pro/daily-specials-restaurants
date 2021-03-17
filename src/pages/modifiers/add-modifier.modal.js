@@ -33,7 +33,7 @@ export default function AddModifierModal(props) {
     };
 
     const deleteOption = (index) => {
-        if(currentModifierType !== "optional" && index === currentDefaultOption){
+        if((currentModifierType !== "optional" && currentModifierType !== "") && index === currentDefaultOption){
             errorToast("You can't delete default option");
             return;
         }

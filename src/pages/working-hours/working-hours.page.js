@@ -78,7 +78,7 @@ export default function WorkingHours() {
                             </div>
                             <div>
                                 <input type="time" defaultValue={workingHours[index].from} disabled={!checkedDays[index]} name={'From'+index} ref={register()} className="app-input-time"/>
-                                <label className="label">-</label>
+                                <label className="label m-0 m-r-15 m-l-15">-</label>
                                 <input type="time" defaultValue={workingHours[index].to} disabled={!checkedDays[index]} name={'To'+index} ref={register()} className="app-input-time"/>
                                 <Checkbox onChange={(event) => changeWorkingDay(event, index)} checked={checkedDays[index]}/>
                                 {(message.text && message.day === index) && <InputError text={message.text}/>}

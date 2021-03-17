@@ -10,6 +10,9 @@
     font-family:$main-font;
     border-radius: 0.4rem;
 }
+html, body{
+    --antd-wave-shadow-color:red;
+}
 .m-0{margin:0;}.m-15{margin:1.5rem}.m-t-15{margin-top: 1.5rem;}.m-b-15{margin-bottom:1.5rem;}.m-l-15{margin-left:1.5rem}.m-r-15{margin-right:1.5rem}
 .p-0{padding:0;}.p-15{padding:1.5rem;}.p-t-15{padding-top:1.5rem;}.p-b-15{padding-bottom:1.5rem;}.p-l-15{padding-left:1.5rem;}.p-r-15{padding-right:1.5rem;}
 .bold{

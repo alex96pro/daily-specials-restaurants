@@ -5,11 +5,10 @@ import { CURRENCY } from '../../util/consts';
 import { editMenuMealAPI, convertMealToSpecialAPI } from '../../common/api/menu.api';
 import { checkTag, getClientDateAndTime } from '../../util/functions';
 import { infoToast } from '../../util/toasts/toasts';
-import { Select } from 'antd';
 import AddPhoto from '../add-photo/add-photo';
 import InputError from '../../components/input-error';
 import SubmitButton from '../../components/submit-button';
-import MultiSelect from 'react-select';
+import Select from 'react-select';
 
 export default function EditMealModal(props) {
 
@@ -26,7 +25,6 @@ export default function EditMealModal(props) {
     const { modifiers } = useSelector(state => state.modifiers);
     const { mealModifiers } = useSelector(state => state.meal);
     const [startingPrice, setStartingPrice] = useState(mealModifiers.find(modifier => modifier.modifier.modifierType === "requiredBase"));
-    const allModifiers = modifiers.map(modifier => ({label:modifier.modifier.name, value:modifier}));
     const [selectedModifiers, setSelectedModifiers] = useState(mealModifiers.map(modifier => ({label: modifier.modifier.name, value:modifier})));
     const [selectedCategory, setSelectedCategory] = useState(props.meal.category);
     const {register, handleSubmit, errors} = useForm({defaultValues:{
@@ -185,18 +183,20 @@ export default function EditMealModal(props) {
                         </div>:
                         <React.Fragment>
                             <div className="label">Category</div>
-                            <Select onChange={(selected) => setSelectedCategory(selected)} defaultValue={props.meal.category}>
-                                {categories.map((category,index) => 
-                                    <Select.Option value={category} key={index}>
-                                        {category}
-                                    </Select.Option>
-                                )}
-                            </Select>
+                            <Select
+                                options={categories.map(category => ({label:category, value:category}))}
+                                onChange={(selected) => setSelectedCategory(selected.value)}
+                                defaultValue={{label:props.meal.category, value:props.meal.category}}
+                                backspaceRemovesValue={false}
+                                isSearchable={true}
+                                className='react-select-container'
+                                classNamePrefix="react-select"
+                            />
                         </React.Fragment>
                         }
                         <div className="label">Modifiers</div>
-                        <MultiSelect
-                            options={allModifiers}
+                        <Select
+                            options={modifiers.map(modifier => ({label:modifier.modifier.name, value:modifier}))}
                             defaultValue={selectedModifiers}
                             onChange={(selected) => handleSetSelectedModifiers(selected)} 
                             isMulti={true}

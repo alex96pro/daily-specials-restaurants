@@ -20,8 +20,8 @@ export default function ModifiersPreview(props) {
                     <label key={"requiredBase"+key} htmlFor={"option-"+modifier.modifierId+"-"+key} className="modifiers-option">
                         <Radio id={"option-"+modifier.modifierId+"-"+key} value={key} onChange={() => props.addRequiredBaseModifier(modifier.modifier.options[key])}/>
                         <div className="modifier-option-info">
-                            <div className="label">{key}</div>
-                            <div className="label" style={{alignSelf:'flex-end'}}>{modifier.modifier.options[key] ? ' '+modifier.modifier.options[key] + CURRENCY : ''}</div>
+                            <div className="label m-0">{key}</div>
+                            <div className="label m-0" style={{alignSelf:'flex-end'}}>{modifier.modifier.options[key] ? ' '+modifier.modifier.options[key] + CURRENCY : ''}</div>
                         </div>
                     </label>
                     )} 
@@ -38,8 +38,8 @@ export default function ModifiersPreview(props) {
                     <label key={"required"+key} htmlFor={"option-"+modifier.modifierId+"-"+key} className="modifiers-option">
                         <Radio id={"option-"+modifier.modifierId+"-"+key} value={key} onChange={() => props.addRequiredModifier(modifier.modifierId, modifier.modifier.options[key])}/>
                         <div className="modifier-option-info">
-                            <div className="label">{key}</div>
-                            <div className="label">{modifier.modifier.options[key] ? ' '+modifier.modifier.options[key] + CURRENCY : ''}</div>
+                            <div className="label m-0">{key}</div>
+                            <div className="label m-0">{modifier.modifier.options[key] ? ' '+modifier.modifier.options[key] + CURRENCY : ''}</div>
                         </div>
                     </label>
                     )} 
@@ -55,8 +55,8 @@ export default function ModifiersPreview(props) {
                     <label key={"optional"+key} htmlFor={"optional-"+key+"-"+modifier.modifierId} className="modifiers-option">
                     <Checkbox onChange={(event) => props.addOptionalModifier(event, modifier.modifierId, key, modifier.modifier.options[key])} id={"optional-"+key+"-"+modifier.modifierId}/>
                     <div className="modifier-option-info">
-                        <div className="label">{key}</div>
-                        <div className="label">{modifier.modifier.options[key] ? ' '+modifier.modifier.options[key] + CURRENCY : ''}</div>
+                        <div className="label m-0">{key}</div>
+                        <div className="label m-0">{modifier.modifier.options[key] ? ' '+modifier.modifier.options[key] + CURRENCY : ''}</div>
                     </div>
                     </label>
                 )}
